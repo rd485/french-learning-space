@@ -1,0 +1,5132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>法语学习 · Français</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // 防闪烁：在首屏渲染前确定主题
+        tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            // 白天：莫兰迪色系（低饱和、灰调、柔和）
+            mg: {
+              50: "#ECE7E0", 100: "#F6F3EE", 200: "#DED7CC", 300: "#C9C0B3",
+              400: "#ADA295", 500: "#8C8174", 600: "#6E6456", 700: "#544B3F",
+              800: "#3D362D", 900: "#2A251E",
+              accent: "#5C7A63", accentHover: "#4E6A55" // 灰绿（sage，加深以兼顾对比度）
+            },
+            // 夜间：金融后端色系（近黑底 + 金 accent）
+            fin: {
+              50: "#F2F6FA", 100: "#E7EDF3", 200: "#C9D4DF", 300: "#A9B7C6",
+              400: "#8595A6", 500: "#4A5B6E", 600: "#314052", 700: "#232E3C",
+              800: "#1C2531", 850: "#151C27", 900: "#11161F", 950: "#0A0E14",
+              accent: "#D8A44B", accentHover: "#E6B65E" // 金（gold）
+            }
+          }
+        }
+      }
+    };
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        var dark = t ? t === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (dark) document.documentElement.classList.add("dark");
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+/* 全局基础重置（组件样式已由 Tailwind 接管） */
+:root { color-scheme: light dark; }
+
+/* 本地 .hidden 兜底：即使 Tailwind CDN 未加载，图层显隐也不失效。
+   注意：不能用 !important，否则会压过 setLayer 通过内联 style.display 显式显示图层。 */
+.hidden { display: none; }
+html { font-size: 18px; }          /* 基础字号放大到 18px，让页面/表格更饱满 */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 复制提示 toast */
+.flash {
+  position: fixed; right: 22px; bottom: 22px;
+  background: #1c1d22; color: #fff; padding: 11px 18px;
+  border-radius: 12px; font-size: 13.5px; opacity: 0;
+  transform: translateY(8px); transition: all .25s; pointer-events: none;
+  z-index: 50;
+}
+.flash.show { opacity: 1; transform: translateY(0); }
+
+/* 细滚动条，更现代 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 130, 150, .35); border-radius: 999px;
+  border: 2px solid transparent; background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(120, 130, 150, .55); background-clip: content-box; }
+
+/* ===== 动词变位：6 张卡片网格（CSS Grid，2 列 × 3 行） ===== */
+.conj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.conj-card {
+  --cb: #EDE7E0;                 /* 默认莫兰迪底色（日） */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 顶部人称 / 底部变位 */
+  min-height: 96px;
+  padding: 16px 18px;
+  border-radius: 16px;           /* 圆角 */
+  background: var(--cb);
+  border: 1px solid rgba(0,0,0,.04);
+  box-shadow: 0 4px 14px rgba(61,54,45,.10);  /* 柔和阴影（日） */
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.conj-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(61,54,45,.16);
+}
+/* 时态 / 语式说明标题：爱马仕橙 + 加粗 */
+.tense-head {
+  color: #FF7900;
+  font-weight: 700;
+  background: rgba(255, 121, 0, 0.10);
+}
+.dark .tense-head {
+  color: #FF9133;                 /* 暗色下略提亮，保持爱马仕橙调且可读 */
+  background: rgba(255, 145, 51, 0.16);
+}
+
+.conj-pro {
+  font-size: 12.5px;
+  font-weight: 700;               /* 人称标签：加粗，加强视觉对比 */
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #6E6456;                /* 日：莫兰迪深褐灰 */
+}
+.conj-form {
+  margin-top: 10px;
+  font-size: 24px;               /* 要求：24px 大字号 */
+  line-height: 1.15;
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+  color: #3D362D;                /* 日：主文字深褐 */
+  word-break: break-word;
+}
+/* 6 张莫兰迪色系卡片底色（日） */
+.conj-card.c0 { --cb: #DDE3D6; } /* sage 灰绿 */
+.conj-card.c1 { --cb: #E7D8D3; } /* rose 藕粉 */
+.conj-card.c2 { --cb: #D9E0E6; } /* blue 雾蓝 */
+.conj-card.c3 { --cb: #E6DFD2; } /* sand 沙 */
+.conj-card.c4 { --cb: #E8D8C8; } /* clay 陶 */
+.conj-card.c5 { --cb: #DDE0C9; } /* olive 橄榄 */
+/* 夜间：金融后端暗色系底色 */
+.dark .conj-card {
+  border-color: rgba(255,255,255,.05);
+  box-shadow: 0 4px 16px rgba(0,0,0,.40);
+}
+.dark .conj-card:hover { box-shadow: 0 10px 24px rgba(0,0,0,.55); }
+.dark .conj-pro { color: #8595A6; }
+.dark .conj-form { color: #E7EDF3; }
+.dark .conj-card.c0 { --cb: #15201A; }
+.dark .conj-card.c1 { --cb: #201A1A; }
+.dark .conj-card.c2 { --cb: #161E27; }
+.dark .conj-card.c3 { --cb: #1E1A14; }
+.dark .conj-card.c4 { --cb: #211B13; }
+.dark .conj-card.c5 { --cb: #1B1C13; }
+
+/* ===== 主页（Home）· 字体与极简背景装饰 ===== */
+.font-script { font-family: "Dancing Script", "Brush Script MT", "Segoe Script", cursive; }
+.font-display { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; }
+.font-playfair { font-family: "Playfair Display", Georgia, "Times New Roman", serif; }
+
+/* ===== 三层视图容器（View A 入场 / View B 轮盘 / View C 功能区） ===== */
+.layer { transition: opacity .4s ease; }
+#view-A {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: center; gap: 2rem;
+  min-height: 100vh; padding: 0 7vw;
+  position: relative; overflow: hidden;
+  background: #F9F8F6;   /* 莫兰迪燕麦奶油白 */
+}
+#view-B {
+  display: none; flex-direction: column; min-height: 100vh;
+  position: relative; overflow: hidden;
+  padding: 1.6rem 1.5rem 160px;   /* 底部预留固定数据卡空间 */
+  /* 极其微弱的径向渐变：奶油白 → 燕麦色，营造高级艺术纸哑光质感 */
+  background: radial-gradient(125% 120% at 50% 28%, #FCFBF7 0%, #F5F1EA 54%, #EBE4D9 100%);
+}
+/* 哑光纸纹：极淡颗粒（multiply 叠加，几乎不可见） */
+#view-B::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+/* 极轻微暖角光晕（替代生硬蓝弧），保持哑光不抢戏 */
+#view-B::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(58% 48% at 80% 16%, rgba(216,164,75,.06), transparent 70%),
+    radial-gradient(52% 44% at 14% 88%, rgba(92,122,99,.05), transparent 70%);
+}
+.dark #view-B { background: radial-gradient(125% 120% at 50% 28%, #17130E 0%, #1C1813 56%, #13100B 100%); }
+.dark #view-B::after { background:
+    radial-gradient(58% 48% at 80% 16%, rgba(216,164,75,.10), transparent 70%),
+    radial-gradient(52% 44% at 14% 88%, rgba(92,122,99,.08), transparent 70%); }
+#view-C { display: none; flex-direction: row; height: 100vh; }
+/* （View B 背景已迁入 #view-B 自身，原 .home-bg 装饰层已弃用） */
+
+/* ===== 封面/入场页（View A）：法式优雅 · 极简 · 莫兰迪 ===== */
+.cover-deco { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+
+/* 极细复古金（#D4C4A8）双层细线矩形框（左上） */
+.deco-frame { position: absolute; border: 1px solid rgba(212,196,168,.55); }
+.deco-frame-1 { top: 9%; left: 5.5%; width: 210px; height: 290px; }
+.deco-frame-2 {
+  top: calc(9% + 9px); left: calc(5.5% + 9px); width: 192px; height: 272px;
+  border-color: rgba(212,196,168,.30);
+}
+/* 右下极细金弧（细线圆部分露出） */
+.deco-arc {
+  position: absolute; right: 6%; bottom: -90px;
+  width: 300px; height: 300px; border-radius: 50%;
+  border: 1px solid rgba(212,196,168,.40);
+}
+
+.cover-content { position: relative; z-index: 1; max-width: 42rem; }
+.cover-eyebrow {
+  font-family: "Cormorant Garamond", serif;
+  font-size: .82rem; letter-spacing: .32em; text-transform: uppercase;
+  color: #B8A581; margin-bottom: 1.6rem;
+}
+.cover-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600; font-style: italic;
+  font-size: clamp(4rem, 13vw, 9.5rem);
+  line-height: .92; color: #2C3E35; margin: 0;
+}
+.cover-title-accent { color: #C9B68F; font-style: normal; }   /* “!” 以复古金点缀 */
+.cover-quote { margin-top: 2.2rem; max-width: 30rem; }
+.cover-fr {
+  font-family: "Cormorant Garamond", serif; font-style: italic;
+  font-size: 1.6rem; line-height: 1.45; color: #6E7E6F;   /* 低饱和灰绿 */
+}
+.cover-zh {
+  margin-top: .95rem; font-weight: 300; letter-spacing: 2px;
+  color: #8A9388; font-size: .95rem; line-height: 1.8;
+}
+
+/* 右侧留白区 */
+.cover-aside {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: flex-end; gap: 1.2rem;
+}
+.cover-aside-line { width: 1px; height: 38vh; background: linear-gradient(to bottom, transparent, rgba(212,196,168,.55), transparent); }
+.cover-vertical {
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-family: "Playfair Display", serif; letter-spacing: .4em;
+  text-transform: uppercase; font-size: .95rem; color: rgba(92,122,99,.5);
+}
+
+/* 幽灵按钮（Ghost Button）：透明背景 + 极细金边，悬浮缓慢填充 */
+.cover-enter {
+  display: inline-flex; align-items: center; gap: .65rem;
+  margin-top: 2.8rem; padding: .95rem 2.5rem; border-radius: 999px;
+  font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-weight: 600; letter-spacing: .14em;
+  color: #5C7A63; background: transparent;
+  border: 1px solid #C9B68F; cursor: pointer;
+  transition: background-color .45s ease, color .45s ease, border-color .45s ease, box-shadow .45s ease, transform .3s ease;
+}
+.cover-enter:hover {
+  background-color: #5C7A63; color: #F9F8F6; border-color: #5C7A63;
+  box-shadow: 0 14px 36px rgba(92,122,99,.30); transform: translateY(-2px);
+}
+.cover-enter .arrow { transition: transform .3s ease; }
+.cover-enter:hover .arrow { transform: translateX(5px); }
+
+/* 夜间：暖调深底 + 提升金/绿可读性 */
+.dark #view-A { background: #14110D; }
+.dark .cover-title { color: #ECE6DA; }
+.dark .cover-fr { color: #B7C2B2; }
+.dark .cover-zh { color: #9AA39A; }
+.dark .cover-eyebrow { color: #C9B68F; }
+.dark .cover-vertical { color: rgba(212,196,168,.55); }
+.dark .cover-aside-line { background: linear-gradient(to bottom, transparent, rgba(212,196,168,.40), transparent); }
+
+/* 响应式：窄屏取消右侧留白与竖排，恢复单列 */
+@media (max-width: 820px) {
+  #view-A { grid-template-columns: 1fr; padding: 0 8vw; }
+  .cover-aside { display: none; }
+  .deco-frame-1, .deco-frame-2 { width: 150px; height: 200px; }
+}
+
+/* ===== 探索：法式极简轮盘导航（Diptyque 风） ===== */
+.wheel-wrap {
+  position: relative;
+  width: 440px; height: 440px; max-width: 92vw; max-height: 92vw;
+  margin: 0.5rem auto 0;
+}
+/* 节点：以给定的 top/left 为圆心，absolute 错落排列（非十字对称） */
+.wheel-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+/* 磨砂玻璃「陶瓷糖果」圆盘 */
+.wheel-btn {
+  position: relative;
+  width: 116px; height: 116px; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 7px; cursor: pointer; border: 1px solid rgba(255,255,255,.55);
+  background: rgba(255,255,255,.32);
+  backdrop-filter: blur(10px) saturate(125%);
+  -webkit-backdrop-filter: blur(10px) saturate(125%);
+  /* 左上极细高光 + 右下微弱阴影 + 柔和落影 */
+  box-shadow:
+    inset 3px 3px 7px rgba(255,255,255,.7),
+    inset -4px -5px 11px rgba(60,54,45,.16),
+    0 12px 26px rgba(61,54,45,.16);
+  transition: transform .35s cubic-bezier(.2,.85,.25,1), box-shadow .35s ease, background-color .35s ease;
+}
+.wheel-btn .wb-icon { display: grid; place-items: center; filter: drop-shadow(0 1px 1px rgba(255,255,255,.45)); }
+.wheel-btn .wb-icon svg { width: 32px; height: 32px; }
+/* 各功能：低饱和莫兰迪釉色（半透明，玻璃感） */
+.wb-conjugation { background: rgba(122,163,137,.42); color: #2F4A3A; }
+.wb-dictionary  { background: rgba(216,170,96,.44);  color: #7A531A; }
+.wb-reading     { background: rgba(105,149,180,.40); color: #274B63; }
+.wb-shadow      { background: rgba(198,147,147,.44); color: #6E3F3F; }
+/* 悬浮：微微放大 + 玻璃更亮 + 阴影加深 */
+.wheel-btn:hover {
+  transform: scale(1.08);
+  box-shadow:
+    inset 3px 3px 9px rgba(255,255,255,.85),
+    inset -4px -5px 13px rgba(60,54,45,.20),
+    0 18px 36px rgba(61,54,45,.22);
+}
+
+/* 悬浮浮现的极细优雅标签（圆盘正下方，缓慢淡入） */
+.wb-label {
+  position: absolute; top: calc(100% + 14px); left: 50%;
+  transform: translateX(-50%) translateY(7px);
+  opacity: 0; pointer-events: none; white-space: nowrap; text-align: center;
+  transition: opacity .45s ease, transform .45s ease;
+}
+.wheel-btn:hover .wb-label { opacity: 1; transform: translateX(-50%) translateY(0); }
+.wb-title {
+  display: block;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-size: 1.1rem; font-weight: 600; letter-spacing: .05em;
+  color: #6E6456; text-shadow: 0 1px 2px rgba(255,255,255,.7);
+}
+
+/* 中心：法式复古印章（双层金/黑细边 + 半透明 + 衬线 Fr） */
+.wheel-center {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 98px; height: 98px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,.5);
+  color: #2C3E35;
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic; font-weight: 600; font-size: 1.75rem; letter-spacing: .01em;
+  border: 1px solid #C2A878;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.45),
+    0 0 0 4.5px rgba(60,54,45,.42),
+    0 8px 20px rgba(61,54,45,.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.dark .wheel-btn { border-color: rgba(255,255,255,.18); box-shadow:
+    inset 3px 3px 7px rgba(255,255,255,.10),
+    inset -4px -5px 11px rgba(0,0,0,.35),
+    0 12px 26px rgba(0,0,0,.45); }
+.dark .wb-conjugation { background: rgba(122,163,137,.32); color: #B9D2C2; }
+.dark .wb-dictionary  { background: rgba(216,170,96,.30);  color: #E4C28A; }
+.dark .wb-reading     { background: rgba(105,149,180,.30); color: #AECBE0; }
+.dark .wb-shadow      { background: rgba(198,147,147,.32); color: #E0BCBC; }
+.dark .wb-title { color: #D8CFC0; text-shadow: 0 1px 3px rgba(0,0,0,.55); }
+.dark .wheel-center { background: rgba(20,17,13,.55); color: #E6D9C4; border-color: #C9B68F;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.06), 0 0 0 4.5px rgba(216,164,75,.5), 0 8px 20px rgba(0,0,0,.5); }
+
+/* 小屏 / 手机：轮盘自动改为普通竖排按钮列表（取消错落定位） */
+@media (max-width: 640px) {
+  #view-B { overflow-y: auto; padding-bottom: 2rem; }
+  .wheel-wrap {
+    width: 100%; max-width: 380px; height: auto;
+    margin: 1.25rem auto 0;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .wheel-node { position: static; transform: none; }   /* 回到普通文档流 */
+  .wheel-btn {
+    width: 100%; height: 66px; border-radius: 18px;
+    flex-direction: row; justify-content: flex-start; gap: 14px; padding: 0 18px;
+    box-shadow: inset 2px 2px 5px rgba(255,255,255,.6), inset -3px -3px 8px rgba(60,54,45,.14), 0 6px 16px rgba(61,54,45,.14);
+  }
+  .wheel-btn:hover { transform: none; }
+  .wheel-btn .wb-icon svg { width: 26px; height: 26px; }
+  .wb-label {                       /* 小屏文字常显，作为按钮内文字 */
+    position: static; transform: none; opacity: 1; pointer-events: auto; text-align: left;
+  }
+  .wb-title { font-size: 1.02rem; }
+  .wheel-center { display: none; }  /* 小屏隐藏中心印章，改为列表 */
+}
+
+/* 探索页（View B）内部布局：横幅在上、轮盘居中；数据卡吸附屏幕底部 */
+.home-banner-top { flex: 0 0 auto; padding-top: 1.2rem; position: relative; z-index: 1; }
+.explore-mid { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; min-height: 0; position: relative; z-index: 1; }
+
+/* 底部数据卡：固定吸附屏幕底部，浅灰白毛玻璃 + 极轻柔弥散阴影，悬浮如桌面 */
+.home-stats {
+  position: fixed; left: 0; right: 0; bottom: 20px; margin-inline: auto;
+  width: min(92vw, 660px); z-index: 6;
+  padding: 1rem 1.1rem; border: none;
+  background: rgba(250,249,246,.62);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+/* 卡片内部两块去掉各自边框/底色，统一为一块悬浮面板 */
+.home-stats > div { background: transparent; border: none; box-shadow: none; padding: .25rem .6rem; }
+.dark .home-stats { background: rgba(20,17,13,.6); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+/* 小屏：数据卡回到文档流，避免遮挡竖排按钮 */
+@media (max-width: 640px) {
+  .home-stats { position: static; left: auto; right: auto; width: 100%; margin-top: 1.5rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* 进入轮盘页（View B）的进场动作：轮盘缩放回弹 + 中心/节点依次弹出 + 横幅下滑 + 面板升起 */
+#view-B.explore-in .home-banner-top { animation: bannerIn .6s ease both; }
+#view-B.explore-in .wheel-wrap      { animation: wheelZoom .7s cubic-bezier(.2,.85,.25,1) both; }
+#view-B.explore-in .wheel-center    { animation: centerPop .5s ease .12s both; }
+#view-B.explore-in .wheel-btn       { animation: nodePop .5s cubic-bezier(.2,.85,.25,1) both; }
+#view-B.explore-in .wheel-node:nth-child(1) .wheel-btn { animation-delay: .30s; }
+#view-B.explore-in .wheel-node:nth-child(2) .wheel-btn { animation-delay: .40s; }
+#view-B.explore-in .wheel-node:nth-child(3) .wheel-btn { animation-delay: .50s; }
+#view-B.explore-in .wheel-node:nth-child(4) .wheel-btn { animation-delay: .60s; }
+#view-B.explore-in .home-stats      { animation: statsIn .6s ease .55s both; }
+
+@keyframes bannerIn  { from { opacity: 0; transform: translateY(-26px); } to { opacity: 1; transform: none; } }
+@keyframes wheelZoom { from { opacity: 0; transform: scale(.55); } to { opacity: 1; transform: scale(1); } }
+@keyframes nodePop   { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+@keyframes centerPop { from { opacity: 0; transform: translate(-50%,-50%) scale(0); } to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
+@keyframes statsIn   { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* ===== 过场动画页（进入功能区时的全屏遮罩） ===== */
+#transition {
+  position: fixed; inset: 0; z-index: 9999;          /* 最高层级，覆盖一切 */
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.6);                    /* 轻透磨砂，保留「透明」观感 */
+  backdrop-filter: blur(6px);
+}
+.dark #transition { background: rgba(10,14,20,.62); }
+#transition.hidden { display: none; }
+
+.transition-card { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+
+/* 纯 CSS 招手卡通小人 */
+.toon { position: relative; width: 120px; height: 120px; animation: toonBob 1.4s ease-in-out infinite; }
+.toon .head {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, #FFD27A, #F2A65A);
+  box-shadow: inset -6px -6px 0 rgba(0,0,0,.06);
+}
+.toon .eye { position: absolute; top: 26px; width: 9px; height: 9px; border-radius: 50%; background: #3D362D; }
+.toon .eye-l { left: 18px; } .toon .eye-r { right: 18px; }
+.toon .mouth {
+  position: absolute; top: 42px; left: 50%; transform: translateX(-50%);
+  width: 22px; height: 11px; border-bottom-left-radius: 11px; border-bottom-right-radius: 11px;
+  background: #C0552F;
+}
+.toon .body {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 58px; height: 50px; border-radius: 30px 30px 24px 24px;
+  background: linear-gradient(135deg, #7AA389, #43624E);
+}
+.toon .arm { position: absolute; top: 36px; width: 30px; height: 12px; border-radius: 8px; background: #5E8470; }
+.toon .arm-r { right: -8px; transform-origin: left center;  animation: wave  .9s ease-in-out infinite; }
+.toon .arm-l { left:  -8px; transform-origin: right center; animation: waveL .9s ease-in-out infinite; }
+@keyframes wave  { 0%,100% { transform: rotate(12deg); }  50% { transform: rotate(-30deg); } }
+@keyframes waveL { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(30deg); } }
+@keyframes toonBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+.transition-text { font-size: 1.05rem; font-weight: 600; letter-spacing: .03em; color: #4E6A55; }
+.dark .transition-text { color: #E6B65E; }
+.transition-bar { width: 220px; height: 6px; border-radius: 999px; overflow: hidden; background: rgba(110,100,86,.18); }
+.dark .transition-bar { background: rgba(169,183,198,.18); }
+.transition-fill {
+  display: block; height: 100%; width: 100%; border-radius: inherit;
+  background: linear-gradient(90deg, #7AA389, #E6B35C);
+  transform-origin: left; transform: scaleX(0);
+  animation: fill 1.5s linear forwards;
+}
+@keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ===== 每日随机金句：0.5s 淡入淡出（先淡出 0.25s → 切换文字 → 淡入 0.25s） ===== */
+.quote-line {
+  transition: opacity .25s ease, transform .25s ease;
+}
+.quote-line.is-fading {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* ===== 词典与翻译（AI 大模型） ===== */
+.dict-bar { margin-bottom: 1.25rem; }
+.dict-input-wrap { display: flex; gap: .6rem; align-items: stretch; }
+.dict-go { white-space: nowrap; }
+.dict-mode-hint { margin-top: .55rem; font-size: .75rem; letter-spacing: .02em; color: #8C8174; }
+.dark .dict-mode-hint { color: #8595A6; }
+
+/* 底部行：模式提示（左） + 模型切换（右） */
+.dict-bar-foot { margin-top: .7rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.dict-model-pick { display: inline-flex; align-items: center; gap: .45rem; font-size: .76rem; color: #8C8174; }
+.dark .dict-model-pick { color: #8595A6; }
+.dict-model-label { white-space: nowrap; letter-spacing: .04em; }
+#dict-model {
+  appearance: none; -webkit-appearance: none; cursor: pointer;
+  font-size: .76rem; color: #5C7A63; font-weight: 600;
+  padding: .35rem 1.7rem .35rem .7rem; border-radius: 999px;
+  border: 1px solid rgba(92,122,99,.35);
+  background: #F6F3EE url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%235C7A63' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right .7rem center;
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+#dict-model:hover { border-color: rgba(92,122,99,.6); box-shadow: 0 2px 8px rgba(92,122,99,.12); }
+#dict-model:focus { outline: none; border-color: #5C7A63; box-shadow: 0 0 0 3px rgba(92,122,99,.15); }
+#dict-model:disabled { opacity: .55; cursor: progress; }
+.dark #dict-model {
+  color: #E6B65E; border-color: rgba(216,164,75,.4);
+  background: #1C2531 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%23E6B65E' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>") no-repeat right .7rem center;
+}
+
+/* 纠错高亮（结果顶部）—— 优雅金箔风 */
+.dict-correction {
+  display: flex; align-items: center; gap: .55rem; margin-bottom: 1rem;
+  padding: .7rem 1rem; border-radius: 14px;
+  background: linear-gradient(90deg, rgba(214,164,75,.20), rgba(214,164,75,.05));
+  border: 1px solid rgba(214,164,75,.42);
+  border-left: 3px solid #D8A44B;
+  box-shadow: 0 6px 18px rgba(214,164,75,.12);
+  color: #6E6456; font-size: .9rem;
+  animation: dcFade .45s ease both;
+}
+.dark .dict-correction {
+  background: linear-gradient(90deg, rgba(216,164,75,.22), rgba(216,164,75,.04));
+  border-color: rgba(216,164,75,.48); color: #E6B65E;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.dict-correction .dc-ico { color: #D8A44B; font-size: 1rem; line-height: 1; flex: 0 0 auto; }
+.dict-correction .dc-tag {
+  flex: 0 0 auto; font-weight: 700; letter-spacing: .04em; font-size: .76rem;
+  color: #B07A2A; background: rgba(214,164,75,.20);
+  padding: .12rem .55rem; border-radius: 999px; white-space: nowrap;
+}
+.dark .dict-correction .dc-tag { color: #E6B65E; background: rgba(216,164,75,.22); }
+.dict-correction .dc-body { font-weight: 500; line-height: 1.45; }
+.dict-correction-inline { margin-bottom: .9rem; padding: .6rem .85rem; font-size: .85rem; }
+
+@keyframes dcFade {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.dict-welcome { padding: 2.5rem 1rem; text-align: center; }
+.dict-welcome-title { font-size: 2.4rem; color: #5C7A63; }
+.dark .dict-welcome-title { color: #D8A44B; }
+.dict-welcome p { margin: .6rem auto 0; max-width: 32rem; line-height: 1.8; }
+
+.dict-result { min-height: 200px; }
+.dict-loading, .dict-error { padding: 2rem 1rem; text-align: center; font-size: .95rem; color: #8C8174; }
+.dark .dict-loading, .dark .dict-error { color: #8595A6; }
+.dict-error { color: #B06A6A; }
+
+/* 句子分词（可点击单词） */
+.sentence-tokens {
+  font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.7rem; line-height: 2.4rem;
+  color: #3D362D; background: #F6F3EE; border: 1px solid #DED7CC; border-radius: 16px;
+  padding: 1.2rem 1.4rem; margin-bottom: 1.4rem; word-break: break-word;
+}
+.dark .sentence-tokens { color: #E7EDF3; background: #1C2531; border-color: #232E3C; }
+.clickable-word {
+  cursor: pointer; border-radius: 4px; padding: 0 2px;
+  transition: background .15s ease, color .15s ease;
+}
+.clickable-word:hover { background: #FEF3C7; color: #6E6456; }   /* 悬浮浅黄高亮 */
+.dark .clickable-word:hover { background: #4A4030; color: #E6B65E; }
+
+/* Markdown 结果排版 */
+.dict-md { font-size: .95rem; line-height: 1.75; color: #3D362D; }
+.dark .dict-md { color: #D7DEE6; }
+.dict-md h3 { font-size: 1.15rem; font-weight: 700; margin: 1.1rem 0 .5rem; color: #5C7A63; }
+.dict-md h4 { font-size: 1rem; font-weight: 700; margin: 1rem 0 .4rem; color: #6E6456; }
+.dark .dict-md h3 { color: #D8A44B; }
+.dark .dict-md h4 { color: #E6B65E; }
+.dict-md p { margin: .5rem 0; }
+.dict-md ul, .dict-md ol { margin: .5rem 0; padding-left: 1.4rem; }
+.dict-md li { margin: .3rem 0; }
+.dict-md ul { list-style: disc; }
+.dict-md ol { list-style: decimal; }
+.dict-md strong { color: #4E6A55; font-weight: 700; }
+.dark .dict-md strong { color: #E6B65E; }
+.dict-md code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em;
+  background: #ECE7E0; padding: .1em .35em; border-radius: 5px; color: #6E6456;
+}
+.dark .dict-md code { background: #11161F; color: #E6B65E; }
+.dict-md blockquote {
+  margin: .6rem 0; padding: .4rem .9rem; border-left: 3px solid #C9C0B3;
+  color: #8C8174; font-style: italic;
+}
+.dark .dict-md blockquote { border-color: #4A5B6E; color: #8595A6; }
+
+/* 未接入大模型提示卡 */
+.dict-setup { margin: 1rem 0; padding: 1.5rem; border-radius: 16px; background: #F6F3EE; border: 1px dashed #C9C0B3; }
+.dark .dict-setup { background: #1C2531; border-color: #314052; }
+.dict-setup h3 { font-size: 1.1rem; margin-bottom: .6rem; color: #5C7A63; }
+.dark .dict-setup h3 { color: #D8A44B; }
+.dict-setup p { font-size: .9rem; color: #6E6456; margin: .5rem 0; line-height: 1.7; }
+.dark .dict-setup p { color: #A9B7C6; }
+.dict-setup pre {
+  margin: .8rem 0; padding: 1rem; border-radius: 10px; overflow-x: auto;
+  background: #2A251E; color: #E7EDF3; font-size: .82rem; line-height: 1.6;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.dict-setup code { font-family: inherit; }
+.dict-setup-tip { font-size: .82rem; }
+
+/* 右侧抽屉（点击单词即查） */
+.dict-drawer-backdrop { position: fixed; inset: 0; background: rgba(20,17,13,.35); z-index: 90; backdrop-filter: blur(2px); }
+.dark .dict-drawer-backdrop { background: rgba(0,0,0,.5); }
+.dict-drawer {
+  position: fixed; top: 0; right: 0; height: 100vh; width: min(420px, 90vw);
+  background: #F6F3EE; box-shadow: -12px 0 40px rgba(0,0,0,.12);
+  transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+  z-index: 100; display: flex; flex-direction: column;
+}
+.dark .dict-drawer { background: #151C27; box-shadow: -12px 0 40px rgba(0,0,0,.5); }
+.dict-drawer.open { transform: translateX(0); }
+.dict-drawer-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem; border-bottom: 1px solid #DED7CC; }
+.dark .dict-drawer-head { border-color: #232E3C; }
+.dict-drawer-title { font-weight: 700; color: #5C7A63; }
+.dark .dict-drawer-title { color: #D8A44B; }
+.dict-drawer-close {
+  border: none; background: transparent; font-size: 1.6rem; line-height: 1;
+  color: #8C8174; cursor: pointer; padding: .2rem .5rem; border-radius: 8px; transition: background .15s ease;
+}
+.dict-drawer-close:hover { background: #ECE7E0; }
+.dark .dict-drawer-close:hover { background: #232E3C; }
+.dict-drawer-body { padding: 1.2rem; overflow-y: auto; }
+
+/* 轻提示 */
+.toast {
+  position: fixed; left: 50%; bottom: 36px; transform: translate(-50%, 16px);
+  background: #2A251E; color: #F6F3EE; padding: .7rem 1.2rem; border-radius: 999px;
+  font-size: .88rem; box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0;
+  transition: opacity .3s ease, transform .3s ease; z-index: 200; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.dark .toast { background: #E6B65E; color: #151C27; }
+
+</style>
+</head>
+<body class="bg-mg-50 dark:bg-fin-950 text-mg-800 dark:text-fin-100 transition-colors duration-300">
+  <!-- ============ View A：极简入场页（默认且只显示） ============ -->
+  <div id="view-A" class="layer">
+    <!-- 法式极简装饰：极细复古金双层细线框 + 弧线（替代生硬蓝圈） -->
+    <div class="cover-deco" aria-hidden="true">
+      <span class="deco-frame deco-frame-1"></span>
+      <span class="deco-frame deco-frame-2"></span>
+      <span class="deco-arc"></span>
+    </div>
+
+    <!-- 左侧：编辑式内容（偏左对齐，右侧留白） -->
+    <div class="cover-content">
+      <div class="cover-eyebrow">Cours de Français · 法语研习空间</div>
+      <h1 class="cover-title font-playfair">Bonjour<span class="cover-title-accent">!</span></h1>
+      <div class="cover-quote">
+        <p id="cover-fr" class="cover-fr font-display quote-line">« Petit à petit, l'oiseau fait son nid. »</p>
+        <p id="cover-zh" class="cover-zh quote-line">不积跬步，无以至千里 —— 每天进步一点点。</p>
+      </div>
+      <button id="home-enter" class="cover-enter ghost-btn" type="button">
+        <span>开始探索</span><span class="arrow">→</span>
+      </button>
+    </div>
+
+    <!-- 右侧：留白 + 极简竖排法文，制造呼吸感 -->
+    <div class="cover-aside" aria-hidden="true">
+      <span class="cover-aside-line"></span>
+      <span class="cover-vertical">Le Français · 法式优雅</span>
+    </div>
+  </div>
+
+  <!-- ============ View B：轮盘导航页（法式极简 · Diptyque 风） ============ -->
+  <div id="view-B" class="layer hidden">
+    <div class="home-banner-top text-center">
+      <div class="font-script text-[2.8rem] leading-none text-mg-accent dark:text-fin-accent">Bonjour !</div>
+      <p id="banner-fr" class="font-display text-base text-mg-500 dark:text-fin-300 mt-1 italic quote-line">« Petit à petit, l'oiseau fait son nid. »</p>
+      <p id="banner-cn" class="font-display text-sm text-mg-400 dark:text-fin-400 mt-0.5 quote-line"></p>
+    </div>
+    <div class="explore-mid"><div class="wheel-wrap" id="wheel"></div></div>
+    <div class="home-stats grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+      <div class="rounded-2xl bg-mg-100/80 dark:bg-fin-900/80 backdrop-blur border border-mg-200 dark:border-fin-800 shadow-sm p-5 flex items-center gap-4">
+        <span class="text-3xl">⏱️</span>
+        <div>
+          <div class="text-xs text-mg-400 dark:text-fin-500 uppercase tracking-wide">今日已学习时间</div>
+          <div class="text-2xl font-bold text-mg-800 dark:text-fin-100">45 <span class="text-base font-medium text-mg-500 dark:text-fin-400">分钟</span></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-mg-100/80 dark:bg-fin-900/80 backdrop-blur border border-mg-200 dark:border-fin-800 shadow-sm p-5 flex items-center gap-4">
+        <span class="text-3xl">📚</span>
+        <div>
+          <div class="text-xs text-mg-400 dark:text-fin-500 uppercase tracking-wide">已加入生词本数量</div>
+          <div class="text-2xl font-bold text-mg-800 dark:text-fin-100">128 <span class="text-base font-medium text-mg-500 dark:text-fin-400">个</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ View C：功能区（侧边栏 + 内容） ============ -->
+  <div id="view-C" class="layer hidden">
+
+    <!-- 左侧菜单栏（属于 View C，随 View C 一起显隐） -->
+    <aside id="sidebar" class="w-64 shrink-0 bg-mg-100 dark:bg-fin-900 border-r border-mg-200 dark:border-fin-800 flex flex-col p-5 transition-colors duration-300">
+      <div class="brand flex items-center gap-3 px-2 pb-6 cursor-pointer">
+        <div class="w-10 h-10 grid place-items-center rounded-xl bg-mg-accent dark:bg-fin-accent text-white dark:text-fin-950 font-bold text-base tracking-wide shadow-sm">Fr</div>
+        <div class="flex flex-col leading-tight">
+          <span class="font-bold text-base">Français</span>
+          <span class="text-xs text-mg-400 dark:text-fin-500">法语学习空间</span>
+        </div>
+      </div>
+
+      <nav class="flex flex-col gap-1" id="nav">
+        <button class="nav-item flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 transition" data-view="conjugation">
+          <span class="shrink-0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a2 2 0 0 1 2-2h5l8 8-7 7-8-8V7z"/><path d="M9 9h.01"/><path d="M14 14l4 4"/></svg>
+          </span>
+          <span>动词变位区</span>
+        </button>
+
+        <button class="nav-item flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 transition" data-view="dictionary">
+          <span class="shrink-0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h7v18H6a2 2 0 0 1-2-2V5z"/><path d="M13 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/><path d="M8 8h3M8 12h3"/></svg>
+          </span>
+          <span>词典与翻译</span>
+        </button>
+
+        <button class="nav-item flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 transition" data-view="reading">
+          <span class="shrink-0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h7a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H3z"/><path d="M21 5h-7a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h7z"/></svg>
+          </span>
+          <span>阅视界</span>
+        </button>
+
+        <button class="nav-item flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 transition" data-view="shadow">
+          <span class="shrink-0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 9a3 3 0 0 1 0 6M5 9a3 3 0 0 0 0 6"/><path d="M12 18v3"/></svg>
+          </span>
+          <span>影子跟读室</span>
+        </button>
+      </nav>
+
+      <div class="mt-auto flex items-center justify-between pt-4 text-xs text-mg-400 dark:text-fin-500">
+        <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-mg-accent dark:bg-fin-accent"></span> 学习进度已本地保存</span>
+        <button id="theme-toggle" title="切换日 / 夜" class="p-2 rounded-lg text-mg-400 dark:text-fin-500 hover:bg-mg-200 dark:hover:bg-fin-800 transition">🌙</button>
+      </div>
+    </aside>
+
+    <!-- 右侧内容区 -->
+    <main class="flex-1 overflow-y-auto p-10 transition-colors duration-300">
+      <!-- 顶部栏：标题 + 返回导航（属于 View C，随 View C 一起显隐；点击回到 View B 轮盘页，不回封面） -->
+      <div id="topbar" class="flex items-start justify-between mb-7">
+        <header>
+          <h1 id="view-title" class="text-2xl font-bold tracking-tight">动词变位区</h1>
+          <p id="view-sub" class="text-sm text-mg-500 dark:text-fin-400 mt-1">Conjugaison · 掌握法语动词的人称变化</p>
+        </header>
+        <button id="back-home" class="shrink-0 rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-900 hover:border-mg-accent dark:hover:border-fin-accent text-mg-600 dark:text-fin-200 text-sm font-medium px-4 py-2.5 transition">🏠 返回导航</button>
+      </div>
+
+      <section class="func-section hidden" id="view-conjugation">
+        <div class="flex flex-wrap gap-3 items-center mb-5">
+          <div class="relative flex-1 min-w-[240px]">
+            <input type="text" id="verb-input" autocomplete="off" class="w-full rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-950 px-4 py-2.5 text-sm text-mg-800 dark:text-fin-100 placeholder-mg-400 dark:placeholder-fin-500 focus:outline-none focus:ring-2 focus:ring-mg-accent/40 dark:focus:ring-fin-accent/40 transition" placeholder="输入动词原形或任意变位形式" />
+            <div id="verb-suggest" class="hidden absolute z-30 mt-1 w-full max-h-72 overflow-y-auto rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-900 shadow-lg"></div>
+          </div>
+          <button id="verb-lookup" class="rounded-xl bg-mg-accent hover:bg-mg-accentHover dark:bg-fin-accent dark:hover:bg-fin-accentHover text-white dark:text-fin-950 text-sm font-medium px-5 py-2.5 shadow-sm transition shrink-0">🔍 联网查询</button>
+        </div>
+        <!-- 隐藏的识别提示横幅（输入为变位形式时显示） -->
+        <div id="form-banner" class="hidden rounded-xl bg-blue-100 text-blue-900 border border-blue-300 px-4 py-3 text-sm font-medium shadow-sm flex items-center gap-2 mb-5">
+          <span class="text-base shrink-0">🔎</span>
+          <span id="form-banner-text"></span>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-5" id="verb-chips"></div>
+        <div class="rounded-2xl bg-mg-100 dark:bg-fin-900 border border-mg-200 dark:border-fin-800 shadow-sm p-7 transition-colors duration-300" id="conjugation-card">
+          <p class="text-mg-500 dark:text-fin-400 text-sm leading-relaxed">输入一个法语动词并点击「联网查询」，将从权威变位网站 <b>leconjugueur.lefigaro.fr</b> 实时抓取它在各语式、各时态下的完整六人称变位。也可点上方常用动词快速查询。绝不依靠记忆编造。</p>
+        </div>
+      </section>
+
+      <section class="func-section hidden" id="view-dictionary">
+        <div class="dict-bar">
+          <div class="dict-input-wrap">
+            <input type="text" id="dict-search" class="flex-1 min-w-[240px] rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-950 px-4 py-2.5 text-sm text-mg-800 dark:text-fin-100 placeholder-mg-400 dark:placeholder-fin-500 focus:outline-none focus:ring-2 focus:ring-mg-accent/40 dark:focus:ring-fin-accent/40 transition" placeholder="查词或整句翻译（如 bonjour / Je vais à Paris.）" />
+            <button id="dict-go" class="dict-go shrink-0 rounded-xl bg-mg-accent hover:bg-mg-accentHover dark:bg-fin-accent dark:hover:bg-fin-accentHover text-white dark:text-fin-950 text-sm font-medium px-5 py-2.5 shadow-sm transition" type="button">查询</button>
+          </div>
+          <div class="dict-bar-foot">
+            <div class="dict-mode-hint" id="dict-mode-hint"></div>
+            <label class="dict-model-pick" title="随时切换模型，无需重启服务">
+              <span class="dict-model-label">模型</span>
+              <select id="dict-model">
+                <option value="glm-4-flash">glm-4-flash · 免费稳定</option>
+                <option value="GLM-4.7-Flash">GLM-4.7-Flash · 免费更强</option>
+                <option value="glm-4-air">glm-4-air · 低价</option>
+                <option value="glm-4-plus">glm-4-plus · 付费最强</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="dict-correction hidden" id="dict-correction"></div>
+
+        <div class="dict-result" id="dict-result">
+          <div class="dict-welcome">
+            <div class="dict-welcome-title font-playfair">Dictionnaire</div>
+            <p class="text-sm text-mg-500 dark:text-fin-400 leading-relaxed">输入一个<b>法语单词</b>查看词典级释义、音标、例句与搭配；<br>或输入一整句法语，获得标准翻译与句中变位解析。</p>
+            <p class="text-xs text-mg-400 dark:text-fin-500 mt-3">提示：点按句子中的任意单词，可在右侧抽屉中即时查询该词。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="func-section hidden" id="view-reading">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="reading-list"></div>
+        <div class="rounded-2xl bg-mg-100 dark:bg-fin-900 border border-mg-200 dark:border-fin-800 shadow-sm p-7 transition-colors duration-300 reading-detail hidden" id="reading-detail"></div>
+      </section>
+
+      <section class="func-section hidden" id="view-shadow">
+        <div class="rounded-2xl bg-mg-100 dark:bg-fin-900 border border-mg-200 dark:border-fin-800 shadow-sm p-7 transition-colors duration-300">
+          <p class="text-mg-500 dark:text-fin-400 text-sm leading-relaxed">把要跟读的句子放进下面的文本框，点击「朗读」听标准法语发音，然后跟着复述。可调节语速。</p>
+          <textarea id="shadow-text" class="w-full min-h-[130px] resize-y rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-950 p-4 mt-3 mb-4 text-base leading-relaxed font-serif text-mg-800 dark:text-fin-100 placeholder-mg-400 dark:placeholder-fin-500 focus:outline-none focus:ring-2 focus:ring-mg-accent/40 dark:focus:ring-fin-accent/40 transition" placeholder="在此输入或粘贴法语句子，例如：Bonjour, comment allez-vous aujourd'hui ?"></textarea>
+          <div class="flex flex-wrap items-center gap-3">
+            <button id="shadow-play" class="rounded-xl bg-mg-accent hover:bg-mg-accentHover dark:bg-fin-accent dark:hover:bg-fin-accentHover text-white dark:text-fin-950 text-sm font-medium px-5 py-2.5 shadow-sm transition">▶ 朗读</button>
+            <button id="shadow-stop" class="rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-900 hover:border-mg-accent dark:hover:border-fin-accent text-sm font-medium px-5 py-2.5 transition">■ 停止</button>
+            <label class="flex items-center gap-2 text-sm text-mg-500 dark:text-fin-400">
+              语速
+              <input type="range" id="shadow-rate" min="0.5" max="1.2" step="0.1" value="0.9" class="accent-mg-accent dark:accent-fin-accent" />
+              <span id="shadow-rate-val">0.9×</span>
+            </label>
+            <button id="shadow-sample" class="rounded-xl text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 text-sm font-medium px-4 py-2.5 transition">载入示例句</button>
+          </div>
+          <div class="mt-4 text-sm text-mg-accent dark:text-fin-accent min-h-[20px]" id="shadow-status"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 过场动画页（进入功能区时短暂显示，全屏遮罩） -->
+  <div id="transition" class="hidden">
+    <div class="transition-card">
+      <!-- 纯 CSS 招手卡通小人 -->
+      <div class="toon" aria-hidden="true">
+        <div class="arm arm-l"></div>
+        <div class="arm arm-r"></div>
+        <div class="body"></div>
+        <div class="head">
+          <span class="eye eye-l"></span>
+          <span class="eye eye-r"></span>
+          <span class="mouth"></span>
+        </div>
+      </div>
+      <div class="transition-text" id="transition-text">正在进入…</div>
+      <div class="transition-bar"><span class="transition-fill"></span></div>
+    </div>
+  </div>
+
+  <!-- 词典：单词即点即查 · 右侧抽屉 -->
+  <div id="dict-drawer-backdrop" class="dict-drawer-backdrop hidden"></div>
+  <aside id="dict-drawer" class="dict-drawer" aria-hidden="true">
+    <div class="dict-drawer-head">
+      <span class="dict-drawer-title">单词速查</span>
+      <button id="dict-drawer-close" class="dict-drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+    <div class="dict-drawer-body" id="dict-drawer-body"></div>
+  </aside>
+
+  <!-- 轻提示 -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script>
+window.__FRENCH_DICT__ = [
+ {
+  "fr": "être",
+  "zh": "是/在",
+  "rank": 1,
+  "present": []
+ },
+ {
+  "fr": "avoir",
+  "zh": "有",
+  "rank": 2,
+  "present": []
+ },
+ {
+  "fr": "faire",
+  "zh": "做/使",
+  "rank": 3,
+  "present": []
+ },
+ {
+  "fr": "dire",
+  "zh": "说",
+  "rank": 4,
+  "present": []
+ },
+ {
+  "fr": "pouvoir",
+  "zh": "能够",
+  "rank": 5,
+  "present": []
+ },
+ {
+  "fr": "vouloir",
+  "zh": "想/要",
+  "rank": 6,
+  "present": []
+ },
+ {
+  "fr": "savoir",
+  "zh": "知道/会",
+  "rank": 7,
+  "present": []
+ },
+ {
+  "fr": "aller",
+  "zh": "去",
+  "rank": 8,
+  "present": []
+ },
+ {
+  "fr": "voir",
+  "zh": "看见",
+  "rank": 9,
+  "present": []
+ },
+ {
+  "fr": "venir",
+  "zh": "来",
+  "rank": 10,
+  "present": []
+ },
+ {
+  "fr": "falloir",
+  "zh": "必须/需要",
+  "rank": 11,
+  "present": []
+ },
+ {
+  "fr": "valoir",
+  "zh": "值",
+  "rank": 12,
+  "present": []
+ },
+ {
+  "fr": "prendre",
+  "zh": "拿/取",
+  "rank": 13,
+  "present": []
+ },
+ {
+  "fr": "comprendre",
+  "zh": "理解",
+  "rank": 14,
+  "present": []
+ },
+ {
+  "fr": "mettre",
+  "zh": "放/穿",
+  "rank": 15,
+  "present": []
+ },
+ {
+  "fr": "partir",
+  "zh": "离开",
+  "rank": 16,
+  "present": []
+ },
+ {
+  "fr": "sortir",
+  "zh": "出去",
+  "rank": 17,
+  "present": []
+ },
+ {
+  "fr": "sentir",
+  "zh": "感觉/闻",
+  "rank": 18,
+  "present": []
+ },
+ {
+  "fr": "suivre",
+  "zh": "跟随",
+  "rank": 19,
+  "present": []
+ },
+ {
+  "fr": "vivre",
+  "zh": "生活/活",
+  "rank": 20,
+  "present": []
+ },
+ {
+  "fr": "recevoir",
+  "zh": "收到",
+  "rank": 21,
+  "present": []
+ },
+ {
+  "fr": "apercevoir",
+  "zh": "瞥见",
+  "rank": 22,
+  "present": []
+ },
+ {
+  "fr": "devoir",
+  "zh": "应该/欠",
+  "rank": 23,
+  "present": []
+ },
+ {
+  "fr": "pleuvoir",
+  "zh": "下雨",
+  "rank": 24,
+  "present": []
+ },
+ {
+  "fr": "mouvoir",
+  "zh": "移动",
+  "rank": 25,
+  "present": []
+ },
+ {
+  "fr": "écrire",
+  "zh": "写",
+  "rank": 26,
+  "present": []
+ },
+ {
+  "fr": "lire",
+  "zh": "读",
+  "rank": 27,
+  "present": []
+ },
+ {
+  "fr": "conduire",
+  "zh": "驾驶/引导",
+  "rank": 28,
+  "present": []
+ },
+ {
+  "fr": "traduire",
+  "zh": "翻译",
+  "rank": 29,
+  "present": []
+ },
+ {
+  "fr": "construire",
+  "zh": "建造",
+  "rank": 30,
+  "present": []
+ },
+ {
+  "fr": "détruire",
+  "zh": "破坏",
+  "rank": 31,
+  "present": []
+ },
+ {
+  "fr": "craindre",
+  "zh": "害怕",
+  "rank": 32,
+  "present": []
+ },
+ {
+  "fr": "peindre",
+  "zh": "画/刷",
+  "rank": 33,
+  "present": []
+ },
+ {
+  "fr": "atteindre",
+  "zh": "达到",
+  "rank": 34,
+  "present": []
+ },
+ {
+  "fr": "joindre",
+  "zh": "连接/加入",
+  "rank": 35,
+  "present": []
+ },
+ {
+  "fr": "plaindre",
+  "zh": "同情",
+  "rank": 36,
+  "present": []
+ },
+ {
+  "fr": "fondre",
+  "zh": "融化",
+  "rank": 37,
+  "present": []
+ },
+ {
+  "fr": "moudre",
+  "zh": "磨",
+  "rank": 38,
+  "present": []
+ },
+ {
+  "fr": "résoudre",
+  "zh": "解决",
+  "rank": 39,
+  "present": []
+ },
+ {
+  "fr": "rire",
+  "zh": "笑",
+  "rank": 40,
+  "present": []
+ },
+ {
+  "fr": "sourire",
+  "zh": "微笑",
+  "rank": 41,
+  "present": []
+ },
+ {
+  "fr": "confire",
+  "zh": "腌制",
+  "rank": 42,
+  "present": []
+ },
+ {
+  "fr": "suffire",
+  "zh": "足够",
+  "rank": 43,
+  "present": []
+ },
+ {
+  "fr": "taire",
+  "zh": "沉默",
+  "rank": 44,
+  "present": []
+ },
+ {
+  "fr": "plaire",
+  "zh": "使高兴",
+  "rank": 45,
+  "present": []
+ },
+ {
+  "fr": "connaître",
+  "zh": "认识/知道",
+  "rank": 46,
+  "present": []
+ },
+ {
+  "fr": "paraître",
+  "zh": "出现",
+  "rank": 47,
+  "present": []
+ },
+ {
+  "fr": "naître",
+  "zh": "出生",
+  "rank": 48,
+  "present": []
+ },
+ {
+  "fr": "mourir",
+  "zh": "死",
+  "rank": 49,
+  "present": []
+ },
+ {
+  "fr": "acquérir",
+  "zh": "获得",
+  "rank": 50,
+  "present": []
+ },
+ {
+  "fr": "courir",
+  "zh": "跑",
+  "rank": 51,
+  "present": []
+ },
+ {
+  "fr": "tenir",
+  "zh": "持有/保持",
+  "rank": 52,
+  "present": []
+ },
+ {
+  "fr": "devenir",
+  "zh": "成为",
+  "rank": 53,
+  "present": []
+ },
+ {
+  "fr": "retenir",
+  "zh": "保留/记住",
+  "rank": 54,
+  "present": []
+ },
+ {
+  "fr": "obtenir",
+  "zh": "获得",
+  "rank": 55,
+  "present": []
+ },
+ {
+  "fr": "soutenir",
+  "zh": "支持",
+  "rank": 56,
+  "present": []
+ },
+ {
+  "fr": "entretenir",
+  "zh": "维护",
+  "rank": 57,
+  "present": []
+ },
+ {
+  "fr": "contenir",
+  "zh": "包含",
+  "rank": 58,
+  "present": []
+ },
+ {
+  "fr": "maintenir",
+  "zh": "维持",
+  "rank": 59,
+  "present": []
+ },
+ {
+  "fr": "appartenir",
+  "zh": "属于",
+  "rank": 60,
+  "present": []
+ },
+ {
+  "fr": "revenir",
+  "zh": "回来",
+  "rank": 61,
+  "present": []
+ },
+ {
+  "fr": "survenir",
+  "zh": "发生",
+  "rank": 62,
+  "present": []
+ },
+ {
+  "fr": "parvenir",
+  "zh": "达到",
+  "rank": 63,
+  "present": []
+ },
+ {
+  "fr": "intervenir",
+  "zh": "干预",
+  "rank": 64,
+  "present": []
+ },
+ {
+  "fr": "prévenir",
+  "zh": "预防/通知",
+  "rank": 65,
+  "present": []
+ },
+ {
+  "fr": "vêtir",
+  "zh": "穿衣",
+  "rank": 66,
+  "present": []
+ },
+ {
+  "fr": "revêtir",
+  "zh": "覆盖/赋予",
+  "rank": 67,
+  "present": []
+ },
+ {
+  "fr": "couvrir",
+  "zh": "覆盖",
+  "rank": 68,
+  "present": []
+ },
+ {
+  "fr": "ouvrir",
+  "zh": "打开",
+  "rank": 69,
+  "present": []
+ },
+ {
+  "fr": "offrir",
+  "zh": "提供/献",
+  "rank": 70,
+  "present": []
+ },
+ {
+  "fr": "souffrir",
+  "zh": "遭受/忍受",
+  "rank": 71,
+  "present": []
+ },
+ {
+  "fr": "découvrir",
+  "zh": "发现",
+  "rank": 72,
+  "present": []
+ },
+ {
+  "fr": "recouvrir",
+  "zh": "重新覆盖",
+  "rank": 73,
+  "present": []
+ },
+ {
+  "fr": "pourvoir",
+  "zh": "配备",
+  "rank": 74,
+  "present": []
+ },
+ {
+  "fr": "cuire",
+  "zh": "烹饪",
+  "rank": 75,
+  "present": []
+ },
+ {
+  "fr": "nuire",
+  "zh": "损害",
+  "rank": 76,
+  "present": []
+ },
+ {
+  "fr": "luire",
+  "zh": "发光",
+  "rank": 77,
+  "present": []
+ },
+ {
+  "fr": "produire",
+  "zh": "生产",
+  "rank": 78,
+  "present": []
+ },
+ {
+  "fr": "réduire",
+  "zh": "减少",
+  "rank": 79,
+  "present": []
+ },
+ {
+  "fr": "introduire",
+  "zh": "引入",
+  "rank": 80,
+  "present": []
+ },
+ {
+  "fr": "instruire",
+  "zh": "教导",
+  "rank": 81,
+  "present": []
+ },
+ {
+  "fr": "déduire",
+  "zh": "扣除/推断",
+  "rank": 82,
+  "present": []
+ },
+ {
+  "fr": "induire",
+  "zh": "诱导",
+  "rank": 83,
+  "present": []
+ },
+ {
+  "fr": "bâtir",
+  "zh": "建造",
+  "rank": 84,
+  "present": []
+ },
+ {
+  "fr": "finir",
+  "zh": "结束",
+  "rank": 85,
+  "present": []
+ },
+ {
+  "fr": "choisir",
+  "zh": "选择",
+  "rank": 86,
+  "present": []
+ },
+ {
+  "fr": "réussir",
+  "zh": "成功",
+  "rank": 87,
+  "present": []
+ },
+ {
+  "fr": "agir",
+  "zh": "行动",
+  "rank": 88,
+  "present": []
+ },
+ {
+  "fr": "réagir",
+  "zh": "反应",
+  "rank": 89,
+  "present": []
+ },
+ {
+  "fr": "nourrir",
+  "zh": "喂养",
+  "rank": 90,
+  "present": []
+ },
+ {
+  "fr": "guérir",
+  "zh": "治愈",
+  "rank": 91,
+  "present": []
+ },
+ {
+  "fr": "réunir",
+  "zh": "联合/重聚",
+  "rank": 92,
+  "present": []
+ },
+ {
+  "fr": "jouir",
+  "zh": "享有",
+  "rank": 93,
+  "present": []
+ },
+ {
+  "fr": "punir",
+  "zh": "惩罚",
+  "rank": 94,
+  "present": []
+ },
+ {
+  "fr": "remplir",
+  "zh": "填满",
+  "rank": 95,
+  "present": []
+ },
+ {
+  "fr": "établir",
+  "zh": "建立",
+  "rank": 96,
+  "present": []
+ },
+ {
+  "fr": "définir",
+  "zh": "定义",
+  "rank": 97,
+  "present": []
+ },
+ {
+  "fr": "fournir",
+  "zh": "提供",
+  "rank": 98,
+  "present": []
+ },
+ {
+  "fr": "munir",
+  "zh": "装备",
+  "rank": 99,
+  "present": []
+ },
+ {
+  "fr": "avertir",
+  "zh": "警告",
+  "rank": 100,
+  "present": []
+ },
+ {
+  "fr": "convertir",
+  "zh": "转变",
+  "rank": 101,
+  "present": []
+ },
+ {
+  "fr": "divertir",
+  "zh": "娱乐",
+  "rank": 102,
+  "present": []
+ },
+ {
+  "fr": "avorter",
+  "zh": "流产",
+  "rank": 103,
+  "present": []
+ },
+ {
+  "fr": "mentir",
+  "zh": "撒谎",
+  "rank": 104,
+  "present": []
+ },
+ {
+  "fr": "dormir",
+  "zh": "睡觉",
+  "rank": 105,
+  "present": []
+ },
+ {
+  "fr": "servir",
+  "zh": "服务",
+  "rank": 106,
+  "present": []
+ },
+ {
+  "fr": "réservir",
+  "zh": "再利用",
+  "rank": 107,
+  "present": []
+ },
+ {
+  "fr": "ressortir",
+  "zh": "突出/再出去",
+  "rank": 108,
+  "present": []
+ },
+ {
+  "fr": "consentir",
+  "zh": "同意",
+  "rank": 109,
+  "present": []
+ },
+ {
+  "fr": "ressentir",
+  "zh": "感受",
+  "rank": 110,
+  "present": []
+ },
+ {
+  "fr": "pressentir",
+  "zh": "预感",
+  "rank": 111,
+  "present": []
+ },
+ {
+  "fr": "bénir",
+  "zh": "祝福",
+  "rank": 112,
+  "present": []
+ },
+ {
+  "fr": "maudire",
+  "zh": "诅咒",
+  "rank": 113,
+  "present": []
+ },
+ {
+  "fr": "hair",
+  "zh": "憎恨",
+  "rank": 114,
+  "present": []
+ },
+ {
+  "fr": "chérir",
+  "zh": "珍爱",
+  "rank": 115,
+  "present": []
+ },
+ {
+  "fr": "périr",
+  "zh": "毁灭",
+  "rank": 116,
+  "present": []
+ },
+ {
+  "fr": "gémir",
+  "zh": "呻吟",
+  "rank": 117,
+  "present": []
+ },
+ {
+  "fr": "fleurir",
+  "zh": "开花",
+  "rank": 118,
+  "present": []
+ },
+ {
+  "fr": "accomplir",
+  "zh": "完成",
+  "rank": 119,
+  "present": []
+ },
+ {
+  "fr": "assaillir",
+  "zh": "袭击",
+  "rank": 120,
+  "present": []
+ },
+ {
+  "fr": "cueillir",
+  "zh": "采摘",
+  "rank": 121,
+  "present": []
+ },
+ {
+  "fr": "recueillir",
+  "zh": "收集/接待",
+  "rank": 122,
+  "present": []
+ },
+ {
+  "fr": "accueillir",
+  "zh": "迎接",
+  "rank": 123,
+  "present": []
+ },
+ {
+  "fr": "faillir",
+  "zh": "几乎/失误",
+  "rank": 124,
+  "present": []
+ },
+ {
+  "fr": "vieillir",
+  "zh": "变老",
+  "rank": 125,
+  "present": []
+ },
+ {
+  "fr": "rougir",
+  "zh": "变红",
+  "rank": 126,
+  "present": []
+ },
+ {
+  "fr": "blanchir",
+  "zh": "漂白",
+  "rank": 127,
+  "present": []
+ },
+ {
+  "fr": "grandir",
+  "zh": "长大",
+  "rank": 128,
+  "present": []
+ },
+ {
+  "fr": "salir",
+  "zh": "弄脏",
+  "rank": 129,
+  "present": []
+ },
+ {
+  "fr": "mûrir",
+  "zh": "成熟",
+  "rank": 130,
+  "present": []
+ },
+ {
+  "fr": "pâlir",
+  "zh": "变苍白",
+  "rank": 131,
+  "present": []
+ },
+ {
+  "fr": "jaunir",
+  "zh": "变黄",
+  "rank": 132,
+  "present": []
+ },
+ {
+  "fr": "noircir",
+  "zh": "变黑",
+  "rank": 133,
+  "present": []
+ },
+ {
+  "fr": "verdir",
+  "zh": "变绿",
+  "rank": 134,
+  "present": []
+ },
+ {
+  "fr": "blêmir",
+  "zh": "变苍白",
+  "rank": 135,
+  "present": []
+ },
+ {
+  "fr": "rajeunir",
+  "zh": "使年轻",
+  "rank": 136,
+  "present": []
+ },
+ {
+  "fr": "froidir",
+  "zh": "变冷",
+  "rank": 137,
+  "present": []
+ },
+ {
+  "fr": "ramollir",
+  "zh": "使变软",
+  "rank": 138,
+  "present": []
+ },
+ {
+  "fr": "aiguiser",
+  "zh": "磨快",
+  "rank": 139,
+  "present": []
+ },
+ {
+  "fr": "amuser",
+  "zh": "逗乐",
+  "rank": 140,
+  "present": []
+ },
+ {
+  "fr": "apporter",
+  "zh": "带来",
+  "rank": 141,
+  "present": []
+ },
+ {
+  "fr": "apprendre",
+  "zh": "学习/告知",
+  "rank": 142,
+  "present": []
+ },
+ {
+  "fr": "attendre",
+  "zh": "等待",
+  "rank": 143,
+  "present": []
+ },
+ {
+  "fr": "entendre",
+  "zh": "听见/理解",
+  "rank": 144,
+  "present": []
+ },
+ {
+  "fr": "défendre",
+  "zh": "防御/禁止",
+  "rank": 145,
+  "present": []
+ },
+ {
+  "fr": "descendre",
+  "zh": "下/下降",
+  "rank": 146,
+  "present": []
+ },
+ {
+  "fr": "étendre",
+  "zh": "伸展",
+  "rank": 147,
+  "present": []
+ },
+ {
+  "fr": "fendre",
+  "zh": "劈开",
+  "rank": 148,
+  "present": []
+ },
+ {
+  "fr": "mordre",
+  "zh": "咬",
+  "rank": 149,
+  "present": []
+ },
+ {
+  "fr": "pendre",
+  "zh": "悬挂",
+  "rank": 150,
+  "present": []
+ },
+ {
+  "fr": "perdre",
+  "zh": "失去",
+  "rank": 151,
+  "present": []
+ },
+ {
+  "fr": "rendre",
+  "zh": "归还/使",
+  "rank": 152,
+  "present": []
+ },
+ {
+  "fr": "répondre",
+  "zh": "回答",
+  "rank": 153,
+  "present": []
+ },
+ {
+  "fr": "tendre",
+  "zh": "伸展/倾向",
+  "rank": 154,
+  "present": []
+ },
+ {
+  "fr": "tondre",
+  "zh": "修剪",
+  "rank": 155,
+  "present": []
+ },
+ {
+  "fr": "vendre",
+  "zh": "卖",
+  "rank": 156,
+  "present": []
+ },
+ {
+  "fr": "correspondre",
+  "zh": "对应",
+  "rank": 157,
+  "present": []
+ },
+ {
+  "fr": "prétendre",
+  "zh": "声称",
+  "rank": 158,
+  "present": []
+ },
+ {
+  "fr": "redescendre",
+  "zh": "再下",
+  "rank": 159,
+  "present": []
+ },
+ {
+  "fr": "suspendre",
+  "zh": "悬挂/中断",
+  "rank": 160,
+  "present": []
+ },
+ {
+  "fr": "confondre",
+  "zh": "混淆",
+  "rank": 161,
+  "present": []
+ },
+ {
+  "fr": "tordre",
+  "zh": "拧/扭",
+  "rank": 162,
+  "present": []
+ },
+ {
+  "fr": "pondre",
+  "zh": "下蛋",
+  "rank": 163,
+  "present": []
+ },
+ {
+  "fr": "répandre",
+  "zh": "散布",
+  "rank": 164,
+  "present": []
+ },
+ {
+  "fr": "épandre",
+  "zh": "喷洒",
+  "rank": 165,
+  "present": []
+ },
+ {
+  "fr": "refondre",
+  "zh": "重铸",
+  "rank": 166,
+  "present": []
+ },
+ {
+  "fr": "manger",
+  "zh": "吃",
+  "rank": 167,
+  "present": []
+ },
+ {
+  "fr": "marcher",
+  "zh": "走/行军",
+  "rank": 168,
+  "present": []
+ },
+ {
+  "fr": "chercher",
+  "zh": "寻找",
+  "rank": 169,
+  "present": []
+ },
+ {
+  "fr": "parler",
+  "zh": "说话",
+  "rank": 170,
+  "present": []
+ },
+ {
+  "fr": "aimer",
+  "zh": "爱/喜欢",
+  "rank": 171,
+  "present": []
+ },
+ {
+  "fr": "donner",
+  "zh": "给",
+  "rank": 172,
+  "present": []
+ },
+ {
+  "fr": "passer",
+  "zh": "经过/度过",
+  "rank": 173,
+  "present": []
+ },
+ {
+  "fr": "regarder",
+  "zh": "看",
+  "rank": 174,
+  "present": []
+ },
+ {
+  "fr": "trouver",
+  "zh": "找到",
+  "rank": 175,
+  "present": []
+ },
+ {
+  "fr": "montrer",
+  "zh": "展示",
+  "rank": 176,
+  "present": []
+ },
+ {
+  "fr": "laisser",
+  "zh": "让/留",
+  "rank": 177,
+  "present": []
+ },
+ {
+  "fr": "rester",
+  "zh": "停留/保持",
+  "rank": 178,
+  "present": []
+ },
+ {
+  "fr": "tourner",
+  "zh": "转动",
+  "rank": 179,
+  "present": []
+ },
+ {
+  "fr": "travailler",
+  "zh": "工作",
+  "rank": 180,
+  "present": []
+ },
+ {
+  "fr": "arriver",
+  "zh": "到达/发生",
+  "rank": 181,
+  "present": []
+ },
+ {
+  "fr": "entrer",
+  "zh": "进入",
+  "rank": 182,
+  "present": []
+ },
+ {
+  "fr": "rentrer",
+  "zh": "返回",
+  "rank": 183,
+  "present": []
+ },
+ {
+  "fr": "retourner",
+  "zh": "返回/翻转",
+  "rank": 184,
+  "present": []
+ },
+ {
+  "fr": "tomber",
+  "zh": "掉落",
+  "rank": 185,
+  "present": []
+ },
+ {
+  "fr": "monter",
+  "zh": "上/上升",
+  "rank": 186,
+  "present": []
+ },
+ {
+  "fr": "demander",
+  "zh": "请求",
+  "rank": 187,
+  "present": []
+ },
+ {
+  "fr": "commencer",
+  "zh": "开始",
+  "rank": 188,
+  "present": []
+ },
+ {
+  "fr": "sembler",
+  "zh": "似乎",
+  "rank": 189,
+  "present": []
+ },
+ {
+  "fr": "continuer",
+  "zh": "继续",
+  "rank": 190,
+  "present": []
+ },
+ {
+  "fr": "porter",
+  "zh": "携带/穿",
+  "rank": 191,
+  "present": []
+ },
+ {
+  "fr": "empêcher",
+  "zh": "阻止",
+  "rank": 192,
+  "present": []
+ },
+ {
+  "fr": "essayer",
+  "zh": "尝试",
+  "rank": 193,
+  "present": []
+ },
+ {
+  "fr": "acheter",
+  "zh": "买",
+  "rank": 194,
+  "present": []
+ },
+ {
+  "fr": "payer",
+  "zh": "支付",
+  "rank": 195,
+  "present": []
+ },
+ {
+  "fr": "essuyer",
+  "zh": "擦/经受",
+  "rank": 196,
+  "present": []
+ },
+ {
+  "fr": "envoyer",
+  "zh": "发送",
+  "rank": 197,
+  "present": []
+ },
+ {
+  "fr": "appeler",
+  "zh": "呼叫",
+  "rank": 198,
+  "present": []
+ },
+ {
+  "fr": "jeter",
+  "zh": "扔",
+  "rank": 199,
+  "present": []
+ },
+ {
+  "fr": "refuser",
+  "zh": "拒绝",
+  "rank": 200,
+  "present": []
+ },
+ {
+  "fr": "accepter",
+  "zh": "接受",
+  "rank": 201,
+  "present": []
+ },
+ {
+  "fr": "attirer",
+  "zh": "吸引",
+  "rank": 202,
+  "present": []
+ },
+ {
+  "fr": "pousser",
+  "zh": "推/生长",
+  "rank": 203,
+  "present": []
+ },
+ {
+  "fr": "oublier",
+  "zh": "忘记",
+  "rank": 204,
+  "present": []
+ },
+ {
+  "fr": "changer",
+  "zh": "改变",
+  "rank": 205,
+  "present": []
+ },
+ {
+  "fr": "voyager",
+  "zh": "旅行",
+  "rank": 206,
+  "present": []
+ },
+ {
+  "fr": "partager",
+  "zh": "分享",
+  "rank": 207,
+  "present": []
+ },
+ {
+  "fr": "rencontrer",
+  "zh": "遇见",
+  "rank": 208,
+  "present": []
+ },
+ {
+  "fr": "gagner",
+  "zh": "赢/赚",
+  "rank": 209,
+  "present": []
+ },
+ {
+  "fr": "permettre",
+  "zh": "允许",
+  "rank": 210,
+  "present": []
+ },
+ {
+  "fr": "promettre",
+  "zh": "承诺",
+  "rank": 211,
+  "present": []
+ },
+ {
+  "fr": "remettre",
+  "zh": "放回/交还",
+  "rank": 212,
+  "present": []
+ },
+ {
+  "fr": "transmettre",
+  "zh": "传达",
+  "rank": 213,
+  "present": []
+ },
+ {
+  "fr": "admettre",
+  "zh": "承认",
+  "rank": 214,
+  "present": []
+ },
+ {
+  "fr": "commettre",
+  "zh": "犯",
+  "rank": 215,
+  "present": []
+ },
+ {
+  "fr": "soumettre",
+  "zh": "使服从",
+  "rank": 216,
+  "present": []
+ },
+ {
+  "fr": "paraitre",
+  "zh": "显得",
+  "rank": 217,
+  "present": []
+ },
+ {
+  "fr": "connaitre",
+  "zh": "认识",
+  "rank": 218,
+  "present": []
+ },
+ {
+  "fr": "reconnaitre",
+  "zh": "认出",
+  "rank": 219,
+  "present": []
+ },
+ {
+  "fr": "disparaître",
+  "zh": "消失",
+  "rank": 220,
+  "present": []
+ },
+ {
+  "fr": "croire",
+  "zh": "相信",
+  "rank": 221,
+  "present": []
+ },
+ {
+  "fr": "boire",
+  "zh": "喝",
+  "rank": 222,
+  "present": []
+ },
+ {
+  "fr": "asseoir",
+  "zh": "使坐",
+  "rank": 223,
+  "present": []
+ },
+ {
+  "fr": "bouillir",
+  "zh": "沸腾",
+  "rank": 224,
+  "present": []
+ },
+ {
+  "fr": "fuir",
+  "zh": "逃跑",
+  "rank": 225,
+  "present": []
+ },
+ {
+  "fr": "saisir",
+  "zh": "抓住/理解",
+  "rank": 226,
+  "present": []
+ },
+ {
+  "fr": "élire",
+  "zh": "选举",
+  "rank": 227,
+  "present": []
+ },
+ {
+  "fr": "conclure",
+  "zh": "结论",
+  "rank": 228,
+  "present": []
+ },
+ {
+  "fr": "exclure",
+  "zh": "排除",
+  "rank": 229,
+  "present": []
+ },
+ {
+  "fr": "inclure",
+  "zh": "包含",
+  "rank": 230,
+  "present": []
+ },
+ {
+  "fr": "conquérir",
+  "zh": "征服",
+  "rank": 231,
+  "present": []
+ },
+ {
+  "fr": "requérir",
+  "zh": "要求",
+  "rank": 232,
+  "present": []
+ },
+ {
+  "fr": "traverser",
+  "zh": "穿过",
+  "rank": 233,
+  "present": []
+ },
+ {
+  "fr": "considérer",
+  "zh": "考虑/认为",
+  "rank": 234,
+  "present": []
+ },
+ {
+  "fr": "espérer",
+  "zh": "希望",
+  "rank": 235,
+  "present": []
+ },
+ {
+  "fr": "préférer",
+  "zh": "更喜欢",
+  "rank": 236,
+  "present": []
+ },
+ {
+  "fr": "répéter",
+  "zh": "重复",
+  "rank": 237,
+  "present": []
+ },
+ {
+  "fr": "célébrer",
+  "zh": "庆祝",
+  "rank": 238,
+  "present": []
+ },
+ {
+  "fr": "différer",
+  "zh": "延迟",
+  "rank": 239,
+  "present": []
+ },
+ {
+  "fr": "générer",
+  "zh": "产生",
+  "rank": 240,
+  "present": []
+ },
+ {
+  "fr": "opérer",
+  "zh": "操作",
+  "rank": 241,
+  "present": []
+ },
+ {
+  "fr": "pénétrer",
+  "zh": "渗透/进入",
+  "rank": 242,
+  "present": []
+ },
+ {
+  "fr": "séparer",
+  "zh": "分开",
+  "rank": 243,
+  "present": []
+ },
+ {
+  "fr": "réparer",
+  "zh": "修理",
+  "rank": 244,
+  "present": []
+ },
+ {
+  "fr": "préparer",
+  "zh": "准备",
+  "rank": 245,
+  "present": []
+ },
+ {
+  "fr": "décorer",
+  "zh": "装饰",
+  "rank": 246,
+  "present": []
+ },
+ {
+  "fr": "admirer",
+  "zh": "欣赏",
+  "rank": 247,
+  "present": []
+ },
+ {
+  "fr": "penser",
+  "zh": "想/认为",
+  "rank": 248,
+  "present": []
+ },
+ {
+  "fr": "abaisser",
+  "zh": "降低",
+  "rank": 249,
+  "present": []
+ },
+ {
+  "fr": "abattre",
+  "zh": "击倒",
+  "rank": 250,
+  "present": []
+ },
+ {
+  "fr": "aborder",
+  "zh": "靠近",
+  "rank": 251,
+  "present": []
+ },
+ {
+  "fr": "aboutir",
+  "zh": "达到",
+  "rank": 252,
+  "present": []
+ },
+ {
+  "fr": "aboyer",
+  "zh": "吠",
+  "rank": 253,
+  "present": []
+ },
+ {
+  "fr": "absoudre",
+  "zh": "赦免",
+  "rank": 254,
+  "present": []
+ },
+ {
+  "fr": "abstenir",
+  "zh": "克制",
+  "rank": 255,
+  "present": []
+ },
+ {
+  "fr": "abuser",
+  "zh": "滥用",
+  "rank": 256,
+  "present": []
+ },
+ {
+  "fr": "accorder",
+  "zh": "协调",
+  "rank": 257,
+  "present": []
+ },
+ {
+  "fr": "accoucher",
+  "zh": "分娩",
+  "rank": 258,
+  "present": []
+ },
+ {
+  "fr": "accrocher",
+  "zh": "挂",
+  "rank": 259,
+  "present": []
+ },
+ {
+  "fr": "accumuler",
+  "zh": "积累",
+  "rank": 260,
+  "present": []
+ },
+ {
+  "fr": "accuser",
+  "zh": "控告",
+  "rank": 261,
+  "present": []
+ },
+ {
+  "fr": "adhérer",
+  "zh": "依附",
+  "rank": 262,
+  "present": []
+ },
+ {
+  "fr": "adorer",
+  "zh": "喜爱",
+  "rank": 263,
+  "present": []
+ },
+ {
+  "fr": "adoucir",
+  "zh": "缓和",
+  "rank": 264,
+  "present": []
+ },
+ {
+  "fr": "affaiblir",
+  "zh": "削弱",
+  "rank": 265,
+  "present": []
+ },
+ {
+  "fr": "affecter",
+  "zh": "影响",
+  "rank": 266,
+  "present": []
+ },
+ {
+  "fr": "affirmer",
+  "zh": "肯定",
+  "rank": 267,
+  "present": []
+ },
+ {
+  "fr": "affliger",
+  "zh": "使悲伤",
+  "rank": 268,
+  "present": []
+ },
+ {
+  "fr": "affronter",
+  "zh": "面对",
+  "rank": 269,
+  "present": []
+ },
+ {
+  "fr": "aider",
+  "zh": "帮助",
+  "rank": 270,
+  "present": []
+ },
+ {
+  "fr": "ajouter",
+  "zh": "添加",
+  "rank": 271,
+  "present": []
+ },
+ {
+  "fr": "alerter",
+  "zh": "警告",
+  "rank": 272,
+  "present": []
+ },
+ {
+  "fr": "aligner",
+  "zh": "对齐",
+  "rank": 273,
+  "present": []
+ },
+ {
+  "fr": "alléger",
+  "zh": "减轻",
+  "rank": 274,
+  "present": []
+ },
+ {
+  "fr": "améliorer",
+  "zh": "改善",
+  "rank": 275,
+  "present": []
+ },
+ {
+  "fr": "amener",
+  "zh": "带来",
+  "rank": 276,
+  "present": []
+ },
+ {
+  "fr": "anéantir",
+  "zh": "消灭",
+  "rank": 277,
+  "present": []
+ },
+ {
+  "fr": "anticiper",
+  "zh": "预期",
+  "rank": 278,
+  "present": []
+ },
+ {
+  "fr": "apparaître",
+  "zh": "出现",
+  "rank": 279,
+  "present": []
+ },
+ {
+  "fr": "applaudir",
+  "zh": "鼓掌",
+  "rank": 280,
+  "present": []
+ },
+ {
+  "fr": "appliquer",
+  "zh": "应用",
+  "rank": 281,
+  "present": []
+ },
+ {
+  "fr": "approcher",
+  "zh": "接近",
+  "rank": 282,
+  "present": []
+ },
+ {
+  "fr": "approuver",
+  "zh": "赞成",
+  "rank": 283,
+  "present": []
+ },
+ {
+  "fr": "argumenter",
+  "zh": "论证",
+  "rank": 284,
+  "present": []
+ },
+ {
+  "fr": "armer",
+  "zh": "武装",
+  "rank": 285,
+  "present": []
+ },
+ {
+  "fr": "arranger",
+  "zh": "整理",
+  "rank": 286,
+  "present": []
+ },
+ {
+  "fr": "arrondir",
+  "zh": "使圆",
+  "rank": 287,
+  "present": []
+ },
+ {
+  "fr": "arrêter",
+  "zh": "停止",
+  "rank": 288,
+  "present": []
+ },
+ {
+  "fr": "assister",
+  "zh": "出席",
+  "rank": 289,
+  "present": []
+ },
+ {
+  "fr": "associer",
+  "zh": "联合",
+  "rank": 290,
+  "present": []
+ },
+ {
+  "fr": "assurer",
+  "zh": "确保",
+  "rank": 291,
+  "present": []
+ },
+ {
+  "fr": "attaquer",
+  "zh": "攻击",
+  "rank": 292,
+  "present": []
+ },
+ {
+  "fr": "attendrir",
+  "zh": "使感动",
+  "rank": 293,
+  "present": []
+ },
+ {
+  "fr": "attester",
+  "zh": "证明",
+  "rank": 294,
+  "present": []
+ },
+ {
+  "fr": "attribuer",
+  "zh": "归属",
+  "rank": 295,
+  "present": []
+ },
+ {
+  "fr": "authentifier",
+  "zh": "认证",
+  "rank": 296,
+  "present": []
+ },
+ {
+  "fr": "autoriser",
+  "zh": "授权",
+  "rank": 297,
+  "present": []
+ },
+ {
+  "fr": "avaler",
+  "zh": "吞",
+  "rank": 298,
+  "present": []
+ },
+ {
+  "fr": "avancer",
+  "zh": "前进",
+  "rank": 299,
+  "present": []
+ },
+ {
+  "fr": "aviser",
+  "zh": "通知",
+  "rank": 300,
+  "present": []
+ },
+ {
+  "fr": "baigner",
+  "zh": "浸泡",
+  "rank": 301,
+  "present": []
+ },
+ {
+  "fr": "baisser",
+  "zh": "降低",
+  "rank": 302,
+  "present": []
+ },
+ {
+  "fr": "balancer",
+  "zh": "摇晃",
+  "rank": 303,
+  "present": []
+ },
+ {
+  "fr": "balayer",
+  "zh": "打扫",
+  "rank": 304,
+  "present": []
+ },
+ {
+  "fr": "banaliser",
+  "zh": "使平常",
+  "rank": 305,
+  "present": []
+ },
+ {
+  "fr": "bannir",
+  "zh": "流放",
+  "rank": 306,
+  "present": []
+ },
+ {
+  "fr": "barrer",
+  "zh": "阻",
+  "rank": 307,
+  "present": []
+ },
+ {
+  "fr": "bavarder",
+  "zh": "闲聊",
+  "rank": 308,
+  "present": []
+ },
+ {
+  "fr": "bégayer",
+  "zh": "口吃",
+  "rank": 309,
+  "present": []
+ },
+ {
+  "fr": "blesser",
+  "zh": "伤害",
+  "rank": 310,
+  "present": []
+ },
+ {
+  "fr": "blâmer",
+  "zh": "责备",
+  "rank": 311,
+  "present": []
+ },
+ {
+  "fr": "bondir",
+  "zh": "跳",
+  "rank": 312,
+  "present": []
+ },
+ {
+  "fr": "bonifier",
+  "zh": "改良",
+  "rank": 313,
+  "present": []
+ },
+ {
+  "fr": "border",
+  "zh": "环绕",
+  "rank": 314,
+  "present": []
+ },
+ {
+  "fr": "borner",
+  "zh": "限",
+  "rank": 315,
+  "present": []
+ },
+ {
+  "fr": "boucher",
+  "zh": "堵",
+  "rank": 316,
+  "present": []
+ },
+ {
+  "fr": "boucler",
+  "zh": "扣",
+  "rank": 317,
+  "present": []
+ },
+ {
+  "fr": "bouger",
+  "zh": "动",
+  "rank": 318,
+  "present": []
+ },
+ {
+  "fr": "bouleverser",
+  "zh": "扰乱",
+  "rank": 319,
+  "present": []
+ },
+ {
+  "fr": "bousculer",
+  "zh": "推",
+  "rank": 320,
+  "present": []
+ },
+ {
+  "fr": "brancher",
+  "zh": "接",
+  "rank": 321,
+  "present": []
+ },
+ {
+  "fr": "brandir",
+  "zh": "挥",
+  "rank": 322,
+  "present": []
+ },
+ {
+  "fr": "braver",
+  "zh": "藐视",
+  "rank": 323,
+  "present": []
+ },
+ {
+  "fr": "briller",
+  "zh": "发光",
+  "rank": 324,
+  "present": []
+ },
+ {
+  "fr": "bronzer",
+  "zh": "晒",
+  "rank": 325,
+  "present": []
+ },
+ {
+  "fr": "brosser",
+  "zh": "刷",
+  "rank": 326,
+  "present": []
+ },
+ {
+  "fr": "brouiller",
+  "zh": "混",
+  "rank": 327,
+  "present": []
+ },
+ {
+  "fr": "bruire",
+  "zh": "沙沙",
+  "rank": 328,
+  "present": []
+ },
+ {
+  "fr": "brûler",
+  "zh": "燃烧",
+  "rank": 329,
+  "present": []
+ },
+ {
+  "fr": "brusquer",
+  "zh": "粗鲁",
+  "rank": 330,
+  "present": []
+ },
+ {
+  "fr": "cacher",
+  "zh": "藏",
+  "rank": 331,
+  "present": []
+ },
+ {
+  "fr": "cajoler",
+  "zh": "哄",
+  "rank": 332,
+  "present": []
+ },
+ {
+  "fr": "calculer",
+  "zh": "计算",
+  "rank": 333,
+  "present": []
+ },
+ {
+  "fr": "calmer",
+  "zh": "镇定",
+  "rank": 334,
+  "present": []
+ },
+ {
+  "fr": "camper",
+  "zh": "露营",
+  "rank": 335,
+  "present": []
+ },
+ {
+  "fr": "canaliser",
+  "zh": "疏导",
+  "rank": 336,
+  "present": []
+ },
+ {
+  "fr": "casser",
+  "zh": "打破",
+  "rank": 337,
+  "present": []
+ },
+ {
+  "fr": "caresser",
+  "zh": "抚摸",
+  "rank": 338,
+  "present": []
+ },
+ {
+  "fr": "centraliser",
+  "zh": "集中",
+  "rank": 339,
+  "present": []
+ },
+ {
+  "fr": "cerner",
+  "zh": "包围",
+  "rank": 340,
+  "present": []
+ },
+ {
+  "fr": "chanter",
+  "zh": "唱",
+  "rank": 341,
+  "present": []
+ },
+ {
+  "fr": "chasser",
+  "zh": "猎",
+  "rank": 342,
+  "present": []
+ },
+ {
+  "fr": "châtier",
+  "zh": "惩罚",
+  "rank": 343,
+  "present": []
+ },
+ {
+  "fr": "chauffer",
+  "zh": "加热",
+  "rank": 344,
+  "present": []
+ },
+ {
+  "fr": "chevaucher",
+  "zh": "骑",
+  "rank": 345,
+  "present": []
+ },
+ {
+  "fr": "chiffrer",
+  "zh": "计算",
+  "rank": 346,
+  "present": []
+ },
+ {
+  "fr": "choyer",
+  "zh": "宠",
+  "rank": 347,
+  "present": []
+ },
+ {
+  "fr": "citer",
+  "zh": "引用",
+  "rank": 348,
+  "present": []
+ },
+ {
+  "fr": "civiliser",
+  "zh": "开化",
+  "rank": 349,
+  "present": []
+ },
+ {
+  "fr": "clamer",
+  "zh": "呼喊",
+  "rank": 350,
+  "present": []
+ },
+ {
+  "fr": "claquer",
+  "zh": "拍",
+  "rank": 351,
+  "present": []
+ },
+ {
+  "fr": "classer",
+  "zh": "分类",
+  "rank": 352,
+  "present": []
+ },
+ {
+  "fr": "cligner",
+  "zh": "眨",
+  "rank": 353,
+  "present": []
+ },
+ {
+  "fr": "cliquer",
+  "zh": "点击",
+  "rank": 354,
+  "present": []
+ },
+ {
+  "fr": "clôturer",
+  "zh": "封闭",
+  "rank": 355,
+  "present": []
+ },
+ {
+  "fr": "coaguler",
+  "zh": "凝",
+  "rank": 356,
+  "present": []
+ },
+ {
+  "fr": "coaliser",
+  "zh": "联合",
+  "rank": 357,
+  "present": []
+ },
+ {
+  "fr": "cohabiter",
+  "zh": "同居",
+  "rank": 358,
+  "present": []
+ },
+ {
+  "fr": "coincer",
+  "zh": "卡",
+  "rank": 359,
+  "present": []
+ },
+ {
+  "fr": "coller",
+  "zh": "贴",
+  "rank": 360,
+  "present": []
+ },
+ {
+  "fr": "coloniser",
+  "zh": "殖民",
+  "rank": 361,
+  "present": []
+ },
+ {
+  "fr": "colorier",
+  "zh": "涂",
+  "rank": 362,
+  "present": []
+ },
+ {
+  "fr": "combattre",
+  "zh": "战斗",
+  "rank": 363,
+  "present": []
+ },
+ {
+  "fr": "combler",
+  "zh": "填满",
+  "rank": 364,
+  "present": []
+ },
+ {
+  "fr": "communiquer",
+  "zh": "交流",
+  "rank": 365,
+  "present": []
+ },
+ {
+  "fr": "compatir",
+  "zh": "同情",
+  "rank": 366,
+  "present": []
+ },
+ {
+  "fr": "compenser",
+  "zh": "补偿",
+  "rank": 367,
+  "present": []
+ },
+ {
+  "fr": "compléter",
+  "zh": "完成",
+  "rank": 368,
+  "present": []
+ },
+ {
+  "fr": "comporter",
+  "zh": "含有",
+  "rank": 369,
+  "present": []
+ },
+ {
+  "fr": "composer",
+  "zh": "组成",
+  "rank": 370,
+  "present": []
+ },
+ {
+  "fr": "comprimer",
+  "zh": "压",
+  "rank": 371,
+  "present": []
+ },
+ {
+  "fr": "compromettre",
+  "zh": "危及",
+  "rank": 372,
+  "present": []
+ },
+ {
+  "fr": "concevoir",
+  "zh": "构思",
+  "rank": 373,
+  "present": []
+ },
+ {
+  "fr": "concourir",
+  "zh": "竞争",
+  "rank": 374,
+  "present": []
+ },
+ {
+  "fr": "condamner",
+  "zh": "判",
+  "rank": 375,
+  "present": []
+ },
+ {
+  "fr": "confectionner",
+  "zh": "制作",
+  "rank": 376,
+  "present": []
+ },
+ {
+  "fr": "conférer",
+  "zh": "授予",
+  "rank": 377,
+  "present": []
+ },
+ {
+  "fr": "confier",
+  "zh": "托",
+  "rank": 378,
+  "present": []
+ },
+ {
+  "fr": "confronter",
+  "zh": "对照",
+  "rank": 379,
+  "present": []
+ },
+ {
+  "fr": "congédier",
+  "zh": "解雇",
+  "rank": 380,
+  "present": []
+ },
+ {
+  "fr": "conjurer",
+  "zh": "驱",
+  "rank": 381,
+  "present": []
+ },
+ {
+  "fr": "consacrer",
+  "zh": "奉献",
+  "rank": 382,
+  "present": []
+ },
+ {
+  "fr": "conseiller",
+  "zh": "建议",
+  "rank": 383,
+  "present": []
+ },
+ {
+  "fr": "conserver",
+  "zh": "保存",
+  "rank": 384,
+  "present": []
+ },
+ {
+  "fr": "consister",
+  "zh": "在于",
+  "rank": 385,
+  "present": []
+ },
+ {
+  "fr": "consoler",
+  "zh": "安慰",
+  "rank": 386,
+  "present": []
+ },
+ {
+  "fr": "consommer",
+  "zh": "消费",
+  "rank": 387,
+  "present": []
+ },
+ {
+  "fr": "constater",
+  "zh": "确认",
+  "rank": 388,
+  "present": []
+ },
+ {
+  "fr": "constituer",
+  "zh": "构成",
+  "rank": 389,
+  "present": []
+ },
+ {
+  "fr": "contempler",
+  "zh": "沉思",
+  "rank": 390,
+  "present": []
+ },
+ {
+  "fr": "contester",
+  "zh": "质疑",
+  "rank": 391,
+  "present": []
+ },
+ {
+  "fr": "conter",
+  "zh": "讲",
+  "rank": 392,
+  "present": []
+ },
+ {
+  "fr": "contraindre",
+  "zh": "强迫",
+  "rank": 393,
+  "present": []
+ },
+ {
+  "fr": "contribuer",
+  "zh": "贡献",
+  "rank": 394,
+  "present": []
+ },
+ {
+  "fr": "contrôler",
+  "zh": "控制",
+  "rank": 395,
+  "present": []
+ },
+ {
+  "fr": "convaincre",
+  "zh": "说服",
+  "rank": 396,
+  "present": []
+ },
+ {
+  "fr": "convenir",
+  "zh": "适合",
+  "rank": 397,
+  "present": []
+ },
+ {
+  "fr": "convier",
+  "zh": "邀请",
+  "rank": 398,
+  "present": []
+ },
+ {
+  "fr": "copier",
+  "zh": "复制",
+  "rank": 399,
+  "present": []
+ },
+ {
+  "fr": "corriger",
+  "zh": "改",
+  "rank": 400,
+  "present": []
+ },
+ {
+  "fr": "côtoyer",
+  "zh": "沿",
+  "rank": 401,
+  "present": []
+ },
+ {
+  "fr": "coucher",
+  "zh": "躺",
+  "rank": 402,
+  "present": []
+ },
+ {
+  "fr": "coudre",
+  "zh": "缝",
+  "rank": 403,
+  "present": []
+ },
+ {
+  "fr": "couler",
+  "zh": "流",
+  "rank": 404,
+  "present": []
+ },
+ {
+  "fr": "couper",
+  "zh": "切",
+  "rank": 405,
+  "present": []
+ },
+ {
+  "fr": "courtiser",
+  "zh": "追求",
+  "rank": 406,
+  "present": []
+ },
+ {
+  "fr": "créer",
+  "zh": "创造",
+  "rank": 407,
+  "present": []
+ },
+ {
+  "fr": "crier",
+  "zh": "喊",
+  "rank": 408,
+  "present": []
+ },
+ {
+  "fr": "croiser",
+  "zh": "交叉",
+  "rank": 409,
+  "present": []
+ },
+ {
+  "fr": "cultiver",
+  "zh": "培养",
+  "rank": 410,
+  "present": []
+ },
+ {
+  "fr": "danser",
+  "zh": "跳舞",
+  "rank": 411,
+  "present": []
+ },
+ {
+  "fr": "débarrasser",
+  "zh": "清除",
+  "rank": 412,
+  "present": []
+ },
+ {
+  "fr": "débattre",
+  "zh": "辩论",
+  "rank": 413,
+  "present": []
+ },
+ {
+  "fr": "débiter",
+  "zh": "零售",
+  "rank": 414,
+  "present": []
+ },
+ {
+  "fr": "déborder",
+  "zh": "溢",
+  "rank": 415,
+  "present": []
+ },
+ {
+  "fr": "débourser",
+  "zh": "付",
+  "rank": 416,
+  "present": []
+ },
+ {
+  "fr": "décevoir",
+  "zh": "失望",
+  "rank": 417,
+  "present": []
+ },
+ {
+  "fr": "décider",
+  "zh": "决定",
+  "rank": 418,
+  "present": []
+ },
+ {
+  "fr": "décrire",
+  "zh": "描述",
+  "rank": 419,
+  "present": []
+ },
+ {
+  "fr": "décrocher",
+  "zh": "摘",
+  "rank": 420,
+  "present": []
+ },
+ {
+  "fr": "dédaigner",
+  "zh": "轻视",
+  "rank": 421,
+  "present": []
+ },
+ {
+  "fr": "défigurer",
+  "zh": "毁容",
+  "rank": 422,
+  "present": []
+ },
+ {
+  "fr": "dégager",
+  "zh": "释放",
+  "rank": 423,
+  "present": []
+ },
+ {
+  "fr": "dégrader",
+  "zh": "降级",
+  "rank": 424,
+  "present": []
+ },
+ {
+  "fr": "déjeuner",
+  "zh": "午餐",
+  "rank": 425,
+  "present": []
+ },
+ {
+  "fr": "délivrer",
+  "zh": "交付",
+  "rank": 426,
+  "present": []
+ },
+ {
+  "fr": "déménager",
+  "zh": "搬家",
+  "rank": 427,
+  "present": []
+ },
+ {
+  "fr": "démissionner",
+  "zh": "辞职",
+  "rank": 428,
+  "present": []
+ },
+ {
+  "fr": "démolir",
+  "zh": "拆",
+  "rank": 429,
+  "present": []
+ },
+ {
+  "fr": "dénoncer",
+  "zh": "告发",
+  "rank": 430,
+  "present": []
+ },
+ {
+  "fr": "dépasser",
+  "zh": "超过",
+  "rank": 431,
+  "present": []
+ },
+ {
+  "fr": "dépenser",
+  "zh": "花费",
+  "rank": 432,
+  "present": []
+ },
+ {
+  "fr": "déplacer",
+  "zh": "移动",
+  "rank": 433,
+  "present": []
+ },
+ {
+  "fr": "déplaire",
+  "zh": "使不快",
+  "rank": 434,
+  "present": []
+ },
+ {
+  "fr": "déposer",
+  "zh": "放",
+  "rank": 435,
+  "present": []
+ },
+ {
+  "fr": "déranger",
+  "zh": "打扰",
+  "rank": 436,
+  "present": []
+ },
+ {
+  "fr": "dérober",
+  "zh": "盗",
+  "rank": 437,
+  "present": []
+ },
+ {
+  "fr": "désapprouver",
+  "zh": "不赞成",
+  "rank": 438,
+  "present": []
+ },
+ {
+  "fr": "désarmer",
+  "zh": "解除",
+  "rank": 439,
+  "present": []
+ },
+ {
+  "fr": "désigner",
+  "zh": "指定",
+  "rank": 440,
+  "present": []
+ },
+ {
+  "fr": "désobéir",
+  "zh": "违抗",
+  "rank": 441,
+  "present": []
+ },
+ {
+  "fr": "désoler",
+  "zh": "悲伤",
+  "rank": 442,
+  "present": []
+ },
+ {
+  "fr": "détester",
+  "zh": "讨厌",
+  "rank": 443,
+  "present": []
+ },
+ {
+  "fr": "dévorer",
+  "zh": "吞食",
+  "rank": 444,
+  "present": []
+ },
+ {
+  "fr": "deviner",
+  "zh": "猜",
+  "rank": 445,
+  "present": []
+ },
+ {
+  "fr": "dîner",
+  "zh": "晚餐",
+  "rank": 446,
+  "present": []
+ },
+ {
+  "fr": "diriger",
+  "zh": "指导",
+  "rank": 447,
+  "present": []
+ },
+ {
+  "fr": "discuter",
+  "zh": "讨论",
+  "rank": 448,
+  "present": []
+ },
+ {
+  "fr": "disputer",
+  "zh": "争论",
+  "rank": 449,
+  "present": []
+ },
+ {
+  "fr": "dissoudre",
+  "zh": "溶解",
+  "rank": 450,
+  "present": []
+ },
+ {
+  "fr": "distinguer",
+  "zh": "区分",
+  "rank": 451,
+  "present": []
+ },
+ {
+  "fr": "distribuer",
+  "zh": "分配",
+  "rank": 452,
+  "present": []
+ },
+ {
+  "fr": "diviser",
+  "zh": "分",
+  "rank": 453,
+  "present": []
+ },
+ {
+  "fr": "divorcer",
+  "zh": "离婚",
+  "rank": 454,
+  "present": []
+ },
+ {
+  "fr": "dompter",
+  "zh": "驯",
+  "rank": 455,
+  "present": []
+ },
+ {
+  "fr": "douter",
+  "zh": "怀疑",
+  "rank": 456,
+  "present": []
+ },
+ {
+  "fr": "dresser",
+  "zh": "竖",
+  "rank": 457,
+  "present": []
+ },
+ {
+  "fr": "duper",
+  "zh": "骗",
+  "rank": 458,
+  "present": []
+ },
+ {
+  "fr": "éblouir",
+  "zh": "眩目",
+  "rank": 459,
+  "present": []
+ },
+ {
+  "fr": "échapper",
+  "zh": "逃脱",
+  "rank": 460,
+  "present": []
+ },
+ {
+  "fr": "échouer",
+  "zh": "失败",
+  "rank": 461,
+  "present": []
+ },
+ {
+  "fr": "éclairer",
+  "zh": "照亮",
+  "rank": 462,
+  "present": []
+ },
+ {
+  "fr": "éclater",
+  "zh": "爆",
+  "rank": 463,
+  "present": []
+ },
+ {
+  "fr": "écouter",
+  "zh": "听",
+  "rank": 464,
+  "present": []
+ },
+ {
+  "fr": "écraser",
+  "zh": "压碎",
+  "rank": 465,
+  "present": []
+ },
+ {
+  "fr": "écrier",
+  "zh": "呼喊",
+  "rank": 466,
+  "present": []
+ },
+ {
+  "fr": "édifier",
+  "zh": "建设",
+  "rank": 467,
+  "present": []
+ },
+ {
+  "fr": "éditer",
+  "zh": "出版",
+  "rank": 468,
+  "present": []
+ },
+ {
+  "fr": "effacer",
+  "zh": "擦",
+  "rank": 469,
+  "present": []
+ },
+ {
+  "fr": "effrayer",
+  "zh": "惊",
+  "rank": 470,
+  "present": []
+ },
+ {
+  "fr": "égarer",
+  "zh": "迷路",
+  "rank": 471,
+  "present": []
+ },
+ {
+  "fr": "élargir",
+  "zh": "扩大",
+  "rank": 472,
+  "present": []
+ },
+ {
+  "fr": "élever",
+  "zh": "提升",
+  "rank": 473,
+  "present": []
+ },
+ {
+  "fr": "éliminer",
+  "zh": "淘汰",
+  "rank": 474,
+  "present": []
+ },
+ {
+  "fr": "éloigner",
+  "zh": "远离",
+  "rank": 475,
+  "present": []
+ },
+ {
+  "fr": "émettre",
+  "zh": "发出",
+  "rank": 476,
+  "present": []
+ },
+ {
+  "fr": "émouvoir",
+  "zh": "感动",
+  "rank": 477,
+  "present": []
+ },
+ {
+  "fr": "employer",
+  "zh": "使用",
+  "rank": 478,
+  "present": []
+ },
+ {
+  "fr": "emporter",
+  "zh": "带走",
+  "rank": 479,
+  "present": []
+ },
+ {
+  "fr": "enfermer",
+  "zh": "关",
+  "rank": 480,
+  "present": []
+ },
+ {
+  "fr": "enfiler",
+  "zh": "穿",
+  "rank": 481,
+  "present": []
+ },
+ {
+  "fr": "enfouir",
+  "zh": "埋",
+  "rank": 482,
+  "present": []
+ },
+ {
+  "fr": "engager",
+  "zh": "从事",
+  "rank": 483,
+  "present": []
+ },
+ {
+  "fr": "enlever",
+  "zh": "移除",
+  "rank": 484,
+  "present": []
+ },
+ {
+  "fr": "enrichir",
+  "zh": "丰富",
+  "rank": 485,
+  "present": []
+ },
+ {
+  "fr": "enseigner",
+  "zh": "教",
+  "rank": 486,
+  "present": []
+ },
+ {
+  "fr": "envahir",
+  "zh": "入侵",
+  "rank": 487,
+  "present": []
+ },
+ {
+  "fr": "envelopper",
+  "zh": "包",
+  "rank": 488,
+  "present": []
+ },
+ {
+  "fr": "envier",
+  "zh": "嫉妒",
+  "rank": 489,
+  "present": []
+ },
+ {
+  "fr": "épeler",
+  "zh": "拼写",
+  "rank": 490,
+  "present": []
+ },
+ {
+  "fr": "épouser",
+  "zh": "娶",
+  "rank": 491,
+  "present": []
+ },
+ {
+  "fr": "éprouver",
+  "zh": "体验",
+  "rank": 492,
+  "present": []
+ },
+ {
+  "fr": "épuiser",
+  "zh": "耗尽",
+  "rank": 493,
+  "present": []
+ },
+ {
+  "fr": "équiper",
+  "zh": "装备",
+  "rank": 494,
+  "present": []
+ },
+ {
+  "fr": "escalader",
+  "zh": "攀",
+  "rank": 495,
+  "present": []
+ },
+ {
+  "fr": "estomper",
+  "zh": "模糊",
+  "rank": 496,
+  "present": []
+ },
+ {
+  "fr": "éteindre",
+  "zh": "熄",
+  "rank": 497,
+  "present": []
+ },
+ {
+  "fr": "étiqueter",
+  "zh": "贴标",
+  "rank": 498,
+  "present": []
+ },
+ {
+  "fr": "étonner",
+  "zh": "惊讶",
+  "rank": 499,
+  "present": []
+ },
+ {
+  "fr": "étouffer",
+  "zh": "窒息",
+  "rank": 500,
+  "present": []
+ },
+ {
+  "fr": "étreindre",
+  "zh": "拥抱",
+  "rank": 501,
+  "present": []
+ },
+ {
+  "fr": "étudier",
+  "zh": "学习",
+  "rank": 502,
+  "present": []
+ },
+ {
+  "fr": "évaluer",
+  "zh": "评估",
+  "rank": 503,
+  "present": []
+ },
+ {
+  "fr": "évaporer",
+  "zh": "蒸发",
+  "rank": 504,
+  "present": []
+ },
+ {
+  "fr": "éveiller",
+  "zh": "唤醒",
+  "rank": 505,
+  "present": []
+ },
+ {
+  "fr": "éviter",
+  "zh": "避免",
+  "rank": 506,
+  "present": []
+ },
+ {
+  "fr": "évoluer",
+  "zh": "演变",
+  "rank": 507,
+  "present": []
+ },
+ {
+  "fr": "excuser",
+  "zh": "原谅",
+  "rank": 508,
+  "present": []
+ },
+ {
+  "fr": "exiger",
+  "zh": "要求",
+  "rank": 509,
+  "present": []
+ },
+ {
+  "fr": "exiler",
+  "zh": "放逐",
+  "rank": 510,
+  "present": []
+ },
+ {
+  "fr": "exister",
+  "zh": "存在",
+  "rank": 511,
+  "present": []
+ },
+ {
+  "fr": "expédier",
+  "zh": "发送",
+  "rank": 512,
+  "present": []
+ },
+ {
+  "fr": "exposer",
+  "zh": "展示",
+  "rank": 513,
+  "present": []
+ },
+ {
+  "fr": "exprimer",
+  "zh": "表达",
+  "rank": 514,
+  "present": []
+ },
+ {
+  "fr": "extraire",
+  "zh": "提取",
+  "rank": 515,
+  "present": []
+ },
+ {
+  "fr": "fabriquer",
+  "zh": "制造",
+  "rank": 516,
+  "present": []
+ },
+ {
+  "fr": "façonner",
+  "zh": "塑造",
+  "rank": 517,
+  "present": []
+ },
+ {
+  "fr": "faiblir",
+  "zh": "弱",
+  "rank": 518,
+  "present": []
+ },
+ {
+  "fr": "familiariser",
+  "zh": "熟悉",
+  "rank": 519,
+  "present": []
+ },
+ {
+  "fr": "faucher",
+  "zh": "割",
+  "rank": 520,
+  "present": []
+ },
+ {
+  "fr": "favoriser",
+  "zh": "促进",
+  "rank": 521,
+  "present": []
+ },
+ {
+  "fr": "féliciter",
+  "zh": "祝贺",
+  "rank": 522,
+  "present": []
+ },
+ {
+  "fr": "fertiliser",
+  "zh": "施肥",
+  "rank": 523,
+  "present": []
+ },
+ {
+  "fr": "fiancer",
+  "zh": "订婚",
+  "rank": 524,
+  "present": []
+ },
+ {
+  "fr": "figer",
+  "zh": "凝",
+  "rank": 525,
+  "present": []
+ },
+ {
+  "fr": "filer",
+  "zh": "纺",
+  "rank": 526,
+  "present": []
+ },
+ {
+  "fr": "fixer",
+  "zh": "固定",
+  "rank": 527,
+  "present": []
+ },
+ {
+  "fr": "flairer",
+  "zh": "嗅",
+  "rank": 528,
+  "present": []
+ },
+ {
+  "fr": "flamber",
+  "zh": "烧",
+  "rank": 529,
+  "present": []
+ },
+ {
+  "fr": "flatter",
+  "zh": "奉承",
+  "rank": 530,
+  "present": []
+ },
+ {
+  "fr": "flotter",
+  "zh": "浮",
+  "rank": 531,
+  "present": []
+ },
+ {
+  "fr": "forcer",
+  "zh": "强迫",
+  "rank": 532,
+  "present": []
+ },
+ {
+  "fr": "former",
+  "zh": "形成",
+  "rank": 533,
+  "present": []
+ },
+ {
+  "fr": "fortifier",
+  "zh": "加固",
+  "rank": 534,
+  "present": []
+ },
+ {
+  "fr": "fouetter",
+  "zh": "鞭",
+  "rank": 535,
+  "present": []
+ },
+ {
+  "fr": "fouiller",
+  "zh": "挖",
+  "rank": 536,
+  "present": []
+ },
+ {
+  "fr": "frémir",
+  "zh": "战栗",
+  "rank": 537,
+  "present": []
+ },
+ {
+  "fr": "fréquenter",
+  "zh": "常去",
+  "rank": 538,
+  "present": []
+ },
+ {
+  "fr": "frire",
+  "zh": "煎",
+  "rank": 539,
+  "present": []
+ },
+ {
+  "fr": "friser",
+  "zh": "卷",
+  "rank": 540,
+  "present": []
+ }
+];
+/* =========================================================
+   法语学习平台 · 交互逻辑
+   ========================================================= */
+
+/* ---------------- 数据：动词变位（本地离线缓存，仅作兜底） ---------------- */
+const VERBS = {
+  "être": {
+    zh: "是 / 存在", group: "不规则动词",
+    tenses: {
+      "Présent 现在时": ["suis", "es", "est", "sommes", "êtes", "sont"],
+      "Imparfait 未完成过去时": ["étais", "étais", "était", "étions", "étiez", "étaient"],
+      "Futur 将来时": ["serai", "seras", "sera", "serons", "serez", "seront"],
+      "Passé composé 复合过去时": ["ai été", "as été", "a été", "avons été", "avez été", "ont été"]
+    }
+  },
+  "avoir": {
+    zh: "有", group: "不规则动词",
+    tenses: {
+      "Présent 现在时": ["ai", "as", "a", "avons", "avez", "ont"],
+      "Imparfait 未完成过去时": ["avais", "avais", "avait", "avions", "aviez", "avaient"],
+      "Futur 将来时": ["aurai", "auras", "aura", "aurons", "aurez", "auront"],
+      "Passé composé 复合过去时": ["ai eu", "as eu", "a eu", "avons eu", "avez eu", "ont eu"]
+    }
+  },
+  "faire": {
+    zh: "做 / 制造", group: "不规则动词",
+    tenses: {
+      "Présent 现在时": ["fais", "fais", "fait", "faisons", "faites", "font"],
+      "Imparfait 未完成过去时": ["faisais", "faisais", "faisait", "faisions", "faisiez", "faisaient"],
+      "Futur 将来时": ["ferai", "feras", "fera", "ferons", "ferez", "feront"],
+      "Passé composé 复合过去时": ["ai fait", "as fait", "a fait", "avons fait", "avez fait", "ont fait"]
+    }
+  },
+  "aller": {
+    zh: "去", group: "不规则动词",
+    tenses: {
+      "Présent 现在时": ["vais", "vas", "va", "allons", "allez", "vont"],
+      "Imparfait 未完成过去时": ["allais", "allais", "allait", "allions", "alliez", "allaient"],
+      "Futur 将来时": ["irai", "iras", "ira", "irons", "irez", "iront"],
+      "Passé composé 复合过去时": ["suis allé", "es allé", "est allé", "sommes allés", "êtes allés", "sont allés"]
+    }
+  },
+  "parler": {
+    zh: "说话", group: "第一组 · -er 规则",
+    tenses: {
+      "Présent 现在时": ["parle", "parles", "parle", "parlons", "parlez", "parlent"],
+      "Imparfait 未完成过去时": ["parlais", "parlais", "parlait", "parlions", "parliez", "parlaient"],
+      "Futur 将来时": ["parlerai", "parleras", "parlera", "parlerons", "parlerez", "parleront"],
+      "Passé composé 复合过去时": ["ai parlé", "as parlé", "a parlé", "avons parlé", "avez parlé", "ont parlé"]
+    }
+  },
+  "manger": {
+    zh: "吃", group: "第一组 · -er 规则（ge）",
+    tenses: {
+      "Présent 现在时": ["mange", "manges", "mange", "mangeons", "mangez", "mangent"],
+      "Imparfait 未完成过去时": ["mangeais", "mangeais", "mangeait", "mangions", "mangiez", "mangeaient"],
+      "Futur 将来时": ["mangerai", "mangeras", "mangera", "mangerons", "mangerez", "mangeront"],
+      "Passé composé 复合过去时": ["ai mangé", "as mangé", "a mangé", "avons mangé", "avez mangé", "ont mangé"]
+    }
+  },
+  "finir": {
+    zh: "完成", group: "第二组 · -ir 规则",
+    tenses: {
+      "Présent 现在时": ["finis", "finis", "finit", "finissons", "finissez", "finissent"],
+      "Imparfait 未完成过去时": ["finissais", "finissais", "finissait", "finissions", "finissiez", "finissaient"],
+      "Futur 将来时": ["finirai", "finiras", "finira", "finirons", "finirez", "finiront"],
+      "Passé composé 复合过去时": ["ai fini", "as fini", "a fini", "avons fini", "avez fini", "ont fini"]
+    }
+  },
+  "vendre": {
+    zh: "卖", group: "第三组 · -re 规则",
+    tenses: {
+      "Présent 现在时": ["vends", "vends", "vend", "vendons", "vendez", "vendent"],
+      "Imparfait 未完成过去时": ["vendais", "vendais", "vendait", "vendions", "vendiez", "vendaient"],
+      "Futur 将来时": ["vendrai", "vendras", "vendra", "vendrons", "vendrez", "vendront"],
+      "Passé composé 复合过去时": ["ai vendu", "as vendu", "a vendu", "avons vendu", "avez vendu", "ont vendu"]
+    }
+  },
+  "pouvoir": {
+    zh: "能够", group: "不规则动词",
+    tenses: {
+      "Présent 现在时": ["peux", "peux", "peut", "pouvons", "pouvez", "peuvent"],
+      "Imparfait 未完成过去时": ["pouvais", "pouvais", "pouvait", "pouvions", "pouviez", "pouvaient"],
+      "Futur 将来时": ["pourrai", "pourras", "pourra", "pourrons", "pourrez", "pourront"],
+      "Passé composé 复合过去时": ["ai pu", "as pu", "a pu", "avons pu", "avez pu", "ont pu"]
+    }
+  },
+  "prendre": {
+    zh: "拿 / 取", group: "不规则动词",
+    tenses: {
+      "Présent 现在时": ["prends", "prends", "prend", "prenons", "prenez", "prennent"],
+      "Imparfait 未完成过去时": ["prenais", "prenais", "prenait", "prenions", "preniez", "prenaient"],
+      "Futur 将来时": ["prendrai", "prendras", "prendra", "prendrons", "prendrez", "prendront"],
+      "Passé composé 复合过去时": ["ai pris", "as pris", "a pris", "avons pris", "avez pris", "ont pris"]
+    }
+  }
+};
+
+/* ---------------- 数据：词典 ---------------- */
+const DICTIONARY = [
+  { fr: "bonjour", phon: "/bɔ̃.ʒuʁ/", pos: "n.m.", zh: "你好；日安" },
+  { fr: "merci", phon: "/mɛʁ.si/", pos: "interj.", zh: "谢谢" },
+  { fr: "oui", phon: "/wi/", pos: "adv.", zh: "是，对" },
+  { fr: "non", phon: "/nɔ̃/", pos: "adv.", zh: "不，否" },
+  { fr: "chat", phon: "/ʃa/", pos: "n.m.", zh: "猫" },
+  { fr: "chien", phon: "/ʃjɛ̃/", pos: "n.m.", zh: "狗" },
+  { fr: "maison", phon: "/mɛ.zɔ̃/", pos: "n.f.", zh: "房子，家" },
+  { fr: "eau", phon: "/o/", pos: "n.f.", zh: "水" },
+  { fr: "pomme", phon: "/pɔm/", pos: "n.f.", zh: "苹果" },
+  { fr: "livre", phon: "/livʁ/", pos: "n.m.", zh: "书" },
+  { fr: "soleil", phon: "/sɔ.lɛj/", pos: "n.m.", zh: "太阳" },
+  { fr: "femme", phon: "/fam/", pos: "n.f.", zh: "女人；妻子" },
+  { fr: "homme", phon: "/ɔm/", pos: "n.m.", zh: "男人" },
+  { fr: "manger", phon: "/mɑ̃.ʒe/", pos: "v.", zh: "吃" },
+  { fr: "parler", phon: "/paʁ.le/", pos: "v.", zh: "说话" },
+  { fr: "aimer", phon: "/ɛ.me/", pos: "v.", zh: "爱；喜欢" },
+  { fr: "aller", phon: "/a.le/", pos: "v.", zh: "去" },
+  { fr: "venir", phon: "/və.niʁ/", pos: "v.", zh: "来" },
+  { fr: "grand", phon: "/ɡʁɑ̃/", pos: "adj.", zh: "大的；高的" },
+  { fr: "petit", phon: "/pə.ti/", pos: "adj.", zh: "小的" },
+  { fr: "beau", phon: "/bo/", pos: "adj.", zh: "美丽的" },
+  { fr: "rouge", phon: "/ʁuʒ/", pos: "adj.", zh: "红色的" },
+  { fr: "aujourd'hui", phon: "/o.ʒuʁ.dɥi/", pos: "adv.", zh: "今天" },
+  { fr: "demain", phon: "/də.mɛ̃/", pos: "adv.", zh: "明天" },
+  { fr: "France", phon: "/fʁɑ̃s/", pos: "n.f.", zh: "法国" },
+  { fr: "temps", phon: "/tɑ̃/", pos: "n.m.", zh: "时间；天气" },
+  { fr: "ami", phon: "/a.mi/", pos: "n.m.", zh: "朋友" },
+  { fr: "travail", phon: "/tʁa.vaj/", pos: "n.m.", zh: "工作" },
+  { fr: "école", phon: "/e.kɔl/", pos: "n.f.", zh: "学校" },
+  { fr: "ville", phon: "/vil/", pos: "n.f.", zh: "城市" }
+];
+
+/* ---------------- 数据：阅读材料 ---------------- */
+const READINGS = [
+  {
+    id: "r1", title: "Le chat et la lune", tag: "A1 · 童话",
+    fr: "Un petit chat noir regarde la lune. La lune est ronde et jaune. Le chat miaule doucement. Il est content.",
+    zh: "一只黑色的小猫望着月亮。月亮又圆又黄。小猫轻轻地喵喵叫。它很开心。"
+  },
+  {
+    id: "r2", title: "Ma maison", tag: "A1 · 日常",
+    fr: "J'habite une petite maison blanche. Il y a un jardin avec des fleurs rouges. Le matin, je bois du café et je lis un livre.",
+    zh: "我住在一栋白色的小房子里。有一个种着红花的花园。早上，我喝咖啡、读书。"
+  },
+  {
+    id: "r3", title: "Le weekend", tag: "A2 · 生活",
+    fr: "Le samedi, nous allons au parc avec des amis. Nous mangeons une pomme et nous parlons du travail. Le dimanche, je reste à la maison et je repose.",
+    zh: "周六，我们和朋友去公园。我们吃苹果、聊工作。周日，我待在家里休息。"
+  }
+];
+
+/* ---------------- 导航 ---------------- */
+const VIEWS = {
+  conjugation: { title: "动词变位区", sub: "Conjugaison · 掌握法语动词的人称变化" },
+  dictionary: { title: "词典与翻译", sub: "Dictionnaire · 法语 ↔ 中文速查" },
+  reading: { title: "阅视界", sub: "Lecture · 在短文中积累语感" },
+  shadow: { title: "影子跟读室", sub: "Shadowing · 听标准发音，跟读模仿" }
+};
+
+/* ---------------- 三层视图（A 入场 / B 轮盘 / C 功能区） ---------------- */
+const viewA = document.getElementById("view-A");
+const viewB = document.getElementById("view-B");
+const viewC = document.getElementById("view-C");
+const homeEnter = document.getElementById("home-enter");
+const backHome = document.getElementById("back-home");
+const brand = document.querySelector(".brand");
+const nav = document.getElementById("nav");
+const titleEl = document.getElementById("view-title");
+const subEl = document.getElementById("view-sub");
+const wheel = document.getElementById("wheel");
+const transition = document.getElementById("transition");
+const transitionText = document.getElementById("transition-text");
+
+const NAV_BASE = "nav-item flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium transition";
+const NAV_IDLE = "text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800";
+const NAV_ACTIVE = "bg-mg-accent/12 dark:bg-fin-accent/15 text-mg-accent dark:text-fin-accent";
+
+const LAYER_SHOW = { "view-A": "flex", "view-B": "flex", "view-C": "flex" };
+let currentLayer = "view-A";   // 初始仅显示 View A；B、C 默认 display:none
+let layerBusy = false;
+
+/* 0.4s 透明度淡入淡出：先淡出当前层 → display:none → 显示目标层并淡入（三层绝对隔离，互不重叠） */
+function setLayer(id) {
+  if (layerBusy || currentLayer === id) return;
+  layerBusy = true;
+  const from = document.getElementById(currentLayer);
+  const to = document.getElementById(id);
+  from.style.opacity = "0";
+  setTimeout(() => {
+    from.style.display = "none";
+    to.style.display = LAYER_SHOW[id];
+    to.style.opacity = "0";
+    void to.offsetWidth;                 // 触发重排以启动淡入
+    to.style.opacity = "1";
+    if (id === "view-B") { playWheelIn(); updateQuote(); }  // 轮盘弹出 + 刷新每日金句
+    currentLayer = id;
+    layerBusy = false;
+  }, 400);
+}
+
+/* A → B：封面平滑淡出，轮盘页平滑淡入 */
+function goToB() { setLayer("view-B"); }
+
+/* B → C：轮盘隐藏 → 招手小人过场(1.5s) → 功能区淡入并加载对应功能 */
+let transitionTimer = null;
+const TRANSITION_TEXT = {
+  conjugation: "正在进入动词变位空间…",
+  dictionary: "正在进入词典与翻译空间…",
+  reading: "正在进入阅视界…",
+  shadow: "正在进入影子跟读室…"
+};
+function playWheelIn() {
+  viewB.classList.remove("explore-in");
+  void viewB.offsetWidth;
+  viewB.classList.add("explore-in");
+  setTimeout(() => viewB.classList.remove("explore-in"), 1300);  // 动画结束移除，恢复正常 hover
+}
+function enterWithTransition(view) {
+  if (!VIEWS[view] || layerBusy) return;
+  layerBusy = true;
+  transitionText.textContent = TRANSITION_TEXT[view] || "正在进入…";
+  const fill = transition.querySelector(".transition-fill");
+  fill.style.animation = "none"; void fill.offsetWidth; fill.style.animation = "";  // 重启进度条
+  transition.classList.remove("hidden");
+  viewB.style.opacity = "0";                       // 先淡出轮盘页
+  setTimeout(() => { viewB.style.display = "none"; }, 400);
+  transitionTimer = setTimeout(() => {
+    transition.classList.add("hidden");
+    setFunction(view);                              // 仅切换 View C 内部的功能区块
+    viewC.style.display = "flex";
+    viewC.style.opacity = "0";
+    void viewC.offsetWidth;
+    viewC.style.opacity = "1";
+    currentLayer = "view-C";
+    layerBusy = false;
+  }, 1500);
+}
+
+/* C 内部：切换具体功能区（不切换层、无过场；侧边栏点击直接切换） */
+function setFunction(view) {
+  if (!VIEWS[view]) view = "conjugation";
+  document.querySelectorAll("#view-C .func-section").forEach(s =>
+    s.classList.toggle("hidden", s.id !== "view-" + view));
+  document.querySelectorAll(".nav-item").forEach(b =>
+    b.className = NAV_BASE + " " + (b.dataset.view === view ? NAV_ACTIVE : NAV_IDLE));
+  titleEl.textContent = VIEWS[view].title;
+  subEl.textContent = VIEWS[view].sub;
+  const main = document.querySelector("#view-C main");
+  if (main) main.scrollTop = 0;
+}
+
+/* 事件绑定 */
+homeEnter.addEventListener("click", goToB);
+nav.addEventListener("click", e => {
+  const btn = e.target.closest(".nav-item");
+  if (btn) setFunction(btn.dataset.view);    // 侧边栏直接切换功能区，无过场
+});
+
+/* 轮盘图标顺序：上=动词变位(Tag) 右=影子跟读(麦克风) 下=词典 左=阅读 */
+const HOME_CARDS = [
+  { view: "conjugation", title: "动词变位区", sub: "掌握法语动词在各语式、各时态下的人称变化。",
+    icon: '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h5l8 8-7 7-8-8V7z"/><path d="M9 9h.01"/><path d="M14 14l4 4"/></svg>' },
+  { view: "shadow", title: "影子跟读室", sub: "听标准法语发音，跟读模仿，打磨口语。",
+    icon: '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M19 9a3 3 0 0 1 0 6M5 9a3 3 0 0 0 0 6"/><path d="M12 18v3"/></svg>' },
+  { view: "dictionary", title: "词典与翻译", sub: "法语 ↔ 中文，随时查词、看音标与词性。",
+    icon: '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h7v18H6a2 2 0 0 1-2-2V5z"/><path d="M13 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"/><path d="M8 8h3M8 12h3"/></svg>' },
+  { view: "reading", title: "阅视界", sub: "在分级短文中积累语感，左法右中对照阅读。",
+    icon: '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h7a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H3z"/><path d="M21 5h-7a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h7z"/></svg>' }
+];
+
+function renderWheel() {
+  // 错落环绕：四个圆盘以 absolute 定位散布在中心印章四周，打破十字对称
+  const WHEEL_POS = {
+    conjugation: { top: "15%", left: "35%" },  // 左上
+    shadow:      { top: "38%", left: "83%" },  // 右中
+    dictionary:  { top: "78%", left: "58%" },  // 右下（稍外移，避免贴近中心印章）
+    reading:     { top: "62%", left: "16%" }   // 左下
+  };
+  const nodes = HOME_CARDS.map(c => {
+    const p = WHEEL_POS[c.view];
+    return `
+    <div class="wheel-node" style="top:${p.top}; left:${p.left};">
+      <button class="wheel-btn wb-${c.view}" data-view="${c.view}" aria-label="${c.title}" type="button">
+        <span class="wb-icon">${c.icon}</span>
+        <span class="wb-label"><span class="wb-title">${c.title}</span></span>
+      </button>
+    </div>`;
+  }).join("");
+  wheel.innerHTML = nodes + `<div class="wheel-center">Fr</div>`;
+  wheel.querySelectorAll(".wheel-btn").forEach(b => {
+    b.onclick = () => enterWithTransition(b.dataset.view);   // 走「过场 → 功能区」
+  });
+}
+
+backHome.addEventListener("click", goToB);   // 返回键 → 回到轮盘导航页 View B（不回封面 View A）
+if (brand) brand.addEventListener("click", goToB);
+
+/* ---------------- 日夜主题切换（Tailwind dark 模式） ---------------- */
+const themeToggle = document.getElementById("theme-toggle");
+function applyTheme(dark) {
+  document.documentElement.classList.toggle("dark", dark);
+  themeToggle.textContent = dark ? "☀️" : "🌙";
+  try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+}
+function initTheme() {
+  let dark = false;
+  try {
+    const t = localStorage.getItem("theme");
+    dark = t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch (e) {}
+  applyTheme(dark);
+}
+themeToggle.addEventListener("click", () =>
+  applyTheme(!document.documentElement.classList.contains("dark")));
+
+/* ---------------- 动词变位区（实时联网） ---------------- */
+const PRONOUNS = ["je", "tu", "il / elle", "nous", "vous", "ils / elles"];
+const MODE_ZH = {
+  Indicatif: "直陈式", Subjonctif: "虚拟式", Conditionnel: "条件式",
+  Impératif: "命令式", Participe: "分词", Infinitif: "不定式", Gérondif: "副动词"
+};
+
+const verbInput = document.getElementById("verb-input");
+const verbLookup = document.getElementById("verb-lookup");
+const verbChips = document.getElementById("verb-chips");
+const conjCard = document.getElementById("conjugation-card");
+const formBanner = document.getElementById("form-banner");
+const formBannerText = document.getElementById("form-banner-text");
+let currentMarkdown = "";
+let hasResult = false;        // 当前是否已展示查询结果（控制快捷按钮显隐）
+
+/* ---- 搜索框下拉联想：本地高频库优先 + 联网兜底（混合方案） ---- */
+const verbSuggest = document.getElementById("verb-suggest");
+let localDict = null;        // 本地高频库：[{fr, zh, rank, present}]
+let dictLoaded = false;
+let dictLoading = false;
+let debounceTimer = null;    // 防抖定时器
+let suggestAbort = null;     // 当前联网请求的 AbortController
+let suggestSeq = 0;          // 请求序列号（竞态防护）
+
+async function loadDict() {
+  if (dictLoaded || dictLoading) return;
+  dictLoading = true;
+  try {
+    const r = await fetch("french_dict.json");
+    localDict = await r.json();
+  } catch (e) {
+    localDict = window.__FRENCH_DICT__ || [];
+  } finally {
+    dictLoaded = true;
+    dictLoading = false;
+    if (verbInput.value.trim()) onVerbInput();  // 若已输入则重新联想
+  }
+}
+
+function localMatches(prefix) {
+  if (!localDict) return [];
+  prefix = prefix.toLowerCase();
+  return localDict.filter(d => d.fr.toLowerCase().startsWith(prefix));
+}
+
+function hideSuggest() {
+  verbSuggest.classList.add("hidden");
+  verbSuggest.innerHTML = "";
+}
+
+function renderSuggestions(localItems, netItems, opts) {
+  const val = verbInput.value.trim();
+  if (!val) { hideSuggest(); return; }
+  let merged = localItems.concat(netItems || []);
+  const seen = new Set();
+  merged = merged.filter(it => { if (seen.has(it.fr)) return false; seen.add(it.fr); return true; });
+  merged = merged.slice(0, 12);
+  let html = "";
+  if (opts && opts.loading) {
+    html += '<div class="flex items-center gap-2 px-4 py-3 text-sm text-mg-400 dark:text-fin-500">' +
+      '<span class="inline-block w-4 h-4 border-2 border-mg-300 dark:border-fin-500 border-t-transparent rounded-full animate-spin"></span>' +
+      '正在联网搜索…</div>';
+  }
+  if (opts && opts.error) {
+    html += '<div class="px-4 py-3 text-sm text-mg-400 dark:text-fin-500">' + opts.error + '</div>';
+  }
+  merged.forEach(it => {
+    const cloud = it.source === "net"
+      ? '<span class="ml-2 text-xs text-mg-400 dark:text-fin-500" title="来自联网补充">☁</span>' : "";
+    const zh = it.zh ? '<span class="text-xs text-mg-400 dark:text-fin-500 ml-2">' + escapeHtml(it.zh) + '</span>' : "";
+    html += '<button type="button" data-word="' + escapeHtml(it.fr) + '" class="suggest-item w-full text-left flex items-center justify-between px-4 py-2.5 hover:bg-mg-200 dark:hover:bg-fin-800 transition text-mg-800 dark:text-fin-100">' +
+      '<span class="font-medium">' + escapeHtml(it.fr) + zh + '</span>' + cloud + '</button>';
+  });
+  if (!html) {
+    // 没有任何候选结果时直接隐藏下拉，不再展示「未找到…」提示
+    hideSuggest();
+    return;
+  }
+  verbSuggest.innerHTML = html;
+  verbSuggest.classList.remove("hidden");
+  verbSuggest.querySelectorAll(".suggest-item").forEach(btn => {
+    btn.addEventListener("mousedown", e => {   // mousedown 防止 input blur 抢先关闭
+      e.preventDefault();
+      selectSuggestion(btn.dataset.word);
+    });
+  });
+}
+
+function selectSuggestion(word) {
+  verbInput.value = word;
+  hideSuggest();
+  lookupVerb(word);
+}
+
+function onVerbInput() {
+  const val = verbInput.value.trim();
+  updateChips();                // 开始输入即隐藏快捷按钮（空且无结果才显示）
+  if (!val) { hideSuggest(); return; }
+  if (!dictLoaded) {
+    // 词库尚未加载完：先提示，loadDict 完成后会再触发
+    verbSuggest.innerHTML = '<div class="px-4 py-3 text-sm text-mg-400 dark:text-fin-500">正在加载词库…</div>';
+    verbSuggest.classList.remove("hidden");
+    loadDict();
+    return;
+  }
+  const localItems = localMatches(val).map(d => ({ fr: d.fr, zh: d.zh, source: "local" }));
+  if (localItems.length >= 3) {
+    // 本地足够（>=3）→ 直接渲染，绝不发网络请求
+    if (suggestAbort) { suggestAbort.abort(); suggestAbort = null; }
+    if (debounceTimer) clearTimeout(debounceTimer);
+    renderSuggestions(localItems, [], {});
+    return;
+  }
+  // 本地不足 3 个 → 防抖 500ms 后联网兜底
+  renderSuggestions(localItems, [], { loading: true });
+  if (debounceTimer) clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(async () => {
+    const mySeq = ++suggestSeq;
+    if (suggestAbort) suggestAbort.abort();
+    const ac = new AbortController();
+    suggestAbort = ac;
+    try {
+      const r = await fetch("/api/suggest?prefix=" + encodeURIComponent(val), { signal: ac.signal });
+      const data = await r.json();
+      if (mySeq !== suggestSeq) return;  // 竞态防护：已有更新的请求
+      const net = (data.verbs || []).map(v => ({ fr: v, zh: "", source: "net" }));
+      renderSuggestions(localItems, net, {});
+    } catch (err) {
+      if (err.name === "AbortError") return;
+      if (mySeq !== suggestSeq) return;
+      renderSuggestions(localItems, [], { error: "联网搜索失败，请重试" });
+    }
+  }, 500);
+}
+
+verbInput.addEventListener("input", onVerbInput);
+verbInput.addEventListener("blur", () => setTimeout(hideSuggest, 150));
+verbInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") { hideSuggest(); lookupVerb(); }
+});
+verbLookup.addEventListener("click", () => { hideSuggest(); lookupVerb(); });
+loadDict();
+
+// 常用动词快捷入口（点击即联网查询；本地仅作离线兜底）
+const POPULAR = ["être", "avoir", "faire", "aller", "parler", "manger", "finir", "vendre", "pouvoir", "prendre"];
+
+function renderVerbChips() {
+  verbChips.innerHTML = "";
+  POPULAR.forEach(v => {
+    const c = document.createElement("button");
+    c.className = "rounded-full border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-900 text-sm text-mg-500 dark:text-fin-400 px-3 py-1.5 hover:border-mg-accent dark:hover:border-fin-accent hover:text-mg-accent dark:hover:text-fin-accent transition";
+    c.textContent = v;
+    c.onclick = () => { verbInput.value = v; lookupVerb(v); };
+    verbChips.appendChild(c);
+  });
+}
+
+// 常用动词快捷按钮：仅当用户未输入任何内容 且 当前没有查询结果时才显示
+function updateChips() {
+  const empty = verbInput.value.trim() === "";
+  if (empty && !hasResult) verbChips.classList.remove("hidden");
+  else verbChips.classList.add("hidden");
+}
+
+function buildMarkdown(data) {
+  const L = ["je", "tu", "il / elle", "nous", "vous", "ils / elles"];
+  let md = "";
+  if (data.is_form) {
+    md += `**【识别提示】您输入的 ${data.verb} 是原形动词 ${data.infinitive} 在 ${data.detected_tense} 下，针对人称 ${data.detected_person} 的变位。**\n\n`;
+  }
+  md += `## ${data.canonical} · 法语动词变位（leconjugueur.lefigaro.fr）\n\n`;
+  for (const m of data.modes) {
+    md += `### ${m.mode} · ${MODE_ZH[m.mode] || ""}\n\n`;
+    for (const t of m.tenses) {
+      md += `**${t.name}**\n\n| 人称 | 变位 |\n| --- | --- |\n`;
+      L.forEach((p, i) => { md += `| ${p} | ${t.forms[i]} |\n`; });
+      md += `\n`;
+    }
+  }
+  if (data.other && data.other.length) {
+    md += `### 其他形式\n\n`;
+    for (const o of data.other) {
+      md += `**${o.mode} · ${MODE_ZH[o.mode] || ""}**：${o.forms.join(" / ")}\n\n`;
+    }
+  }
+  return md;
+}
+
+function renderWeb(data) {
+  let html = `
+    <div class="flex items-baseline gap-3 flex-wrap mb-1">
+      <span class="text-3xl font-serif italic">${data.canonical}</span>
+      <span class="text-xs text-mg-400 dark:text-fin-500">实时联网 · leconjugueur.lefigaro.fr</span>
+    </div>`;
+  for (const m of data.modes) {
+    html += `<div class="mt-6"><h3 class="tense-head inline-block text-base font-bold rounded-lg px-3 py-1.5 mb-3">${m.mode} · ${MODE_ZH[m.mode] || ""}</h3>`;
+    for (const t of m.tenses) {
+      html += `<div class="mb-4"><div class="text-sm font-bold uppercase tracking-wide text-mg-700 dark:text-fin-200 mb-1.5 pb-1.5 border-b border-dashed border-mg-200 dark:border-fin-800">${t.name}</div>`;
+      t.forms.forEach((f, i) => {
+        html += `<div class="grid grid-cols-[120px_1fr] items-center py-1.5 even:bg-mg-200/40 dark:even:bg-fin-800/40 rounded">
+          <span class="text-sm font-bold text-mg-700 dark:text-fin-200">${PRONOUNS[i]}</span>
+          <span class="font-serif text-lg">${f}</span></div>`;
+      });
+      html += `</div>`;
+    }
+    html += `</div>`;
+  }
+  if (data.other && data.other.length) {
+    html += `<div class="mt-6"><h3 class="tense-head inline-block text-base font-bold rounded-lg px-3 py-1.5 mb-3">其他形式</h3>`;
+    for (const o of data.other) {
+      html += `<div class="text-xs font-semibold text-mg-400 dark:text-fin-500 mb-1">${o.mode} · ${MODE_ZH[o.mode] || ""}</div>
+        <div class="text-sm text-mg-500 dark:text-fin-400 mb-3">${o.forms.join(" / ")}</div>`;
+    }
+    html += `</div>`;
+  }
+  html += `<div class="mt-6"><button id="copy-md" class="rounded-xl text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 text-sm font-medium px-4 py-2.5 transition">📋 复制为 Markdown</button></div>`;
+  conjCard.innerHTML = html;
+  currentMarkdown = buildMarkdown(data);
+  const copyBtn = document.getElementById("copy-md");
+  if (copyBtn) copyBtn.onclick = () => copyText(currentMarkdown);
+}
+
+function renderLocal(verb) {
+  const data = VERBS[verb.toLowerCase()];
+  if (!data) return false;
+  let html = `
+    <div class="flex items-baseline gap-3 flex-wrap mb-1">
+      <span class="text-3xl font-serif italic">${verb}</span>
+      <span class="text-xs text-mg-400 dark:text-fin-500">${data.group} · 离线缓存</span>
+    </div>
+    <div class="text-sm text-mg-accent dark:text-fin-accent mb-5">${data.zh}</div>`;
+  for (const [tense, forms] of Object.entries(data.tenses)) {
+    html += `<div class="mb-5"><div class="text-sm font-bold uppercase tracking-wide text-mg-700 dark:text-fin-200 mb-2 pb-2 border-b border-dashed border-mg-200 dark:border-fin-800">${tense}</div><div class="conj-grid">`;
+    forms.forEach((f, i) => {
+      html += `<div class="conj-card c${i}"><span class="conj-pro">${PRONOUNS[i]}</span><span class="conj-form">${f}</span></div>`;
+    });
+    html += `</div></div>`;
+  }
+  conjCard.innerHTML = html;
+  return true;
+}
+
+function showError(msg) {
+  conjCard.innerHTML = `<div class="text-center text-mg-400 dark:text-fin-500 py-8">${msg}</div>`;
+}
+
+async function lookupVerb(verb) {
+  verb = (verb || verbInput.value).trim();
+  if (!verb) { showError("请输入一个法语动词。"); return; }
+  hasResult = false; updateChips();
+  conjCard.innerHTML = `<p class="text-mg-500 dark:text-fin-400 text-sm">正在联网查询「${escapeHtml(verb)}」的变位…</p>`;
+  try {
+    const res = await fetch("/api/conjugate?verb=" + encodeURIComponent(verb));
+    const data = await res.json();
+    if (data.found) {
+      // 若输入是某个变位形式（非原形），用横幅醒目展示识别结果
+      if (data.is_form) {
+        formBannerText.textContent =
+          `【识别提示】您输入的 ${data.verb} 是原形动词 ${data.infinitive} 在 ${data.detected_tense} 下，针对人称 ${data.detected_person} 的变位。`;
+        formBanner.classList.remove("hidden");
+      } else {
+        formBanner.classList.add("hidden");
+      }
+      renderWeb(data);
+      hasResult = true; updateChips();
+    } else {
+      // 非动词 / 拼写错误：严格按规则提示，绝不编造
+      formBanner.classList.add("hidden");
+      showError(data.message || "这不是一个法语动词");
+    }
+  } catch (e) {
+    // 网络失败 → 尝试本地缓存兜底（离线无法做变位形式反查，隐藏横幅）
+    formBanner.classList.add("hidden");
+    if (!renderLocal(verb)) {
+      showError("联网查询失败，且本地无「" + escapeHtml(verb) + "」的离线缓存。请检查网络后重试。");
+    } else {
+      hasResult = true; updateChips();
+    }
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function copyText(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(
+      () => flash("已复制 Markdown 到剪贴板"),
+      () => fallbackCopy(text));
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); flash("已复制 Markdown 到剪贴板"); }
+  catch (e) { flash("复制失败，请手动选择"); }
+  document.body.removeChild(ta);
+}
+let flashTimer = null;
+function flash(msg) {
+  let el = document.getElementById("flash");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "flash"; el.className = "flash";
+    document.body.appendChild(el);
+  }
+  el.textContent = msg; el.classList.add("show");
+  clearTimeout(flashTimer);
+  flashTimer = setTimeout(() => el.classList.remove("show"), 1800);
+}
+
+verbLookup.addEventListener("click", () => lookupVerb());
+verbInput.addEventListener("keydown", e => { if (e.key === "Enter") lookupVerb(); });
+
+/* ---------------- 词典与翻译（AI 大模型） ---------------- */
+const dictSearch = document.getElementById("dict-search");
+const dictGo = document.getElementById("dict-go");
+const dictResult = document.getElementById("dict-result");
+const dictCorrection = document.getElementById("dict-correction");
+const dictModeHint = document.getElementById("dict-mode-hint");
+const dictModel = document.getElementById("dict-model");
+const dictDrawer = document.getElementById("dict-drawer");
+const dictDrawerBody = document.getElementById("dict-drawer-body");
+const dictDrawerClose = document.getElementById("dict-drawer-close");
+const dictDrawerBackdrop = document.getElementById("dict-drawer-backdrop");
+const toastEl = document.getElementById("toast");
+
+let toastTimer = null;
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.remove("hidden");
+  requestAnimationFrame(() => toastEl.classList.add("show"));
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toastEl.classList.remove("show");
+    toastTimer = setTimeout(() => toastEl.classList.add("hidden"), 300);
+  }, 2200);
+}
+
+/* 前端模式判断（与后端一致）：无中间空格 => 单词；含空格或句末标点 => 句子 */
+function detectMode(q) {
+  q = (q || "").trim();
+  if (!q) return "word";
+  if (/\s/.test(q)) return "sentence";
+  if (/[.!?…]$/.test(q)) return "sentence";
+  return "word";
+}
+
+/* 极简、安全的 Markdown 渲染（仅处理本项目用到的子集，先把文本转义再补回标签，杜绝注入） */
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function inlineMd(s) {
+  return s
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/`(.+?)`/g, "<code>$1</code>");
+}
+function renderMarkdown(md) {
+  const lines = escapeHtml(md).split("\n");
+  let html = "", inUl = false, inOl = false;
+  const closeLists = () => {
+    if (inUl) { html += "</ul>"; inUl = false; }
+    if (inOl) { html += "</ol>"; inOl = false; }
+  };
+  for (let raw of lines) {
+    const line = raw.replace(/\s+$/, "");
+    if (!line.trim()) { closeLists(); continue; }
+    let m;
+    if ((m = line.match(/^###\s+(.*)$/))) { closeLists(); html += `<h4>${m[1]}</h4>`; }
+    else if ((m = line.match(/^##\s+(.*)$/))) { closeLists(); html += `<h3>${m[1]}</h3>`; }
+    else if ((m = line.match(/^#\s+(.*)$/))) { closeLists(); html += `<h3>${m[1]}</h3>`; }
+    else if ((m = line.match(/^\s*[-*]\s+(.*)$/))) {
+      if (!inUl) { closeLists(); html += "<ul>"; inUl = true; }
+      html += `<li>${inlineMd(m[1])}</li>`;
+    }
+    else if ((m = line.match(/^\s*\d+\.\s+(.*)$/))) {
+      if (!inOl) { closeLists(); html += "<ol>"; inOl = true; }
+      html += `<li>${inlineMd(m[1])}</li>`;
+    }
+    else if ((m = line.match(/^>\s?(.*)$/))) { closeLists(); html += `<blockquote>${inlineMd(m[1])}</blockquote>`; }
+    else { closeLists(); html += `<p>${inlineMd(line)}</p>`; }
+  }
+  closeLists();
+  return html;
+}
+
+/* 句子分词：按空格拆分；单词（含省音 j'ai / l'heure）包成可点击 span；标点不包裹 */
+function tokenizeSentence(sentence) {
+  const re = /(\s+)|([\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*)|([^\s\p{L}\p{M}]+)/gu;
+  let out = "", m;
+  while ((m = re.exec(sentence)) !== null) {
+    if (m[1]) out += m[1];
+    else if (m[2]) {
+      const w = escapeHtml(m[2]);
+      out += `<span class="clickable-word" data-word="${w.replace(/"/g, "&quot;")}" title="点击查询该词">${w}</span>`;
+    } else {
+      out += escapeHtml(m[3]);
+    }
+  }
+  return out;
+}
+
+async function doDict(q, opts = {}) {
+  q = (q || "").trim();
+  const drawer = !!opts.drawer;
+  if (!q) { showToast("请输入要查询的内容"); return; }
+
+  const mode = detectMode(q);
+  if (dictModeHint && !drawer) {
+    dictModeHint.textContent = mode === "word" ? "已识别：单词模式" : "已识别：句子模式";
+  }
+
+  const target = drawer ? dictDrawerBody : dictResult;
+  if (!drawer) {
+    dictCorrection.classList.add("hidden");
+    dictResult.innerHTML = `<div class="dict-loading">正在向大模型请求…</div>`;
+  } else {
+    dictDrawerBody.innerHTML = `<div class="dict-loading">正在查询该词…</div>`;
+  }
+
+  let res;
+  try {
+    const r = await fetch("/api/dict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ q, mode }),
+    });
+    res = await r.json();
+  } catch (e) {
+    target.innerHTML = `<div class="dict-error">网络请求失败，请确认本地服务（server.py）已启动且能访问。</div>`;
+    return;
+  }
+
+  if (!res.ok) {
+    if (res.reason === "no_key") target.innerHTML = noKeyCard(mode);
+    else if (res.reason === "llm_error") {
+      const msg = (res.message || "").replace(/</g, "");
+      const congested = /429|1305|访问量过大|Too Many|rate limit|rate_limit/i.test(msg);
+      target.innerHTML = congested
+        ? `<div class="dict-error">
+             <strong>模型当前访问量过大（429）</strong><br>
+             服务商（智谱）正在限流，这是临时性的——请稍等几秒后重试。<br>
+             若反复出现，可把模型换成更稳定的 <code>glm-4-flash</code> 或 <code>glm-4-plus</code>：
+             重跑 <code>set_llm_key.ps1</code> 时修改 Model 即可。
+           </div>`
+        : `<div class="dict-error">大模型调用出错：${msg}</div>`;
+    }
+    else target.innerHTML = `<div class="dict-error">查询失败，请稍后再试。</div>`;
+    return;
+  }
+  renderDictResult(res, target, drawer);
+}
+
+function correctionHTML(text) {
+  const m = String(text).match(/^【(.+?)】\s*(.*)$/s);
+  const tag = m ? m[1] : "提示";
+  const body = m ? m[2] : text;
+  return `<span class="dc-ico" aria-hidden="true">✦</span>` +
+         `<span class="dc-tag">${escapeHtml(tag)}</span>` +
+         `<span class="dc-body">${escapeHtml(body)}</span>`;
+}
+
+function renderDictResult(res, target, drawer) {
+  if (res.correction) {
+    if (drawer) {
+      target.innerHTML = `<div class="dict-correction dict-correction-inline">${correctionHTML(res.correction)}</div>`;
+    } else {
+      dictCorrection.innerHTML = correctionHTML(res.correction);
+      dictCorrection.classList.remove("hidden");
+    }
+  } else if (!drawer) {
+    dictCorrection.classList.add("hidden");
+  }
+  let body = "";
+  if (res.mode === "sentence") {
+    body += `<div class="sentence-tokens">${tokenizeSentence(res.q)}</div>`;
+  }
+  body += `<div class="dict-md">${renderMarkdown(res.content || "")}</div>`;
+  if (drawer) target.innerHTML += body;
+  else target.innerHTML = body;
+  if (!drawer) bindSentenceClicks(dictResult);
+}
+
+function bindSentenceClicks(container) {
+  container.querySelectorAll(".clickable-word").forEach(el => {
+    el.addEventListener("click", () => {
+      const w = (el.getAttribute("data-word") || "").trim();
+      if (!w) return;
+      dictSearch.value = w;            // 回填搜索框
+      openDrawer();
+      doDict(w, { drawer: true });     // 即时单词查询，不刷新页面
+    });
+  });
+}
+
+function noKeyCard(mode) {
+  return `<div class="dict-setup">
+    <h3>尚未接入 AI 大模型</h3>
+    <p>「词典与翻译」由大模型驱动。请在启动本地服务时配置以下环境变量（支持 OpenAI / DeepSeek / Moonshot / 通义千问 等任意 OpenAI 兼容接口）：</p>
+    <pre>LLM_API_KEY="你的Key"<br>LLM_BASE_URL="https://api.openai.com/v1"   # 可选<br>LLM_MODEL="gpt-4o-mini"               # 可选</pre>
+    <p class="dict-setup-tip">配置后重启 <code>server.py</code> 即可获得带纠错的 AI 词典与整句翻译。</p>
+  </div>`;
+}
+
+/* 抽屉开关 */
+function openDrawer() {
+  dictDrawerBackdrop.classList.remove("hidden");
+  dictDrawer.classList.add("open");
+  dictDrawer.setAttribute("aria-hidden", "false");
+}
+function closeDrawer() {
+  dictDrawer.classList.remove("open");
+  dictDrawer.setAttribute("aria-hidden", "true");
+  setTimeout(() => dictDrawerBackdrop.classList.add("hidden"), 300);
+}
+dictDrawerClose.addEventListener("click", closeDrawer);
+dictDrawerBackdrop.addEventListener("click", closeDrawer);
+
+/* 触发查询：按钮 + 回车 */
+dictGo.addEventListener("click", () => doDict(dictSearch.value));
+dictSearch.addEventListener("keydown", e => { if (e.key === "Enter") doDict(dictSearch.value); });
+
+/* 模型切换：在页面内直接换模型，无需重跑脚本或重启服务（写入本地隐藏密钥文件，服务端每次请求实时读取） */
+function refreshModelSelect() {
+  if (!dictModel) return;
+  fetch("/api/model").then(r => r.json()).then(d => {
+    if (d && d.model) {
+      // 若当前模型不在预设列表里，临时补一个选项避免显示空白
+      let opt = Array.from(dictModel.options).find(o => o.value === d.model);
+      if (!opt) {
+        opt = document.createElement("option");
+        opt.value = d.model; opt.textContent = d.model;
+        dictModel.appendChild(opt);
+      }
+      dictModel.value = d.model;
+    }
+  }).catch(() => {});
+}
+if (dictModel) {
+  dictModel.addEventListener("change", () => {
+    const model = dictModel.value;
+    dictModel.disabled = true;
+    fetch("/api/setmodel", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model }),
+    }).then(r => r.json()).then(d => {
+      if (d && d.ok) showToast("已切换模型：" + model + "（即时生效）");
+      else showToast("模型切换失败，请检查本地密钥文件");
+    }).catch(() => showToast("切换失败：无法连接本地服务")).finally(() => {
+      dictModel.disabled = false;
+    });
+  });
+}
+
+/* 进入词典功能区时，同步一次当前模型到下拉框 */
+const _setFunction = setFunction;
+setFunction = function (view) {
+  _setFunction(view);
+  if (view === "dictionary") refreshModelSelect();
+};
+
+/* ---------------- 阅视界 ---------------- */
+const readingList = document.getElementById("reading-list");
+const readingDetail = document.getElementById("reading-detail");
+
+function renderReadingList() {
+  readingDetail.classList.add("hidden");
+  readingList.classList.remove("hidden");
+  readingList.innerHTML = READINGS.map(r => `
+    <div class="reading-card rounded-2xl bg-mg-100 dark:bg-fin-900 border border-mg-200 dark:border-fin-800 shadow-sm p-5 cursor-pointer transition-all duration-200 hover:-translate-y-[3px] hover:shadow-lg" data-id="${r.id}">
+      <span class="inline-block text-xs text-mg-accent dark:text-fin-accent bg-mg-accent/12 dark:bg-fin-accent/15 rounded-md px-2 py-0.5">${r.tag}</span>
+      <h3 class="text-base font-semibold mt-2">${r.title}</h3>
+      <p class="text-[13px] text-mg-500 dark:text-fin-400 leading-relaxed mt-2">${r.fr.slice(0, 60)}…</p>
+    </div>`).join("");
+  readingList.querySelectorAll(".reading-card").forEach(card => {
+    card.onclick = () => showReading(card.dataset.id);
+  });
+}
+
+function showReading(id) {
+  const r = READINGS.find(x => x.id === id);
+  if (!r) return;
+  readingList.classList.add("hidden");
+  readingDetail.classList.remove("hidden");
+  readingDetail.innerHTML = `
+    <button class="rounded-xl text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 text-sm font-medium px-4 py-2.5 transition mb-4">← 返回列表</button>
+    <h2 class="text-xl font-bold">${r.title}</h2>
+    <div class="text-xs text-mg-400 dark:text-fin-500 mb-4">${r.tag}</div>
+    <div class="font-serif text-lg leading-relaxed">${r.fr}</div>
+    <div class="text-sm text-mg-500 dark:text-fin-400 leading-relaxed mt-2">${r.zh}</div>`;
+  readingDetail.querySelector("button").onclick = renderReadingList;
+}
+
+/* ---------------- 影子跟读室 ---------------- */
+const shadowText = document.getElementById("shadow-text");
+const shadowPlay = document.getElementById("shadow-play");
+const shadowStop = document.getElementById("shadow-stop");
+const shadowRate = document.getElementById("shadow-rate");
+const shadowRateVal = document.getElementById("shadow-rate-val");
+const shadowStatus = document.getElementById("shadow-status");
+const shadowSample = document.getElementById("shadow-sample");
+
+const SAMPLES = [
+  "Bonjour, comment allez-vous aujourd'hui ?",
+  "Je m'appelle Marie et j'habite à Paris.",
+  "Le chat noir mange une pomme rouge dans le jardin."
+];
+
+shadowRate.addEventListener("input", () =>
+  shadowRateVal.textContent = shadowRate.value + "×");
+
+shadowSample.addEventListener("click", () => {
+  const pick = SAMPLES[Math.floor(Math.random() * SAMPLES.length)];
+  shadowText.value = pick;
+});
+
+shadowPlay.addEventListener("click", () => {
+  const text = shadowText.value.trim();
+  if (!text) { shadowStatus.textContent = "请先输入要跟读的句子。"; return; }
+  if (!("speechSynthesis" in window)) {
+    shadowStatus.textContent = "当前浏览器不支持语音合成，建议使用 Chrome / Edge。";
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "fr-FR";
+  u.rate = parseFloat(shadowRate.value);
+  // 优先选择法语语音
+  const voices = window.speechSynthesis.getVoices();
+  const fr = voices.find(v => /fr/i.test(v.lang));
+  if (fr) u.voice = fr;
+  u.onstart = () => shadowStatus.textContent = "🔊 正在朗读，请准备跟读…";
+  u.onend = () => shadowStatus.textContent = "朗读结束，现在轮到你了！";
+  window.speechSynthesis.speak(u);
+});
+
+shadowStop.addEventListener("click", () => {
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  shadowStatus.textContent = "";
+});
+
+// 某些浏览器需要触发一次 voices 加载
+if ("speechSynthesis" in window) window.speechSynthesis.getVoices();
+
+/* ---------------- 初始化 ---------------- */
+/* ---------------- 每日随机金句（法语名言 / 谚语 / 金融 · 学习短句） ---------------- */
+const frenchQuotes = [
+  { fr: "Petit à petit, l’oiseau fait son nid.", cn: "不积跬步，无以至千里——每天进步一点点。" },
+  { fr: "Le temps, c’est de l’argent.", cn: "时间就是金钱，惜时即惜财。" },
+  { fr: "Qui veut la fin veut les moyens.", cn: "既已立志于终点，便须筹谋其路径。" },
+  { fr: "L’habitude est une seconde nature.", cn: "习惯，是人的第二天性。" },
+  { fr: "La patience est l’art d’espérer.", cn: "耐心，是一门关于希望的艺术。" },
+  { fr: "On ne fait rien de grand sans beaucoup de patience.", cn: "没有极大的耐心，便成就不了伟大的事。" },
+  { fr: "Chaque jour compte.", cn: "日拱一卒，每一天都算数。" },
+  { fr: "Le savoir est la seule richesse que l’on ne peut voler.", cn: "知识是唯一无法被人夺走的财富。" },
+  { fr: "Le meilleur investissement est en soi-même.", cn: "最稳妥的投资，是投资自己。" },
+  { fr: "Il n’est jamais trop tard pour apprendre.", cn: "学习这件事，永远不嫌太晚。" },
+  { fr: "La persévérance finit par vaincre.", cn: "坚持不懈，终将所向披靡。" },
+  { fr: "Qui cherche trouve.", cn: "心有所求，行有所获——找的人总会找到。" },
+  { fr: "Le talent sans le travail n’est rien.", cn: "没有日复一日的打磨，天赋便一文不值。" },
+  { fr: "Mieux vaut tard que jamais.", cn: "迟做，总好过永远不做。" },
+  { fr: "La fortune sourit aux audacieux.", cn: "命运，眷顾勇敢而下注的人。" },
+  { fr: "Vouloir, c’est pouvoir.", cn: "心之所向，力之所及——有志者事竟成。" },
+  { fr: "L’argent ne fait pas le bonheur.", cn: "金钱买不到幸福，知足方得安宁。" },
+  { fr: "Apprendre, c’est réapprendre à voir.", cn: "学习，就是重新学会用双眼去看世界。" },
+  { fr: "Le temps perdu ne se rattrape jamais.", cn: "流逝的光阴，永远无法被追回。" },
+  { fr: "Ce qui compte n’est pas la vitesse, mais la régularité.", cn: "重要的从不是速度，而是日复一日的恒常。" }
+];
+
+let quoteTimer = null;
+function updateQuote() {
+  const q = frenchQuotes[Math.floor(Math.random() * frenchQuotes.length)];
+  const els = ["cover-fr", "cover-zh", "banner-fr", "banner-cn"]
+    .map(id => document.getElementById(id)).filter(Boolean);
+  // 先淡出（0.25s）
+  els.forEach(el => el.classList.add("is-fading"));
+  if (quoteTimer) clearTimeout(quoteTimer);
+  quoteTimer = setTimeout(() => {
+    const frText = "« " + q.fr + " »";
+    const map = { "cover-fr": frText, "cover-zh": q.cn, "banner-fr": frText, "banner-cn": q.cn };
+    els.forEach(el => { el.textContent = map[el.id]; el.classList.remove("is-fading"); });
+  }, 250);   // 0.25s 后切换文字并淡入，合计 0.5s 平滑过渡
+}
+
+function init() {
+  initTheme();
+  updateQuote();   // 首次加载：随机金句淡入（View A 封面）
+  renderVerbChips();
+  updateChips();
+  renderReadingList();
+  renderWheel();
+  // 默认仅显示 View A（由 HTML/CSS 保证：view-A 可见，view-B/view-C 为 display:none）
+}
+
+init();
+
+</script>
+</body>
+</html>

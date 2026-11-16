@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 本地密钥：真实 API Key 绝不能进仓库（云端用环境变量注入）
+.french-llm-key
+*french-llm-key*
+.env
+.env.*
+
+# 编辑器 / 系统垃圾
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# WorkBuddy 会话与记忆数据（属于本地工作目录，不进公开仓库）
+.workbuddy/
+
+# 临时调试图
+_*.png
+_probe*.png
+_shot*.png
+_*.log
+
+# 发布产物（每次部署由平台生成，不属于源码）
+.wbapp_*.genie

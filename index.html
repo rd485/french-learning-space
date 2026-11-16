@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>法语学习 · Français</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js（UMD 全局 THREE，r128 稳定版；用于主页 3D 轮盘导航） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // 防闪烁：在首屏渲染前确定主题
+        tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            // 白天：莫兰迪色系（低饱和、灰调、柔和）
+            mg: {
+              50: "#ECE7E0", 100: "#F6F3EE", 200: "#DED7CC", 300: "#C9C0B3",
+              400: "#ADA295", 500: "#8C8174", 600: "#6E6456", 700: "#544B3F",
+              800: "#3D362D", 900: "#2A251E",
+              accent: "#5C7A63", accentHover: "#4E6A55" // 灰绿（sage，加深以兼顾对比度）
+            },
+            // 夜间：金融后端色系（近黑底 + 金 accent）
+            fin: {
+              50: "#F2F6FA", 100: "#E7EDF3", 200: "#C9D4DF", 300: "#A9B7C6",
+              400: "#8595A6", 500: "#4A5B6E", 600: "#314052", 700: "#232E3C",
+              800: "#1C2531", 850: "#151C27", 900: "#11161F", 950: "#0A0E14",
+              accent: "#D8A44B", accentHover: "#E6B65E" // 金（gold）
+            }
+          }
+        }
+      }
+    };
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        var dark = t ? t === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (dark) document.documentElement.classList.add("dark");
+      } catch (e) {}
+    })();
+  </script>
+  <!-- 版本号用于击穿浏览器样式缓存：每次改动样式后递增，避免「改了没生效」 -->
+  <link rel="stylesheet" href="styles.css?v=20261115a" />
+</head>
+<body class="bg-mg-50 dark:bg-fin-950 text-mg-800 dark:text-fin-100 transition-colors duration-300">
+  <!-- ============ View A：法式杂志封面式入场页（默认且只显示） ============
+       骨架：Grid 7fr / 3fr（左重右轻）+ align-items:center
+       层级：.cover-bg(0) → .cover-content(1) / .cover-aside(1)
+       ================================================================ -->
+  <div id="view-A" class="layer">
+
+    <!-- 背景装饰层：与 View B 完全同源的纸底 / 颗粒 / 水彩花卉
+         z-index:0 + pointer-events:none —— 只提供质感，绝不拦截任何点击 -->
+    <div class="cover-bg" aria-hidden="true">
+      <!-- 复用 View B 的纸底与水彩渐变（同一套 class，保证质感 100% 一致） -->
+      <div class="bg-paper"></div>
+      <div class="bg-grain"></div>
+
+      <!-- 左侧：鸢尾线稿（与 View B 同一支笔触，opacity .08 + blur 1.5px 退成暗纹）
+           必须同时写 width / height 固有尺寸，否则 height:auto 会被算成默认 150px -->
+      <svg class="cover-flora cf-iris" viewBox="0 0 320 420" width="320" height="420" aria-hidden="true">
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <path d="M160 172 C157 228 163 306 160 380"/>
+          <path d="M160 380 C144 316 124 256 114 194 C136 254 150 318 160 380 Z"/>
+          <path d="M160 380 C176 316 196 256 206 194 C184 254 170 318 160 380 Z"/>
+          <path d="M160 376 C150 336 140 296 134 262 C144 298 154 338 159 372 Z"/>
+          <g class="flora-bloom">
+            <path d="M150 92 C136 64 136 38 152 24 C162 38 162 62 154 88"/>
+            <path d="M170 92 C184 64 184 38 168 24 C158 38 158 62 166 88"/>
+            <path d="M160 90 C136 116 126 148 150 176 C170 148 171 114 160 90"/>
+            <path d="M150 96 C118 110 82 140 66 180 C104 164 138 134 150 96"/>
+            <path d="M170 96 C202 110 238 140 254 180 C216 164 182 134 170 96"/>
+          </g>
+          <g class="flora-stamen">
+            <path d="M160 84 L160 104"/>
+            <path d="M149 89 L157 101"/>
+            <path d="M171 89 L163 101"/>
+          </g>
+        </g>
+      </svg>
+
+      <!-- 右下角：野生玫瑰线稿（五片圆头单瓣，呼应 View B） -->
+      <svg class="cover-flora cf-rose" viewBox="0 0 340 440" width="340" height="440" aria-hidden="true">
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <path d="M140 186 C148 232 164 276 184 314 C200 346 224 370 248 392"/>
+          <path d="M129 180 C134 194 146 194 151 180"/>
+          <path d="M155 226 L147 216 M155 226 L160 238"/>
+          <path d="M170 264 L162 254 M170 264 L175 276"/>
+          <path d="M196 308 L188 298 M196 308 L201 320"/>
+          <g class="flora-bloom">
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(72 140 100)"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(144 140 100)"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(216 140 100)"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(288 140 100)"/>
+          </g>
+          <g class="flora-stamen">
+            <circle cx="140" cy="100" r="9"/>
+            <path d="M140 91 L140 85"/>
+            <path d="M148.6 93.2 L153.2 90.9"/>
+            <path d="M145.3 106.8 L147.6 111.4"/>
+            <path d="M134.7 106.8 L132.4 111.4"/>
+            <path d="M131.4 93.2 L126.8 90.9"/>
+          </g>
+          <g transform="translate(146 214) rotate(168)">
+            <path d="M0 0 C15 -11 35 -9 47 3 C33 13 12 11 0 0"/>
+            <path d="M2 1 L24 1"/>
+          </g>
+          <g transform="translate(172 268) rotate(198)">
+            <path d="M0 0 C15 -11 35 -9 47 3 C33 13 12 11 0 0"/>
+            <path d="M2 1 L24 1"/>
+          </g>
+          <g transform="translate(198 318) rotate(158)">
+            <path d="M0 0 C15 -11 35 -9 47 3 C33 13 12 11 0 0"/>
+            <path d="M2 1 L24 1"/>
+          </g>
+          <g transform="translate(248 392) rotate(42)">
+            <path d="M0 0 C4 -16 18 -26 32 -24 C34 -8 20 4 0 0"/>
+            <path d="M2 -1 C12 -10 22 -17 30 -19"/>
+            <path d="M0 0 C7 -10 6 -20 0 -26"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 左侧主体（7fr）：眉标 → 标题 → 引文 → 幽灵按钮
+         整块挂在一条 1px 复古金竖线上（border-left），统一缩进 2rem -->
+    <div class="cover-content">
+      <p class="cover-eyebrow">Cours de Français · 法语研习空间</p>
+      <!-- 已移除原先巨大的土黄色感叹号：字号收敛、字距拉开，靠留白撑气势 -->
+      <h1 class="cover-title font-playfair">Bonjour</h1>
+      <div class="cover-quote">
+        <p id="cover-fr" class="cover-fr font-display quote-line">« Petit à petit, l'oiseau fait son nid. »</p>
+        <p id="cover-zh" class="cover-zh quote-line">不积跬步，无以至千里 —— 每天进步一点点。</p>
+      </div>
+      <button id="home-enter" class="cover-enter" type="button">
+        <span>开始探索</span><span class="arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+
+    <!-- 右侧边缘（3fr 留白）：极小竖排法文 + 贯穿上下的极细竖线 -->
+    <div class="cover-aside" aria-hidden="true">
+      <span class="cover-vertical">Le Français · L'Élégance</span>
+      <span class="cover-aside-line"></span>
+    </div>
+  </div>
+
+  <!-- ============ View B：轮盘导航页（法式极简 · Diptyque 风） ============ -->
+  <div id="view-B" class="layer hidden">
+
+    <!-- ============================================================
+         背景装饰层（法式复古水彩植物 + 信笺）
+         层级：z-index:-1 沉到内容之下；#view-B 自身背景已置为透明，
+         否则这层会被不透明渐变遮住（关键实现点）。
+         子层顺序 = 绘制顺序：纸底 → 颗粒 → 暗角 → 花卉 → 花瓣。
+         ============================================================ -->
+    <div class="background-decorations" aria-hidden="true">
+      <!-- 1) 纸底：多重径向渐变模拟水彩纸的奶油底与受光不均 -->
+      <div class="bg-paper"></div>
+      <!-- 2) 纸张颗粒：内联 SVG feTurbulence 噪点（data URI，无外部图片） -->
+      <div class="bg-grain"></div>
+      <!-- 3) 暗角：让四周微微收拢，强化“纸”的厚度感 -->
+      <div class="bg-vignette"></div>
+
+      <!-- 4) 左上角：鸢尾花线稿（Iris · 法式植物图鉴风）
+           重绘说明：路径四周预留 ≥24 单位空白，元素本身也完全落在视口内。
+           注意：必须同时给出 width/height 固有尺寸属性，否则 height:auto
+           在部分浏览器会被算成默认 150px，导致花被缩小、看起来「显示不全」。 -->
+      <svg class="bg-flora flora-iris" viewBox="0 0 320 420" width="320" height="420" aria-hidden="true">
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <!-- 茎：自花底贯下，末端收在画布内 -->
+          <path d="M160 172 C157 228 163 306 160 380"/>
+          <!-- 剑叶：三片直立微弯，自基部成束向上（不做大幅张开的 V，避免“野草感”） -->
+          <path d="M160 380 C144 316 124 256 114 194 C136 254 150 318 160 380 Z"/>
+          <path d="M160 380 C176 316 196 256 206 194 C184 254 170 318 160 380 Z"/>
+          <path d="M160 376 C150 336 140 296 134 262 C144 298 154 338 159 372 Z"/>
+          <!-- 花部：两片直立旗瓣（尖端分开，不交叉）+ 三片下垂垂瓣（豆沙粉分染） -->
+          <g class="flora-bloom">
+            <path d="M150 92 C136 64 136 38 152 24 C162 38 162 62 154 88"/>
+            <path d="M170 92 C184 64 184 38 168 24 C158 38 158 62 166 88"/>
+            <path d="M160 90 C136 116 126 148 150 176 C170 148 171 114 160 90"/>
+            <path d="M150 96 C118 110 82 140 66 180 C104 164 138 134 150 96"/>
+            <path d="M170 96 C202 110 238 140 254 180 C216 164 182 134 170 96"/>
+          </g>
+          <!-- 花蕊：三笔金调，点睛 -->
+          <g class="flora-stamen">
+            <path d="M160 84 L160 104"/>
+            <path d="M149 89 L157 101"/>
+            <path d="M171 89 L163 101"/>
+          </g>
+        </g>
+      </svg>
+
+      <!-- 5) 右下角：野生玫瑰线稿（Wild Rose · 单瓣蔷薇） -->
+      <svg class="bg-flora flora-rose" viewBox="0 0 340 440" width="340" height="440" aria-hidden="true">
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <!-- 主茎：自花托向右下蜿蜒，梢头收一枚未开的花苞 -->
+          <path d="M140 186 C148 232 164 276 184 314 C200 346 224 370 248 392"/>
+          <!-- 花托：仅一道鼓包弧，把花盘与茎缝合（萼片线会显得像爪子，故省略） -->
+          <path d="M129 180 C134 194 146 194 151 180"/>
+          <!-- 倒刺：V 形短折线，贴着茎生长 -->
+          <path d="M155 226 L147 216 M155 226 L160 238"/>
+          <path d="M170 264 L162 254 M170 264 L175 276"/>
+          <path d="M196 308 L188 298 M196 308 L201 320"/>
+          <path d="M219 344 L211 334 M219 344 L224 356"/>
+          <!-- 花部：五片圆头单瓣绕花心作 72° 均分（豆沙粉分染） -->
+          <g class="flora-bloom">
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(72 140 100)"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(144 140 100)"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(216 140 100)"/>
+            <path d="M140 100 C111 74 108 38 127 25 C133 21 147 21 153 25 C172 38 169 74 140 100" transform="rotate(288 140 100)"/>
+          </g>
+          <!-- 花心与蕊：五向均分 -->
+          <g class="flora-stamen">
+            <circle cx="140" cy="100" r="9"/>
+            <path d="M140 91 L140 85"/>
+            <path d="M148.6 93.2 L153.2 90.9"/>
+            <path d="M145.3 106.8 L147.6 111.4"/>
+            <path d="M134.7 106.8 L132.4 111.4"/>
+            <path d="M131.4 93.2 L126.8 90.9"/>
+          </g>
+          <!-- 羽状复叶：三片，沿茎向左错落，与右倾的茎形成张力 -->
+          <g transform="translate(146 214) rotate(168)">
+            <path d="M0 0 C15 -11 35 -9 47 3 C33 13 12 11 0 0"/>
+            <path d="M2 1 L24 1"/>
+          </g>
+          <g transform="translate(172 268) rotate(198)">
+            <path d="M0 0 C15 -11 35 -9 47 3 C33 13 12 11 0 0"/>
+            <path d="M2 1 L24 1"/>
+          </g>
+          <g transform="translate(198 318) rotate(158)">
+            <path d="M0 0 C15 -11 35 -9 47 3 C33 13 12 11 0 0"/>
+            <path d="M2 1 L24 1"/>
+          </g>
+          <!-- 梢头花苞：比叶片更圆更小，与主茎收尾衔接 -->
+          <g transform="translate(248 392) rotate(42)">
+            <path d="M0 0 C4 -16 18 -26 32 -24 C34 -8 20 4 0 0"/>
+            <path d="M2 -1 C12 -10 22 -17 30 -19"/>
+            <path d="M0 0 C-7 -10 -6 -20 0 -26"/>
+          </g>
+        </g>
+      </svg>
+
+      <!-- 6) 漂浮花瓣粒子：极低饱和莫兰迪色，仅用 transform / opacity 动画 -->
+      <span class="petal petal-1"></span>
+      <span class="petal petal-2"></span>
+      <span class="petal petal-3"></span>
+      <span class="petal petal-4"></span>
+      <span class="petal petal-5"></span>
+    </div>
+
+    <!-- ===== 左栏（50%）· 信息区：数据卡组在上、引文块在下，全部严格左对齐 ===== -->
+    <aside class="home-aside">
+      <!-- ① 数据卡片组：flex 横排 + gap:1rem；卡内右侧为纯 CSS 微型数据可视化 -->
+      <div class="home-stats">
+
+        <!-- 卡 1：今日真实学习时长（由 app.js 按秒累计，localStorage 记忆）
+             环形进度 = 今日秒数 / 每日目标 60 分钟，--p 由 JS 实时写入 -->
+        <div class="stat-card" title="按真实使用时长累计，存在本机浏览器；每日 0 点归零，当天重开不会清零">
+          <div class="stat-body">
+            <div class="stat-label">今日已学习</div>
+            <div class="stat-value"><span id="stat-min">0</span> <span class="stat-unit" id="stat-min-unit">分钟</span></div>
+          </div>
+          <div class="stat-ring" id="stat-ring" role="img" aria-label="今日学习目标已完成 0%">
+            <span class="stat-ring-txt" id="stat-ring-txt">0%</span>
+          </div>
+        </div>
+
+        <!-- 卡 2：生词收藏真实总数 + 近 7 日新增柱状图（数据来自 fr_favorites_v1） -->
+        <div class="stat-card" title="与「生词收藏夹」实时同步，收藏或删除后数字立即变化">
+          <div class="stat-body">
+            <div class="stat-label">生词收藏</div>
+            <div class="stat-value"><span id="stat-fav">0</span> <span class="stat-unit">个</span></div>
+          </div>
+          <div class="stat-spark" id="stat-spark" title="近 7 日每日新增生词">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 引文块：左侧 2px 复古金强调线，内部严格左对齐 -->
+      <div class="home-banner-top">
+        <div class="home-bonjour font-script">Bonjour !</div>
+        <p id="banner-fr" class="home-quote-fr quote-line">« Petit à petit, l'oiseau fait son nid. »</p>
+        <p id="banner-cn" class="home-quote-cn quote-line"></p>
+      </div>
+    </aside>
+
+    <!-- ===== 右栏（50%）· 交互区：3×2 向心矩阵，Fr 徽标恒定占据网格中心（由 JS 渲染） ===== -->
+    <section class="explore-mid">
+      <div class="wheel-wrap wheel-grid" id="wheel"></div>
+    </section>
+  </div>
+
+  <!-- ============ View C：功能区（侧边栏 + 内容） ============ -->
+  <div id="view-C" class="layer hidden">
+
+    <!-- 左侧菜单栏：法式编辑式侧栏（属于 View C，随 View C 一起显隐）
+         说明：已剥离全部 Tailwind 工具类，改由 styles.css 的 .side 系列统一控制，
+         避免 CDN 注入的 utilities 与自定义样式在层叠顺序上互相打架。 -->
+    <aside id="sidebar" class="side">
+
+      <!-- 品牌区：缩小做精致的 Fr 徽标 + 衬线字标（点击回到 View B 轮盘页） -->
+      <div class="brand" role="button" tabindex="0" aria-label="返回主页">
+        <span class="brand-mark">Fr</span>
+        <span class="brand-text">
+          <span class="brand-name">Français</span>
+          <span class="brand-sub">法语学习空间</span>
+        </span>
+      </div>
+
+      <!-- 菜单：衬线体 15px，项与项之间 20px 呼吸感 -->
+      <nav class="side-nav" id="nav">
+        <button class="nav-item" data-view="conjugation" type="button">
+          <span class="nav-ico" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.5" width="14" height="13" rx="1.5"/><path d="M3 7.5h14M3 11.5h14M8 7.5v9"/></svg>
+          </span>
+          <span class="nav-label">动词变位区</span>
+        </button>
+
+        <button class="nav-item" data-view="dictionary" type="button">
+          <span class="nav-ico" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.6C8.6 4.6 6.8 4.1 4.6 4.1H3v10.6h2c2 0 3.7.5 5 1.5 1.3-1 3-1.5 5-1.5h2V4.1h-1.6c-2.2 0-4 .5-5.4 1.5z"/><path d="M10 5.6v10.6"/></svg>
+          </span>
+          <span class="nav-label">词典与翻译</span>
+        </button>
+
+        <button class="nav-item" data-view="reading" type="button">
+          <span class="nav-ico" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="12" height="14" rx="1.5"/><path d="M7 7h6M7 10h6M7 13h4"/></svg>
+          </span>
+          <span class="nav-label">阅视界</span>
+        </button>
+
+        <button class="nav-item" data-view="shadow" type="button">
+          <span class="nav-ico" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="7.5" y="3" width="5" height="8" rx="2.5"/><path d="M4.5 9.5a5.5 5.5 0 0 0 11 0M10 15v2.4"/></svg>
+          </span>
+          <span class="nav-label">影子跟读室</span>
+        </button>
+
+        <button class="nav-item" data-view="favorites" type="button">
+          <span class="nav-ico" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.4l1.9 4 4.4.6-3.2 3.1.8 4.4-3.9-2.1-3.9 2.1.8-4.4-3.2-3.1 4.4-.6z"/></svg>
+          </span>
+          <span class="nav-label">生词收藏夹</span>
+        </button>
+      </nav>
+
+      <!-- 页脚：本地保存状态 + 日夜切换（图标由 CSS 按 .dark 切换，JS 不再写 textContent） -->
+      <div class="side-foot">
+        <span class="side-foot-note"><i class="side-dot" aria-hidden="true"></i>学习进度已本地保存</span>
+        <button id="theme-toggle" class="theme-btn" type="button" title="切换日 / 夜" aria-label="切换日夜主题">
+          <svg class="ico-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M15.6 12.4A6.4 6.4 0 0 1 7.6 4.4a6.6 6.6 0 1 0 8 8z"/></svg>
+          <svg class="ico-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3.4"/><path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.6 4.6l1.1 1.1M14.3 14.3l1.1 1.1M15.4 4.6l-1.1 1.1M5.7 14.3l-1.1 1.1"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- 右侧内容区 -->
+    <main class="flex-1 overflow-y-auto p-10 transition-colors duration-300">
+      <!-- 顶部栏：标题 + 返回导航（属于 View C，随 View C 一起显隐；点击回到 View B 轮盘页，不回封面） -->
+      <div id="topbar" class="flex items-start justify-between mb-7">
+        <header>
+          <h1 id="view-title" class="text-2xl font-bold tracking-tight">动词变位区</h1>
+          <p id="view-sub" class="text-sm text-mg-500 dark:text-fin-400 mt-1">Conjugaison · 掌握法语动词的人称变化</p>
+        </header>
+        <button id="back-home" class="shrink-0 rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-900 hover:border-mg-accent dark:hover:border-fin-accent text-mg-600 dark:text-fin-200 text-sm font-medium px-4 py-2.5 transition">🏠 返回导航</button>
+      </div>
+
+      <section class="func-section hidden" id="view-conjugation">
+        <div class="flex flex-wrap gap-3 items-center mb-5">
+          <div class="relative flex-1 min-w-[240px]">
+            <input type="text" id="verb-input" autocomplete="off" class="w-full rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-950 px-4 py-2.5 text-sm text-mg-800 dark:text-fin-100 placeholder-mg-400 dark:placeholder-fin-500 focus:outline-none focus:ring-2 focus:ring-mg-accent/40 dark:focus:ring-fin-accent/40 transition" placeholder="输入动词原形或任意变位形式" />
+            <div id="verb-suggest" class="hidden absolute z-30 mt-1 w-full max-h-72 overflow-y-auto rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-900 shadow-lg"></div>
+          </div>
+          <button id="verb-lookup" class="rounded-xl bg-mg-accent hover:bg-mg-accentHover dark:bg-fin-accent dark:hover:bg-fin-accentHover text-white dark:text-fin-950 text-sm font-medium px-5 py-2.5 shadow-sm transition shrink-0">🔍 联网查询</button>
+        </div>
+        <!-- 隐藏的识别提示横幅（输入为变位形式时显示） -->
+        <div id="form-banner" class="hidden rounded-xl bg-blue-100 text-blue-900 border border-blue-300 px-4 py-3 text-sm font-medium shadow-sm flex items-center gap-2 mb-5">
+          <span class="text-base shrink-0">🔎</span>
+          <span id="form-banner-text"></span>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-5" id="verb-chips"></div>
+        <div class="rounded-2xl bg-mg-100 dark:bg-fin-900 border border-mg-200 dark:border-fin-800 shadow-sm p-7 transition-colors duration-300" id="conjugation-card">
+          <p class="text-mg-500 dark:text-fin-400 text-sm leading-relaxed">输入一个法语动词并点击「联网查询」，将为你展示它在各语式、各时态下的完整六人称变位。</p>
+        </div>
+      </section>
+
+      <section class="func-section hidden" id="view-dictionary">
+        <div class="dict-bar">
+          <div class="dict-input-wrap">
+            <input type="text" id="dict-search" class="flex-1 min-w-[240px] rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-950 px-4 py-2.5 text-sm text-mg-800 dark:text-fin-100 placeholder-mg-400 dark:placeholder-fin-500 focus:outline-none focus:ring-2 focus:ring-mg-accent/40 dark:focus:ring-fin-accent/40 transition" placeholder="查词或整句翻译（如 bonjour / Je vais à Paris.）" />
+            <button id="dict-go" class="dict-go shrink-0 rounded-xl bg-mg-accent hover:bg-mg-accentHover dark:bg-fin-accent dark:hover:bg-fin-accentHover text-white dark:text-fin-950 text-sm font-medium px-5 py-2.5 shadow-sm transition" type="button">查询</button>
+          </div>
+          <div class="dict-bar-foot">
+            <div class="dict-mode-hint" id="dict-mode-hint"></div>
+            <label class="dict-model-pick" title="随时切换模型，无需重启服务">
+              <span class="dict-model-label">模型</span>
+              <select id="dict-model">
+                <option value="glm-4-flash">glm-4-flash</option>
+                <option value="GLM-4.7-Flash">GLM-4.7-Flash</option>
+                <option value="glm-4-air">glm-4-air</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="dict-correction hidden" id="dict-correction"></div>
+
+        <div class="dict-fav-bar hidden" id="dict-fav-bar">
+          <span class="dfb-word" id="dfb-word"></span>
+          <button class="dfb-star" id="dfb-star" type="button" aria-label="收藏到生词本" title="收藏到生词本">
+            <svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6L12 17.9 6.6 19.6l1.2-6L3.3 9.4l6.1-.8z"/></svg>
+          </button>
+        </div>
+
+        <div class="dict-result" id="dict-result">
+          <div class="dict-welcome">
+            <div class="dict-welcome-title font-playfair">Dictionnaire</div>
+            <p class="text-sm text-mg-500 dark:text-fin-400 leading-relaxed">输入一个<b>法语单词</b>查看词典级释义、音标、例句与搭配；<br>或输入一整句法语，获得标准翻译与句中变位解析。</p>
+            <p class="text-xs text-mg-400 dark:text-fin-500 mt-3">提示：点按句子中的任意单词，可在右侧抽屉中即时查询该词。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="func-section hidden" id="view-reading">
+        <div class="reading-header">
+          <div>
+          <h2 class="reading-h2">阅视界 · 权威法语新闻</h2>
+          <p class="reading-sub">正在加载中…</p>
+          </div>
+          <button id="reading-refresh" class="reading-refresh" type="button">↻ 刷新</button>
+        </div>
+        <div class="reading-tabs" id="reading-tabs">
+          <button class="reading-tab active" type="button" data-cat="all">全部</button>
+          <button class="reading-tab" type="button" data-cat="politics">政治</button>
+          <button class="reading-tab" type="button" data-cat="economy">经济</button>
+          <button class="reading-tab" type="button" data-cat="sport">体育</button>
+          <button class="reading-tab" type="button" data-cat="culture">文化</button>
+          <button class="reading-tab" type="button" data-cat="world">国际</button>
+          <button class="reading-tab" type="button" data-cat="society">社会</button>
+        </div>
+        <div class="reading-list" id="reading-list"></div>
+        <div class="reading-detail hidden" id="reading-detail"></div>
+      </section>
+
+      <section class="func-section hidden" id="view-shadow">
+        <div class="rounded-2xl bg-mg-100 dark:bg-fin-900 border border-mg-200 dark:border-fin-800 shadow-sm p-7 transition-colors duration-300">
+          <p class="text-mg-500 dark:text-fin-400 text-sm leading-relaxed">把要跟读的句子放进下面的文本框，点击「朗读」听标准法语发音，然后跟着复述。可调节语速。</p>
+          <textarea id="shadow-text" class="w-full min-h-[130px] resize-y rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-950 p-4 mt-3 mb-4 text-base leading-relaxed font-serif text-mg-800 dark:text-fin-100 placeholder-mg-400 dark:placeholder-fin-500 focus:outline-none focus:ring-2 focus:ring-mg-accent/40 dark:focus:ring-fin-accent/40 transition" placeholder="在此输入或粘贴法语句子，例如：Bonjour, comment allez-vous aujourd'hui ?"></textarea>
+          <div class="flex flex-wrap items-center gap-3">
+            <button id="shadow-play" class="rounded-xl bg-mg-accent hover:bg-mg-accentHover dark:bg-fin-accent dark:hover:bg-fin-accentHover text-white dark:text-fin-950 text-sm font-medium px-5 py-2.5 shadow-sm transition">▶ 朗读</button>
+            <button id="shadow-stop" class="rounded-xl border border-mg-200 dark:border-fin-800 bg-mg-100 dark:bg-fin-900 hover:border-mg-accent dark:hover:border-fin-accent text-sm font-medium px-5 py-2.5 transition">■ 停止</button>
+            <label class="flex items-center gap-2 text-sm text-mg-500 dark:text-fin-400">
+              语速
+              <input type="range" id="shadow-rate" min="0.5" max="1.2" step="0.1" value="0.9" class="accent-mg-accent dark:accent-fin-accent" />
+              <span id="shadow-rate-val">0.9×</span>
+            </label>
+            <button id="shadow-sample" class="rounded-xl text-mg-500 dark:text-fin-400 hover:bg-mg-200 dark:hover:bg-fin-800 text-sm font-medium px-4 py-2.5 transition">载入示例句</button>
+          </div>
+          <div class="mt-4 text-sm text-mg-accent dark:text-fin-accent min-h-[20px]" id="shadow-status"></div>
+        </div>
+      </section>
+
+      <section class="func-section hidden" id="view-favorites">
+        <div class="fav-toolbar">
+          <div class="fav-count" id="fav-count">共收藏了 0 个单词</div>
+          <button class="fav-clear" id="fav-clear" type="button">清空全部</button>
+        </div>
+        <div class="fav-list" id="fav-list"></div>
+        <div class="fav-empty hidden" id="fav-empty">
+          <div class="fav-empty-ico">🔖</div>
+          <p>还没有收藏任何生词</p>
+          <p class="fav-empty-sub">在「词典与翻译」查询单词后，点击结果区的 ⭐ 即可收藏到这里。</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 过场动画页（进入功能区时短暂显示，全屏遮罩） -->
+  <div id="transition" class="hidden">
+    <div class="transition-card">
+      <!-- 纯 CSS 招手卡通小人 -->
+      <div class="toon" aria-hidden="true">
+        <div class="arm arm-l"></div>
+        <div class="arm arm-r"></div>
+        <div class="body"></div>
+        <div class="head">
+          <span class="eye eye-l"></span>
+          <span class="eye eye-r"></span>
+          <span class="mouth"></span>
+        </div>
+      </div>
+      <div class="transition-text" id="transition-text">正在进入…</div>
+      <div class="transition-bar"><span class="transition-fill"></span></div>
+    </div>
+  </div>
+
+  <!-- 词典：单词即点即查 · 右侧抽屉 -->
+  <div id="dict-drawer-backdrop" class="dict-drawer-backdrop hidden"></div>
+  <aside id="dict-drawer" class="dict-drawer" aria-hidden="true">
+    <div class="dict-drawer-head">
+      <span class="dict-drawer-title">单词速查</span>
+      <button id="dict-drawer-close" class="dict-drawer-close" type="button" aria-label="关闭">×</button>
+    </div>
+    <div class="dict-drawer-body" id="dict-drawer-body"></div>
+  </aside>
+
+  <!-- 轻提示 -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js?v=20261115a"></script>
+</body>
+</html>

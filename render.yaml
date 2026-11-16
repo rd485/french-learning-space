@@ -1,0 +1,25 @@
+# Render Blueprint：把本仓库一键部署成一个跑 Python 后端的公网站点
+# 用法：Render 控制台 → New → Blueprint → 选中本仓库，其余全部自动填好
+services:
+  - type: web
+    name: french-learning-space
+    runtime: python
+    plan: free                      # 免费档；15 分钟无访问会休眠，首次打开约 30-50 秒
+    region: singapore               # 距国内最近；可改 oregon / frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    healthCheckPath: /api/news      # 后端活着就返回 200（缓存空时也会秒回 loading）
+    envVars:
+      - key: HOST
+        value: 0.0.0.0              # 必须：平台反代在容器外，绑 127.0.0.1 会 502
+      - key: PUBLIC_MODE
+        value: "1"                  # 关掉「改模型」等本地专用写接口
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+      # ↓ 以下三项在 Render 控制台手动填，切勿写进仓库
+      # - key: LLM_API_KEY
+      #   sync: false               # 不写死，部署时在面板里输入
+      # - key: LLM_BASE_URL
+      #   sync: false
+      # - key: LLM_MODEL
+      #   sync: false

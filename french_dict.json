@@ -1,0 +1,3242 @@
+[
+ {
+  "fr": "être",
+  "zh": "是/在",
+  "rank": 1,
+  "present": []
+ },
+ {
+  "fr": "avoir",
+  "zh": "有",
+  "rank": 2,
+  "present": []
+ },
+ {
+  "fr": "faire",
+  "zh": "做/使",
+  "rank": 3,
+  "present": []
+ },
+ {
+  "fr": "dire",
+  "zh": "说",
+  "rank": 4,
+  "present": []
+ },
+ {
+  "fr": "pouvoir",
+  "zh": "能够",
+  "rank": 5,
+  "present": []
+ },
+ {
+  "fr": "vouloir",
+  "zh": "想/要",
+  "rank": 6,
+  "present": []
+ },
+ {
+  "fr": "savoir",
+  "zh": "知道/会",
+  "rank": 7,
+  "present": []
+ },
+ {
+  "fr": "aller",
+  "zh": "去",
+  "rank": 8,
+  "present": []
+ },
+ {
+  "fr": "voir",
+  "zh": "看见",
+  "rank": 9,
+  "present": []
+ },
+ {
+  "fr": "venir",
+  "zh": "来",
+  "rank": 10,
+  "present": []
+ },
+ {
+  "fr": "falloir",
+  "zh": "必须/需要",
+  "rank": 11,
+  "present": []
+ },
+ {
+  "fr": "valoir",
+  "zh": "值",
+  "rank": 12,
+  "present": []
+ },
+ {
+  "fr": "prendre",
+  "zh": "拿/取",
+  "rank": 13,
+  "present": []
+ },
+ {
+  "fr": "comprendre",
+  "zh": "理解",
+  "rank": 14,
+  "present": []
+ },
+ {
+  "fr": "mettre",
+  "zh": "放/穿",
+  "rank": 15,
+  "present": []
+ },
+ {
+  "fr": "partir",
+  "zh": "离开",
+  "rank": 16,
+  "present": []
+ },
+ {
+  "fr": "sortir",
+  "zh": "出去",
+  "rank": 17,
+  "present": []
+ },
+ {
+  "fr": "sentir",
+  "zh": "感觉/闻",
+  "rank": 18,
+  "present": []
+ },
+ {
+  "fr": "suivre",
+  "zh": "跟随",
+  "rank": 19,
+  "present": []
+ },
+ {
+  "fr": "vivre",
+  "zh": "生活/活",
+  "rank": 20,
+  "present": []
+ },
+ {
+  "fr": "recevoir",
+  "zh": "收到",
+  "rank": 21,
+  "present": []
+ },
+ {
+  "fr": "apercevoir",
+  "zh": "瞥见",
+  "rank": 22,
+  "present": []
+ },
+ {
+  "fr": "devoir",
+  "zh": "应该/欠",
+  "rank": 23,
+  "present": []
+ },
+ {
+  "fr": "pleuvoir",
+  "zh": "下雨",
+  "rank": 24,
+  "present": []
+ },
+ {
+  "fr": "mouvoir",
+  "zh": "移动",
+  "rank": 25,
+  "present": []
+ },
+ {
+  "fr": "écrire",
+  "zh": "写",
+  "rank": 26,
+  "present": []
+ },
+ {
+  "fr": "lire",
+  "zh": "读",
+  "rank": 27,
+  "present": []
+ },
+ {
+  "fr": "conduire",
+  "zh": "驾驶/引导",
+  "rank": 28,
+  "present": []
+ },
+ {
+  "fr": "traduire",
+  "zh": "翻译",
+  "rank": 29,
+  "present": []
+ },
+ {
+  "fr": "construire",
+  "zh": "建造",
+  "rank": 30,
+  "present": []
+ },
+ {
+  "fr": "détruire",
+  "zh": "破坏",
+  "rank": 31,
+  "present": []
+ },
+ {
+  "fr": "craindre",
+  "zh": "害怕",
+  "rank": 32,
+  "present": []
+ },
+ {
+  "fr": "peindre",
+  "zh": "画/刷",
+  "rank": 33,
+  "present": []
+ },
+ {
+  "fr": "atteindre",
+  "zh": "达到",
+  "rank": 34,
+  "present": []
+ },
+ {
+  "fr": "joindre",
+  "zh": "连接/加入",
+  "rank": 35,
+  "present": []
+ },
+ {
+  "fr": "plaindre",
+  "zh": "同情",
+  "rank": 36,
+  "present": []
+ },
+ {
+  "fr": "fondre",
+  "zh": "融化",
+  "rank": 37,
+  "present": []
+ },
+ {
+  "fr": "moudre",
+  "zh": "磨",
+  "rank": 38,
+  "present": []
+ },
+ {
+  "fr": "résoudre",
+  "zh": "解决",
+  "rank": 39,
+  "present": []
+ },
+ {
+  "fr": "rire",
+  "zh": "笑",
+  "rank": 40,
+  "present": []
+ },
+ {
+  "fr": "sourire",
+  "zh": "微笑",
+  "rank": 41,
+  "present": []
+ },
+ {
+  "fr": "confire",
+  "zh": "腌制",
+  "rank": 42,
+  "present": []
+ },
+ {
+  "fr": "suffire",
+  "zh": "足够",
+  "rank": 43,
+  "present": []
+ },
+ {
+  "fr": "taire",
+  "zh": "沉默",
+  "rank": 44,
+  "present": []
+ },
+ {
+  "fr": "plaire",
+  "zh": "使高兴",
+  "rank": 45,
+  "present": []
+ },
+ {
+  "fr": "connaître",
+  "zh": "认识/知道",
+  "rank": 46,
+  "present": []
+ },
+ {
+  "fr": "paraître",
+  "zh": "出现",
+  "rank": 47,
+  "present": []
+ },
+ {
+  "fr": "naître",
+  "zh": "出生",
+  "rank": 48,
+  "present": []
+ },
+ {
+  "fr": "mourir",
+  "zh": "死",
+  "rank": 49,
+  "present": []
+ },
+ {
+  "fr": "acquérir",
+  "zh": "获得",
+  "rank": 50,
+  "present": []
+ },
+ {
+  "fr": "courir",
+  "zh": "跑",
+  "rank": 51,
+  "present": []
+ },
+ {
+  "fr": "tenir",
+  "zh": "持有/保持",
+  "rank": 52,
+  "present": []
+ },
+ {
+  "fr": "devenir",
+  "zh": "成为",
+  "rank": 53,
+  "present": []
+ },
+ {
+  "fr": "retenir",
+  "zh": "保留/记住",
+  "rank": 54,
+  "present": []
+ },
+ {
+  "fr": "obtenir",
+  "zh": "获得",
+  "rank": 55,
+  "present": []
+ },
+ {
+  "fr": "soutenir",
+  "zh": "支持",
+  "rank": 56,
+  "present": []
+ },
+ {
+  "fr": "entretenir",
+  "zh": "维护",
+  "rank": 57,
+  "present": []
+ },
+ {
+  "fr": "contenir",
+  "zh": "包含",
+  "rank": 58,
+  "present": []
+ },
+ {
+  "fr": "maintenir",
+  "zh": "维持",
+  "rank": 59,
+  "present": []
+ },
+ {
+  "fr": "appartenir",
+  "zh": "属于",
+  "rank": 60,
+  "present": []
+ },
+ {
+  "fr": "revenir",
+  "zh": "回来",
+  "rank": 61,
+  "present": []
+ },
+ {
+  "fr": "survenir",
+  "zh": "发生",
+  "rank": 62,
+  "present": []
+ },
+ {
+  "fr": "parvenir",
+  "zh": "达到",
+  "rank": 63,
+  "present": []
+ },
+ {
+  "fr": "intervenir",
+  "zh": "干预",
+  "rank": 64,
+  "present": []
+ },
+ {
+  "fr": "prévenir",
+  "zh": "预防/通知",
+  "rank": 65,
+  "present": []
+ },
+ {
+  "fr": "vêtir",
+  "zh": "穿衣",
+  "rank": 66,
+  "present": []
+ },
+ {
+  "fr": "revêtir",
+  "zh": "覆盖/赋予",
+  "rank": 67,
+  "present": []
+ },
+ {
+  "fr": "couvrir",
+  "zh": "覆盖",
+  "rank": 68,
+  "present": []
+ },
+ {
+  "fr": "ouvrir",
+  "zh": "打开",
+  "rank": 69,
+  "present": []
+ },
+ {
+  "fr": "offrir",
+  "zh": "提供/献",
+  "rank": 70,
+  "present": []
+ },
+ {
+  "fr": "souffrir",
+  "zh": "遭受/忍受",
+  "rank": 71,
+  "present": []
+ },
+ {
+  "fr": "découvrir",
+  "zh": "发现",
+  "rank": 72,
+  "present": []
+ },
+ {
+  "fr": "recouvrir",
+  "zh": "重新覆盖",
+  "rank": 73,
+  "present": []
+ },
+ {
+  "fr": "pourvoir",
+  "zh": "配备",
+  "rank": 74,
+  "present": []
+ },
+ {
+  "fr": "cuire",
+  "zh": "烹饪",
+  "rank": 75,
+  "present": []
+ },
+ {
+  "fr": "nuire",
+  "zh": "损害",
+  "rank": 76,
+  "present": []
+ },
+ {
+  "fr": "luire",
+  "zh": "发光",
+  "rank": 77,
+  "present": []
+ },
+ {
+  "fr": "produire",
+  "zh": "生产",
+  "rank": 78,
+  "present": []
+ },
+ {
+  "fr": "réduire",
+  "zh": "减少",
+  "rank": 79,
+  "present": []
+ },
+ {
+  "fr": "introduire",
+  "zh": "引入",
+  "rank": 80,
+  "present": []
+ },
+ {
+  "fr": "instruire",
+  "zh": "教导",
+  "rank": 81,
+  "present": []
+ },
+ {
+  "fr": "déduire",
+  "zh": "扣除/推断",
+  "rank": 82,
+  "present": []
+ },
+ {
+  "fr": "induire",
+  "zh": "诱导",
+  "rank": 83,
+  "present": []
+ },
+ {
+  "fr": "bâtir",
+  "zh": "建造",
+  "rank": 84,
+  "present": []
+ },
+ {
+  "fr": "finir",
+  "zh": "结束",
+  "rank": 85,
+  "present": []
+ },
+ {
+  "fr": "choisir",
+  "zh": "选择",
+  "rank": 86,
+  "present": []
+ },
+ {
+  "fr": "réussir",
+  "zh": "成功",
+  "rank": 87,
+  "present": []
+ },
+ {
+  "fr": "agir",
+  "zh": "行动",
+  "rank": 88,
+  "present": []
+ },
+ {
+  "fr": "réagir",
+  "zh": "反应",
+  "rank": 89,
+  "present": []
+ },
+ {
+  "fr": "nourrir",
+  "zh": "喂养",
+  "rank": 90,
+  "present": []
+ },
+ {
+  "fr": "guérir",
+  "zh": "治愈",
+  "rank": 91,
+  "present": []
+ },
+ {
+  "fr": "réunir",
+  "zh": "联合/重聚",
+  "rank": 92,
+  "present": []
+ },
+ {
+  "fr": "jouir",
+  "zh": "享有",
+  "rank": 93,
+  "present": []
+ },
+ {
+  "fr": "punir",
+  "zh": "惩罚",
+  "rank": 94,
+  "present": []
+ },
+ {
+  "fr": "remplir",
+  "zh": "填满",
+  "rank": 95,
+  "present": []
+ },
+ {
+  "fr": "établir",
+  "zh": "建立",
+  "rank": 96,
+  "present": []
+ },
+ {
+  "fr": "définir",
+  "zh": "定义",
+  "rank": 97,
+  "present": []
+ },
+ {
+  "fr": "fournir",
+  "zh": "提供",
+  "rank": 98,
+  "present": []
+ },
+ {
+  "fr": "munir",
+  "zh": "装备",
+  "rank": 99,
+  "present": []
+ },
+ {
+  "fr": "avertir",
+  "zh": "警告",
+  "rank": 100,
+  "present": []
+ },
+ {
+  "fr": "convertir",
+  "zh": "转变",
+  "rank": 101,
+  "present": []
+ },
+ {
+  "fr": "divertir",
+  "zh": "娱乐",
+  "rank": 102,
+  "present": []
+ },
+ {
+  "fr": "avorter",
+  "zh": "流产",
+  "rank": 103,
+  "present": []
+ },
+ {
+  "fr": "mentir",
+  "zh": "撒谎",
+  "rank": 104,
+  "present": []
+ },
+ {
+  "fr": "dormir",
+  "zh": "睡觉",
+  "rank": 105,
+  "present": []
+ },
+ {
+  "fr": "servir",
+  "zh": "服务",
+  "rank": 106,
+  "present": []
+ },
+ {
+  "fr": "réservir",
+  "zh": "再利用",
+  "rank": 107,
+  "present": []
+ },
+ {
+  "fr": "ressortir",
+  "zh": "突出/再出去",
+  "rank": 108,
+  "present": []
+ },
+ {
+  "fr": "consentir",
+  "zh": "同意",
+  "rank": 109,
+  "present": []
+ },
+ {
+  "fr": "ressentir",
+  "zh": "感受",
+  "rank": 110,
+  "present": []
+ },
+ {
+  "fr": "pressentir",
+  "zh": "预感",
+  "rank": 111,
+  "present": []
+ },
+ {
+  "fr": "bénir",
+  "zh": "祝福",
+  "rank": 112,
+  "present": []
+ },
+ {
+  "fr": "maudire",
+  "zh": "诅咒",
+  "rank": 113,
+  "present": []
+ },
+ {
+  "fr": "hair",
+  "zh": "憎恨",
+  "rank": 114,
+  "present": []
+ },
+ {
+  "fr": "chérir",
+  "zh": "珍爱",
+  "rank": 115,
+  "present": []
+ },
+ {
+  "fr": "périr",
+  "zh": "毁灭",
+  "rank": 116,
+  "present": []
+ },
+ {
+  "fr": "gémir",
+  "zh": "呻吟",
+  "rank": 117,
+  "present": []
+ },
+ {
+  "fr": "fleurir",
+  "zh": "开花",
+  "rank": 118,
+  "present": []
+ },
+ {
+  "fr": "accomplir",
+  "zh": "完成",
+  "rank": 119,
+  "present": []
+ },
+ {
+  "fr": "assaillir",
+  "zh": "袭击",
+  "rank": 120,
+  "present": []
+ },
+ {
+  "fr": "cueillir",
+  "zh": "采摘",
+  "rank": 121,
+  "present": []
+ },
+ {
+  "fr": "recueillir",
+  "zh": "收集/接待",
+  "rank": 122,
+  "present": []
+ },
+ {
+  "fr": "accueillir",
+  "zh": "迎接",
+  "rank": 123,
+  "present": []
+ },
+ {
+  "fr": "faillir",
+  "zh": "几乎/失误",
+  "rank": 124,
+  "present": []
+ },
+ {
+  "fr": "vieillir",
+  "zh": "变老",
+  "rank": 125,
+  "present": []
+ },
+ {
+  "fr": "rougir",
+  "zh": "变红",
+  "rank": 126,
+  "present": []
+ },
+ {
+  "fr": "blanchir",
+  "zh": "漂白",
+  "rank": 127,
+  "present": []
+ },
+ {
+  "fr": "grandir",
+  "zh": "长大",
+  "rank": 128,
+  "present": []
+ },
+ {
+  "fr": "salir",
+  "zh": "弄脏",
+  "rank": 129,
+  "present": []
+ },
+ {
+  "fr": "mûrir",
+  "zh": "成熟",
+  "rank": 130,
+  "present": []
+ },
+ {
+  "fr": "pâlir",
+  "zh": "变苍白",
+  "rank": 131,
+  "present": []
+ },
+ {
+  "fr": "jaunir",
+  "zh": "变黄",
+  "rank": 132,
+  "present": []
+ },
+ {
+  "fr": "noircir",
+  "zh": "变黑",
+  "rank": 133,
+  "present": []
+ },
+ {
+  "fr": "verdir",
+  "zh": "变绿",
+  "rank": 134,
+  "present": []
+ },
+ {
+  "fr": "blêmir",
+  "zh": "变苍白",
+  "rank": 135,
+  "present": []
+ },
+ {
+  "fr": "rajeunir",
+  "zh": "使年轻",
+  "rank": 136,
+  "present": []
+ },
+ {
+  "fr": "froidir",
+  "zh": "变冷",
+  "rank": 137,
+  "present": []
+ },
+ {
+  "fr": "ramollir",
+  "zh": "使变软",
+  "rank": 138,
+  "present": []
+ },
+ {
+  "fr": "aiguiser",
+  "zh": "磨快",
+  "rank": 139,
+  "present": []
+ },
+ {
+  "fr": "amuser",
+  "zh": "逗乐",
+  "rank": 140,
+  "present": []
+ },
+ {
+  "fr": "apporter",
+  "zh": "带来",
+  "rank": 141,
+  "present": []
+ },
+ {
+  "fr": "apprendre",
+  "zh": "学习/告知",
+  "rank": 142,
+  "present": []
+ },
+ {
+  "fr": "attendre",
+  "zh": "等待",
+  "rank": 143,
+  "present": []
+ },
+ {
+  "fr": "entendre",
+  "zh": "听见/理解",
+  "rank": 144,
+  "present": []
+ },
+ {
+  "fr": "défendre",
+  "zh": "防御/禁止",
+  "rank": 145,
+  "present": []
+ },
+ {
+  "fr": "descendre",
+  "zh": "下/下降",
+  "rank": 146,
+  "present": []
+ },
+ {
+  "fr": "étendre",
+  "zh": "伸展",
+  "rank": 147,
+  "present": []
+ },
+ {
+  "fr": "fendre",
+  "zh": "劈开",
+  "rank": 148,
+  "present": []
+ },
+ {
+  "fr": "mordre",
+  "zh": "咬",
+  "rank": 149,
+  "present": []
+ },
+ {
+  "fr": "pendre",
+  "zh": "悬挂",
+  "rank": 150,
+  "present": []
+ },
+ {
+  "fr": "perdre",
+  "zh": "失去",
+  "rank": 151,
+  "present": []
+ },
+ {
+  "fr": "rendre",
+  "zh": "归还/使",
+  "rank": 152,
+  "present": []
+ },
+ {
+  "fr": "répondre",
+  "zh": "回答",
+  "rank": 153,
+  "present": []
+ },
+ {
+  "fr": "tendre",
+  "zh": "伸展/倾向",
+  "rank": 154,
+  "present": []
+ },
+ {
+  "fr": "tondre",
+  "zh": "修剪",
+  "rank": 155,
+  "present": []
+ },
+ {
+  "fr": "vendre",
+  "zh": "卖",
+  "rank": 156,
+  "present": []
+ },
+ {
+  "fr": "correspondre",
+  "zh": "对应",
+  "rank": 157,
+  "present": []
+ },
+ {
+  "fr": "prétendre",
+  "zh": "声称",
+  "rank": 158,
+  "present": []
+ },
+ {
+  "fr": "redescendre",
+  "zh": "再下",
+  "rank": 159,
+  "present": []
+ },
+ {
+  "fr": "suspendre",
+  "zh": "悬挂/中断",
+  "rank": 160,
+  "present": []
+ },
+ {
+  "fr": "confondre",
+  "zh": "混淆",
+  "rank": 161,
+  "present": []
+ },
+ {
+  "fr": "tordre",
+  "zh": "拧/扭",
+  "rank": 162,
+  "present": []
+ },
+ {
+  "fr": "pondre",
+  "zh": "下蛋",
+  "rank": 163,
+  "present": []
+ },
+ {
+  "fr": "répandre",
+  "zh": "散布",
+  "rank": 164,
+  "present": []
+ },
+ {
+  "fr": "épandre",
+  "zh": "喷洒",
+  "rank": 165,
+  "present": []
+ },
+ {
+  "fr": "refondre",
+  "zh": "重铸",
+  "rank": 166,
+  "present": []
+ },
+ {
+  "fr": "manger",
+  "zh": "吃",
+  "rank": 167,
+  "present": []
+ },
+ {
+  "fr": "marcher",
+  "zh": "走/行军",
+  "rank": 168,
+  "present": []
+ },
+ {
+  "fr": "chercher",
+  "zh": "寻找",
+  "rank": 169,
+  "present": []
+ },
+ {
+  "fr": "parler",
+  "zh": "说话",
+  "rank": 170,
+  "present": []
+ },
+ {
+  "fr": "aimer",
+  "zh": "爱/喜欢",
+  "rank": 171,
+  "present": []
+ },
+ {
+  "fr": "donner",
+  "zh": "给",
+  "rank": 172,
+  "present": []
+ },
+ {
+  "fr": "passer",
+  "zh": "经过/度过",
+  "rank": 173,
+  "present": []
+ },
+ {
+  "fr": "regarder",
+  "zh": "看",
+  "rank": 174,
+  "present": []
+ },
+ {
+  "fr": "trouver",
+  "zh": "找到",
+  "rank": 175,
+  "present": []
+ },
+ {
+  "fr": "montrer",
+  "zh": "展示",
+  "rank": 176,
+  "present": []
+ },
+ {
+  "fr": "laisser",
+  "zh": "让/留",
+  "rank": 177,
+  "present": []
+ },
+ {
+  "fr": "rester",
+  "zh": "停留/保持",
+  "rank": 178,
+  "present": []
+ },
+ {
+  "fr": "tourner",
+  "zh": "转动",
+  "rank": 179,
+  "present": []
+ },
+ {
+  "fr": "travailler",
+  "zh": "工作",
+  "rank": 180,
+  "present": []
+ },
+ {
+  "fr": "arriver",
+  "zh": "到达/发生",
+  "rank": 181,
+  "present": []
+ },
+ {
+  "fr": "entrer",
+  "zh": "进入",
+  "rank": 182,
+  "present": []
+ },
+ {
+  "fr": "rentrer",
+  "zh": "返回",
+  "rank": 183,
+  "present": []
+ },
+ {
+  "fr": "retourner",
+  "zh": "返回/翻转",
+  "rank": 184,
+  "present": []
+ },
+ {
+  "fr": "tomber",
+  "zh": "掉落",
+  "rank": 185,
+  "present": []
+ },
+ {
+  "fr": "monter",
+  "zh": "上/上升",
+  "rank": 186,
+  "present": []
+ },
+ {
+  "fr": "demander",
+  "zh": "请求",
+  "rank": 187,
+  "present": []
+ },
+ {
+  "fr": "commencer",
+  "zh": "开始",
+  "rank": 188,
+  "present": []
+ },
+ {
+  "fr": "sembler",
+  "zh": "似乎",
+  "rank": 189,
+  "present": []
+ },
+ {
+  "fr": "continuer",
+  "zh": "继续",
+  "rank": 190,
+  "present": []
+ },
+ {
+  "fr": "porter",
+  "zh": "携带/穿",
+  "rank": 191,
+  "present": []
+ },
+ {
+  "fr": "empêcher",
+  "zh": "阻止",
+  "rank": 192,
+  "present": []
+ },
+ {
+  "fr": "essayer",
+  "zh": "尝试",
+  "rank": 193,
+  "present": []
+ },
+ {
+  "fr": "acheter",
+  "zh": "买",
+  "rank": 194,
+  "present": []
+ },
+ {
+  "fr": "payer",
+  "zh": "支付",
+  "rank": 195,
+  "present": []
+ },
+ {
+  "fr": "essuyer",
+  "zh": "擦/经受",
+  "rank": 196,
+  "present": []
+ },
+ {
+  "fr": "envoyer",
+  "zh": "发送",
+  "rank": 197,
+  "present": []
+ },
+ {
+  "fr": "appeler",
+  "zh": "呼叫",
+  "rank": 198,
+  "present": []
+ },
+ {
+  "fr": "jeter",
+  "zh": "扔",
+  "rank": 199,
+  "present": []
+ },
+ {
+  "fr": "refuser",
+  "zh": "拒绝",
+  "rank": 200,
+  "present": []
+ },
+ {
+  "fr": "accepter",
+  "zh": "接受",
+  "rank": 201,
+  "present": []
+ },
+ {
+  "fr": "attirer",
+  "zh": "吸引",
+  "rank": 202,
+  "present": []
+ },
+ {
+  "fr": "pousser",
+  "zh": "推/生长",
+  "rank": 203,
+  "present": []
+ },
+ {
+  "fr": "oublier",
+  "zh": "忘记",
+  "rank": 204,
+  "present": []
+ },
+ {
+  "fr": "changer",
+  "zh": "改变",
+  "rank": 205,
+  "present": []
+ },
+ {
+  "fr": "voyager",
+  "zh": "旅行",
+  "rank": 206,
+  "present": []
+ },
+ {
+  "fr": "partager",
+  "zh": "分享",
+  "rank": 207,
+  "present": []
+ },
+ {
+  "fr": "rencontrer",
+  "zh": "遇见",
+  "rank": 208,
+  "present": []
+ },
+ {
+  "fr": "gagner",
+  "zh": "赢/赚",
+  "rank": 209,
+  "present": []
+ },
+ {
+  "fr": "permettre",
+  "zh": "允许",
+  "rank": 210,
+  "present": []
+ },
+ {
+  "fr": "promettre",
+  "zh": "承诺",
+  "rank": 211,
+  "present": []
+ },
+ {
+  "fr": "remettre",
+  "zh": "放回/交还",
+  "rank": 212,
+  "present": []
+ },
+ {
+  "fr": "transmettre",
+  "zh": "传达",
+  "rank": 213,
+  "present": []
+ },
+ {
+  "fr": "admettre",
+  "zh": "承认",
+  "rank": 214,
+  "present": []
+ },
+ {
+  "fr": "commettre",
+  "zh": "犯",
+  "rank": 215,
+  "present": []
+ },
+ {
+  "fr": "soumettre",
+  "zh": "使服从",
+  "rank": 216,
+  "present": []
+ },
+ {
+  "fr": "paraitre",
+  "zh": "显得",
+  "rank": 217,
+  "present": []
+ },
+ {
+  "fr": "connaitre",
+  "zh": "认识",
+  "rank": 218,
+  "present": []
+ },
+ {
+  "fr": "reconnaitre",
+  "zh": "认出",
+  "rank": 219,
+  "present": []
+ },
+ {
+  "fr": "disparaître",
+  "zh": "消失",
+  "rank": 220,
+  "present": []
+ },
+ {
+  "fr": "croire",
+  "zh": "相信",
+  "rank": 221,
+  "present": []
+ },
+ {
+  "fr": "boire",
+  "zh": "喝",
+  "rank": 222,
+  "present": []
+ },
+ {
+  "fr": "asseoir",
+  "zh": "使坐",
+  "rank": 223,
+  "present": []
+ },
+ {
+  "fr": "bouillir",
+  "zh": "沸腾",
+  "rank": 224,
+  "present": []
+ },
+ {
+  "fr": "fuir",
+  "zh": "逃跑",
+  "rank": 225,
+  "present": []
+ },
+ {
+  "fr": "saisir",
+  "zh": "抓住/理解",
+  "rank": 226,
+  "present": []
+ },
+ {
+  "fr": "élire",
+  "zh": "选举",
+  "rank": 227,
+  "present": []
+ },
+ {
+  "fr": "conclure",
+  "zh": "结论",
+  "rank": 228,
+  "present": []
+ },
+ {
+  "fr": "exclure",
+  "zh": "排除",
+  "rank": 229,
+  "present": []
+ },
+ {
+  "fr": "inclure",
+  "zh": "包含",
+  "rank": 230,
+  "present": []
+ },
+ {
+  "fr": "conquérir",
+  "zh": "征服",
+  "rank": 231,
+  "present": []
+ },
+ {
+  "fr": "requérir",
+  "zh": "要求",
+  "rank": 232,
+  "present": []
+ },
+ {
+  "fr": "traverser",
+  "zh": "穿过",
+  "rank": 233,
+  "present": []
+ },
+ {
+  "fr": "considérer",
+  "zh": "考虑/认为",
+  "rank": 234,
+  "present": []
+ },
+ {
+  "fr": "espérer",
+  "zh": "希望",
+  "rank": 235,
+  "present": []
+ },
+ {
+  "fr": "préférer",
+  "zh": "更喜欢",
+  "rank": 236,
+  "present": []
+ },
+ {
+  "fr": "répéter",
+  "zh": "重复",
+  "rank": 237,
+  "present": []
+ },
+ {
+  "fr": "célébrer",
+  "zh": "庆祝",
+  "rank": 238,
+  "present": []
+ },
+ {
+  "fr": "différer",
+  "zh": "延迟",
+  "rank": 239,
+  "present": []
+ },
+ {
+  "fr": "générer",
+  "zh": "产生",
+  "rank": 240,
+  "present": []
+ },
+ {
+  "fr": "opérer",
+  "zh": "操作",
+  "rank": 241,
+  "present": []
+ },
+ {
+  "fr": "pénétrer",
+  "zh": "渗透/进入",
+  "rank": 242,
+  "present": []
+ },
+ {
+  "fr": "séparer",
+  "zh": "分开",
+  "rank": 243,
+  "present": []
+ },
+ {
+  "fr": "réparer",
+  "zh": "修理",
+  "rank": 244,
+  "present": []
+ },
+ {
+  "fr": "préparer",
+  "zh": "准备",
+  "rank": 245,
+  "present": []
+ },
+ {
+  "fr": "décorer",
+  "zh": "装饰",
+  "rank": 246,
+  "present": []
+ },
+ {
+  "fr": "admirer",
+  "zh": "欣赏",
+  "rank": 247,
+  "present": []
+ },
+ {
+  "fr": "penser",
+  "zh": "想/认为",
+  "rank": 248,
+  "present": []
+ },
+ {
+  "fr": "abaisser",
+  "zh": "降低",
+  "rank": 249,
+  "present": []
+ },
+ {
+  "fr": "abattre",
+  "zh": "击倒",
+  "rank": 250,
+  "present": []
+ },
+ {
+  "fr": "aborder",
+  "zh": "靠近",
+  "rank": 251,
+  "present": []
+ },
+ {
+  "fr": "aboutir",
+  "zh": "达到",
+  "rank": 252,
+  "present": []
+ },
+ {
+  "fr": "aboyer",
+  "zh": "吠",
+  "rank": 253,
+  "present": []
+ },
+ {
+  "fr": "absoudre",
+  "zh": "赦免",
+  "rank": 254,
+  "present": []
+ },
+ {
+  "fr": "abstenir",
+  "zh": "克制",
+  "rank": 255,
+  "present": []
+ },
+ {
+  "fr": "abuser",
+  "zh": "滥用",
+  "rank": 256,
+  "present": []
+ },
+ {
+  "fr": "accorder",
+  "zh": "协调",
+  "rank": 257,
+  "present": []
+ },
+ {
+  "fr": "accoucher",
+  "zh": "分娩",
+  "rank": 258,
+  "present": []
+ },
+ {
+  "fr": "accrocher",
+  "zh": "挂",
+  "rank": 259,
+  "present": []
+ },
+ {
+  "fr": "accumuler",
+  "zh": "积累",
+  "rank": 260,
+  "present": []
+ },
+ {
+  "fr": "accuser",
+  "zh": "控告",
+  "rank": 261,
+  "present": []
+ },
+ {
+  "fr": "adhérer",
+  "zh": "依附",
+  "rank": 262,
+  "present": []
+ },
+ {
+  "fr": "adorer",
+  "zh": "喜爱",
+  "rank": 263,
+  "present": []
+ },
+ {
+  "fr": "adoucir",
+  "zh": "缓和",
+  "rank": 264,
+  "present": []
+ },
+ {
+  "fr": "affaiblir",
+  "zh": "削弱",
+  "rank": 265,
+  "present": []
+ },
+ {
+  "fr": "affecter",
+  "zh": "影响",
+  "rank": 266,
+  "present": []
+ },
+ {
+  "fr": "affirmer",
+  "zh": "肯定",
+  "rank": 267,
+  "present": []
+ },
+ {
+  "fr": "affliger",
+  "zh": "使悲伤",
+  "rank": 268,
+  "present": []
+ },
+ {
+  "fr": "affronter",
+  "zh": "面对",
+  "rank": 269,
+  "present": []
+ },
+ {
+  "fr": "aider",
+  "zh": "帮助",
+  "rank": 270,
+  "present": []
+ },
+ {
+  "fr": "ajouter",
+  "zh": "添加",
+  "rank": 271,
+  "present": []
+ },
+ {
+  "fr": "alerter",
+  "zh": "警告",
+  "rank": 272,
+  "present": []
+ },
+ {
+  "fr": "aligner",
+  "zh": "对齐",
+  "rank": 273,
+  "present": []
+ },
+ {
+  "fr": "alléger",
+  "zh": "减轻",
+  "rank": 274,
+  "present": []
+ },
+ {
+  "fr": "améliorer",
+  "zh": "改善",
+  "rank": 275,
+  "present": []
+ },
+ {
+  "fr": "amener",
+  "zh": "带来",
+  "rank": 276,
+  "present": []
+ },
+ {
+  "fr": "anéantir",
+  "zh": "消灭",
+  "rank": 277,
+  "present": []
+ },
+ {
+  "fr": "anticiper",
+  "zh": "预期",
+  "rank": 278,
+  "present": []
+ },
+ {
+  "fr": "apparaître",
+  "zh": "出现",
+  "rank": 279,
+  "present": []
+ },
+ {
+  "fr": "applaudir",
+  "zh": "鼓掌",
+  "rank": 280,
+  "present": []
+ },
+ {
+  "fr": "appliquer",
+  "zh": "应用",
+  "rank": 281,
+  "present": []
+ },
+ {
+  "fr": "approcher",
+  "zh": "接近",
+  "rank": 282,
+  "present": []
+ },
+ {
+  "fr": "approuver",
+  "zh": "赞成",
+  "rank": 283,
+  "present": []
+ },
+ {
+  "fr": "argumenter",
+  "zh": "论证",
+  "rank": 284,
+  "present": []
+ },
+ {
+  "fr": "armer",
+  "zh": "武装",
+  "rank": 285,
+  "present": []
+ },
+ {
+  "fr": "arranger",
+  "zh": "整理",
+  "rank": 286,
+  "present": []
+ },
+ {
+  "fr": "arrondir",
+  "zh": "使圆",
+  "rank": 287,
+  "present": []
+ },
+ {
+  "fr": "arrêter",
+  "zh": "停止",
+  "rank": 288,
+  "present": []
+ },
+ {
+  "fr": "assister",
+  "zh": "出席",
+  "rank": 289,
+  "present": []
+ },
+ {
+  "fr": "associer",
+  "zh": "联合",
+  "rank": 290,
+  "present": []
+ },
+ {
+  "fr": "assurer",
+  "zh": "确保",
+  "rank": 291,
+  "present": []
+ },
+ {
+  "fr": "attaquer",
+  "zh": "攻击",
+  "rank": 292,
+  "present": []
+ },
+ {
+  "fr": "attendrir",
+  "zh": "使感动",
+  "rank": 293,
+  "present": []
+ },
+ {
+  "fr": "attester",
+  "zh": "证明",
+  "rank": 294,
+  "present": []
+ },
+ {
+  "fr": "attribuer",
+  "zh": "归属",
+  "rank": 295,
+  "present": []
+ },
+ {
+  "fr": "authentifier",
+  "zh": "认证",
+  "rank": 296,
+  "present": []
+ },
+ {
+  "fr": "autoriser",
+  "zh": "授权",
+  "rank": 297,
+  "present": []
+ },
+ {
+  "fr": "avaler",
+  "zh": "吞",
+  "rank": 298,
+  "present": []
+ },
+ {
+  "fr": "avancer",
+  "zh": "前进",
+  "rank": 299,
+  "present": []
+ },
+ {
+  "fr": "aviser",
+  "zh": "通知",
+  "rank": 300,
+  "present": []
+ },
+ {
+  "fr": "baigner",
+  "zh": "浸泡",
+  "rank": 301,
+  "present": []
+ },
+ {
+  "fr": "baisser",
+  "zh": "降低",
+  "rank": 302,
+  "present": []
+ },
+ {
+  "fr": "balancer",
+  "zh": "摇晃",
+  "rank": 303,
+  "present": []
+ },
+ {
+  "fr": "balayer",
+  "zh": "打扫",
+  "rank": 304,
+  "present": []
+ },
+ {
+  "fr": "banaliser",
+  "zh": "使平常",
+  "rank": 305,
+  "present": []
+ },
+ {
+  "fr": "bannir",
+  "zh": "流放",
+  "rank": 306,
+  "present": []
+ },
+ {
+  "fr": "barrer",
+  "zh": "阻",
+  "rank": 307,
+  "present": []
+ },
+ {
+  "fr": "bavarder",
+  "zh": "闲聊",
+  "rank": 308,
+  "present": []
+ },
+ {
+  "fr": "bégayer",
+  "zh": "口吃",
+  "rank": 309,
+  "present": []
+ },
+ {
+  "fr": "blesser",
+  "zh": "伤害",
+  "rank": 310,
+  "present": []
+ },
+ {
+  "fr": "blâmer",
+  "zh": "责备",
+  "rank": 311,
+  "present": []
+ },
+ {
+  "fr": "bondir",
+  "zh": "跳",
+  "rank": 312,
+  "present": []
+ },
+ {
+  "fr": "bonifier",
+  "zh": "改良",
+  "rank": 313,
+  "present": []
+ },
+ {
+  "fr": "border",
+  "zh": "环绕",
+  "rank": 314,
+  "present": []
+ },
+ {
+  "fr": "borner",
+  "zh": "限",
+  "rank": 315,
+  "present": []
+ },
+ {
+  "fr": "boucher",
+  "zh": "堵",
+  "rank": 316,
+  "present": []
+ },
+ {
+  "fr": "boucler",
+  "zh": "扣",
+  "rank": 317,
+  "present": []
+ },
+ {
+  "fr": "bouger",
+  "zh": "动",
+  "rank": 318,
+  "present": []
+ },
+ {
+  "fr": "bouleverser",
+  "zh": "扰乱",
+  "rank": 319,
+  "present": []
+ },
+ {
+  "fr": "bousculer",
+  "zh": "推",
+  "rank": 320,
+  "present": []
+ },
+ {
+  "fr": "brancher",
+  "zh": "接",
+  "rank": 321,
+  "present": []
+ },
+ {
+  "fr": "brandir",
+  "zh": "挥",
+  "rank": 322,
+  "present": []
+ },
+ {
+  "fr": "braver",
+  "zh": "藐视",
+  "rank": 323,
+  "present": []
+ },
+ {
+  "fr": "briller",
+  "zh": "发光",
+  "rank": 324,
+  "present": []
+ },
+ {
+  "fr": "bronzer",
+  "zh": "晒",
+  "rank": 325,
+  "present": []
+ },
+ {
+  "fr": "brosser",
+  "zh": "刷",
+  "rank": 326,
+  "present": []
+ },
+ {
+  "fr": "brouiller",
+  "zh": "混",
+  "rank": 327,
+  "present": []
+ },
+ {
+  "fr": "bruire",
+  "zh": "沙沙",
+  "rank": 328,
+  "present": []
+ },
+ {
+  "fr": "brûler",
+  "zh": "燃烧",
+  "rank": 329,
+  "present": []
+ },
+ {
+  "fr": "brusquer",
+  "zh": "粗鲁",
+  "rank": 330,
+  "present": []
+ },
+ {
+  "fr": "cacher",
+  "zh": "藏",
+  "rank": 331,
+  "present": []
+ },
+ {
+  "fr": "cajoler",
+  "zh": "哄",
+  "rank": 332,
+  "present": []
+ },
+ {
+  "fr": "calculer",
+  "zh": "计算",
+  "rank": 333,
+  "present": []
+ },
+ {
+  "fr": "calmer",
+  "zh": "镇定",
+  "rank": 334,
+  "present": []
+ },
+ {
+  "fr": "camper",
+  "zh": "露营",
+  "rank": 335,
+  "present": []
+ },
+ {
+  "fr": "canaliser",
+  "zh": "疏导",
+  "rank": 336,
+  "present": []
+ },
+ {
+  "fr": "casser",
+  "zh": "打破",
+  "rank": 337,
+  "present": []
+ },
+ {
+  "fr": "caresser",
+  "zh": "抚摸",
+  "rank": 338,
+  "present": []
+ },
+ {
+  "fr": "centraliser",
+  "zh": "集中",
+  "rank": 339,
+  "present": []
+ },
+ {
+  "fr": "cerner",
+  "zh": "包围",
+  "rank": 340,
+  "present": []
+ },
+ {
+  "fr": "chanter",
+  "zh": "唱",
+  "rank": 341,
+  "present": []
+ },
+ {
+  "fr": "chasser",
+  "zh": "猎",
+  "rank": 342,
+  "present": []
+ },
+ {
+  "fr": "châtier",
+  "zh": "惩罚",
+  "rank": 343,
+  "present": []
+ },
+ {
+  "fr": "chauffer",
+  "zh": "加热",
+  "rank": 344,
+  "present": []
+ },
+ {
+  "fr": "chevaucher",
+  "zh": "骑",
+  "rank": 345,
+  "present": []
+ },
+ {
+  "fr": "chiffrer",
+  "zh": "计算",
+  "rank": 346,
+  "present": []
+ },
+ {
+  "fr": "choyer",
+  "zh": "宠",
+  "rank": 347,
+  "present": []
+ },
+ {
+  "fr": "citer",
+  "zh": "引用",
+  "rank": 348,
+  "present": []
+ },
+ {
+  "fr": "civiliser",
+  "zh": "开化",
+  "rank": 349,
+  "present": []
+ },
+ {
+  "fr": "clamer",
+  "zh": "呼喊",
+  "rank": 350,
+  "present": []
+ },
+ {
+  "fr": "claquer",
+  "zh": "拍",
+  "rank": 351,
+  "present": []
+ },
+ {
+  "fr": "classer",
+  "zh": "分类",
+  "rank": 352,
+  "present": []
+ },
+ {
+  "fr": "cligner",
+  "zh": "眨",
+  "rank": 353,
+  "present": []
+ },
+ {
+  "fr": "cliquer",
+  "zh": "点击",
+  "rank": 354,
+  "present": []
+ },
+ {
+  "fr": "clôturer",
+  "zh": "封闭",
+  "rank": 355,
+  "present": []
+ },
+ {
+  "fr": "coaguler",
+  "zh": "凝",
+  "rank": 356,
+  "present": []
+ },
+ {
+  "fr": "coaliser",
+  "zh": "联合",
+  "rank": 357,
+  "present": []
+ },
+ {
+  "fr": "cohabiter",
+  "zh": "同居",
+  "rank": 358,
+  "present": []
+ },
+ {
+  "fr": "coincer",
+  "zh": "卡",
+  "rank": 359,
+  "present": []
+ },
+ {
+  "fr": "coller",
+  "zh": "贴",
+  "rank": 360,
+  "present": []
+ },
+ {
+  "fr": "coloniser",
+  "zh": "殖民",
+  "rank": 361,
+  "present": []
+ },
+ {
+  "fr": "colorier",
+  "zh": "涂",
+  "rank": 362,
+  "present": []
+ },
+ {
+  "fr": "combattre",
+  "zh": "战斗",
+  "rank": 363,
+  "present": []
+ },
+ {
+  "fr": "combler",
+  "zh": "填满",
+  "rank": 364,
+  "present": []
+ },
+ {
+  "fr": "communiquer",
+  "zh": "交流",
+  "rank": 365,
+  "present": []
+ },
+ {
+  "fr": "compatir",
+  "zh": "同情",
+  "rank": 366,
+  "present": []
+ },
+ {
+  "fr": "compenser",
+  "zh": "补偿",
+  "rank": 367,
+  "present": []
+ },
+ {
+  "fr": "compléter",
+  "zh": "完成",
+  "rank": 368,
+  "present": []
+ },
+ {
+  "fr": "comporter",
+  "zh": "含有",
+  "rank": 369,
+  "present": []
+ },
+ {
+  "fr": "composer",
+  "zh": "组成",
+  "rank": 370,
+  "present": []
+ },
+ {
+  "fr": "comprimer",
+  "zh": "压",
+  "rank": 371,
+  "present": []
+ },
+ {
+  "fr": "compromettre",
+  "zh": "危及",
+  "rank": 372,
+  "present": []
+ },
+ {
+  "fr": "concevoir",
+  "zh": "构思",
+  "rank": 373,
+  "present": []
+ },
+ {
+  "fr": "concourir",
+  "zh": "竞争",
+  "rank": 374,
+  "present": []
+ },
+ {
+  "fr": "condamner",
+  "zh": "判",
+  "rank": 375,
+  "present": []
+ },
+ {
+  "fr": "confectionner",
+  "zh": "制作",
+  "rank": 376,
+  "present": []
+ },
+ {
+  "fr": "conférer",
+  "zh": "授予",
+  "rank": 377,
+  "present": []
+ },
+ {
+  "fr": "confier",
+  "zh": "托",
+  "rank": 378,
+  "present": []
+ },
+ {
+  "fr": "confronter",
+  "zh": "对照",
+  "rank": 379,
+  "present": []
+ },
+ {
+  "fr": "congédier",
+  "zh": "解雇",
+  "rank": 380,
+  "present": []
+ },
+ {
+  "fr": "conjurer",
+  "zh": "驱",
+  "rank": 381,
+  "present": []
+ },
+ {
+  "fr": "consacrer",
+  "zh": "奉献",
+  "rank": 382,
+  "present": []
+ },
+ {
+  "fr": "conseiller",
+  "zh": "建议",
+  "rank": 383,
+  "present": []
+ },
+ {
+  "fr": "conserver",
+  "zh": "保存",
+  "rank": 384,
+  "present": []
+ },
+ {
+  "fr": "consister",
+  "zh": "在于",
+  "rank": 385,
+  "present": []
+ },
+ {
+  "fr": "consoler",
+  "zh": "安慰",
+  "rank": 386,
+  "present": []
+ },
+ {
+  "fr": "consommer",
+  "zh": "消费",
+  "rank": 387,
+  "present": []
+ },
+ {
+  "fr": "constater",
+  "zh": "确认",
+  "rank": 388,
+  "present": []
+ },
+ {
+  "fr": "constituer",
+  "zh": "构成",
+  "rank": 389,
+  "present": []
+ },
+ {
+  "fr": "contempler",
+  "zh": "沉思",
+  "rank": 390,
+  "present": []
+ },
+ {
+  "fr": "contester",
+  "zh": "质疑",
+  "rank": 391,
+  "present": []
+ },
+ {
+  "fr": "conter",
+  "zh": "讲",
+  "rank": 392,
+  "present": []
+ },
+ {
+  "fr": "contraindre",
+  "zh": "强迫",
+  "rank": 393,
+  "present": []
+ },
+ {
+  "fr": "contribuer",
+  "zh": "贡献",
+  "rank": 394,
+  "present": []
+ },
+ {
+  "fr": "contrôler",
+  "zh": "控制",
+  "rank": 395,
+  "present": []
+ },
+ {
+  "fr": "convaincre",
+  "zh": "说服",
+  "rank": 396,
+  "present": []
+ },
+ {
+  "fr": "convenir",
+  "zh": "适合",
+  "rank": 397,
+  "present": []
+ },
+ {
+  "fr": "convier",
+  "zh": "邀请",
+  "rank": 398,
+  "present": []
+ },
+ {
+  "fr": "copier",
+  "zh": "复制",
+  "rank": 399,
+  "present": []
+ },
+ {
+  "fr": "corriger",
+  "zh": "改",
+  "rank": 400,
+  "present": []
+ },
+ {
+  "fr": "côtoyer",
+  "zh": "沿",
+  "rank": 401,
+  "present": []
+ },
+ {
+  "fr": "coucher",
+  "zh": "躺",
+  "rank": 402,
+  "present": []
+ },
+ {
+  "fr": "coudre",
+  "zh": "缝",
+  "rank": 403,
+  "present": []
+ },
+ {
+  "fr": "couler",
+  "zh": "流",
+  "rank": 404,
+  "present": []
+ },
+ {
+  "fr": "couper",
+  "zh": "切",
+  "rank": 405,
+  "present": []
+ },
+ {
+  "fr": "courtiser",
+  "zh": "追求",
+  "rank": 406,
+  "present": []
+ },
+ {
+  "fr": "créer",
+  "zh": "创造",
+  "rank": 407,
+  "present": []
+ },
+ {
+  "fr": "crier",
+  "zh": "喊",
+  "rank": 408,
+  "present": []
+ },
+ {
+  "fr": "croiser",
+  "zh": "交叉",
+  "rank": 409,
+  "present": []
+ },
+ {
+  "fr": "cultiver",
+  "zh": "培养",
+  "rank": 410,
+  "present": []
+ },
+ {
+  "fr": "danser",
+  "zh": "跳舞",
+  "rank": 411,
+  "present": []
+ },
+ {
+  "fr": "débarrasser",
+  "zh": "清除",
+  "rank": 412,
+  "present": []
+ },
+ {
+  "fr": "débattre",
+  "zh": "辩论",
+  "rank": 413,
+  "present": []
+ },
+ {
+  "fr": "débiter",
+  "zh": "零售",
+  "rank": 414,
+  "present": []
+ },
+ {
+  "fr": "déborder",
+  "zh": "溢",
+  "rank": 415,
+  "present": []
+ },
+ {
+  "fr": "débourser",
+  "zh": "付",
+  "rank": 416,
+  "present": []
+ },
+ {
+  "fr": "décevoir",
+  "zh": "失望",
+  "rank": 417,
+  "present": []
+ },
+ {
+  "fr": "décider",
+  "zh": "决定",
+  "rank": 418,
+  "present": []
+ },
+ {
+  "fr": "décrire",
+  "zh": "描述",
+  "rank": 419,
+  "present": []
+ },
+ {
+  "fr": "décrocher",
+  "zh": "摘",
+  "rank": 420,
+  "present": []
+ },
+ {
+  "fr": "dédaigner",
+  "zh": "轻视",
+  "rank": 421,
+  "present": []
+ },
+ {
+  "fr": "défigurer",
+  "zh": "毁容",
+  "rank": 422,
+  "present": []
+ },
+ {
+  "fr": "dégager",
+  "zh": "释放",
+  "rank": 423,
+  "present": []
+ },
+ {
+  "fr": "dégrader",
+  "zh": "降级",
+  "rank": 424,
+  "present": []
+ },
+ {
+  "fr": "déjeuner",
+  "zh": "午餐",
+  "rank": 425,
+  "present": []
+ },
+ {
+  "fr": "délivrer",
+  "zh": "交付",
+  "rank": 426,
+  "present": []
+ },
+ {
+  "fr": "déménager",
+  "zh": "搬家",
+  "rank": 427,
+  "present": []
+ },
+ {
+  "fr": "démissionner",
+  "zh": "辞职",
+  "rank": 428,
+  "present": []
+ },
+ {
+  "fr": "démolir",
+  "zh": "拆",
+  "rank": 429,
+  "present": []
+ },
+ {
+  "fr": "dénoncer",
+  "zh": "告发",
+  "rank": 430,
+  "present": []
+ },
+ {
+  "fr": "dépasser",
+  "zh": "超过",
+  "rank": 431,
+  "present": []
+ },
+ {
+  "fr": "dépenser",
+  "zh": "花费",
+  "rank": 432,
+  "present": []
+ },
+ {
+  "fr": "déplacer",
+  "zh": "移动",
+  "rank": 433,
+  "present": []
+ },
+ {
+  "fr": "déplaire",
+  "zh": "使不快",
+  "rank": 434,
+  "present": []
+ },
+ {
+  "fr": "déposer",
+  "zh": "放",
+  "rank": 435,
+  "present": []
+ },
+ {
+  "fr": "déranger",
+  "zh": "打扰",
+  "rank": 436,
+  "present": []
+ },
+ {
+  "fr": "dérober",
+  "zh": "盗",
+  "rank": 437,
+  "present": []
+ },
+ {
+  "fr": "désapprouver",
+  "zh": "不赞成",
+  "rank": 438,
+  "present": []
+ },
+ {
+  "fr": "désarmer",
+  "zh": "解除",
+  "rank": 439,
+  "present": []
+ },
+ {
+  "fr": "désigner",
+  "zh": "指定",
+  "rank": 440,
+  "present": []
+ },
+ {
+  "fr": "désobéir",
+  "zh": "违抗",
+  "rank": 441,
+  "present": []
+ },
+ {
+  "fr": "désoler",
+  "zh": "悲伤",
+  "rank": 442,
+  "present": []
+ },
+ {
+  "fr": "détester",
+  "zh": "讨厌",
+  "rank": 443,
+  "present": []
+ },
+ {
+  "fr": "dévorer",
+  "zh": "吞食",
+  "rank": 444,
+  "present": []
+ },
+ {
+  "fr": "deviner",
+  "zh": "猜",
+  "rank": 445,
+  "present": []
+ },
+ {
+  "fr": "dîner",
+  "zh": "晚餐",
+  "rank": 446,
+  "present": []
+ },
+ {
+  "fr": "diriger",
+  "zh": "指导",
+  "rank": 447,
+  "present": []
+ },
+ {
+  "fr": "discuter",
+  "zh": "讨论",
+  "rank": 448,
+  "present": []
+ },
+ {
+  "fr": "disputer",
+  "zh": "争论",
+  "rank": 449,
+  "present": []
+ },
+ {
+  "fr": "dissoudre",
+  "zh": "溶解",
+  "rank": 450,
+  "present": []
+ },
+ {
+  "fr": "distinguer",
+  "zh": "区分",
+  "rank": 451,
+  "present": []
+ },
+ {
+  "fr": "distribuer",
+  "zh": "分配",
+  "rank": 452,
+  "present": []
+ },
+ {
+  "fr": "diviser",
+  "zh": "分",
+  "rank": 453,
+  "present": []
+ },
+ {
+  "fr": "divorcer",
+  "zh": "离婚",
+  "rank": 454,
+  "present": []
+ },
+ {
+  "fr": "dompter",
+  "zh": "驯",
+  "rank": 455,
+  "present": []
+ },
+ {
+  "fr": "douter",
+  "zh": "怀疑",
+  "rank": 456,
+  "present": []
+ },
+ {
+  "fr": "dresser",
+  "zh": "竖",
+  "rank": 457,
+  "present": []
+ },
+ {
+  "fr": "duper",
+  "zh": "骗",
+  "rank": 458,
+  "present": []
+ },
+ {
+  "fr": "éblouir",
+  "zh": "眩目",
+  "rank": 459,
+  "present": []
+ },
+ {
+  "fr": "échapper",
+  "zh": "逃脱",
+  "rank": 460,
+  "present": []
+ },
+ {
+  "fr": "échouer",
+  "zh": "失败",
+  "rank": 461,
+  "present": []
+ },
+ {
+  "fr": "éclairer",
+  "zh": "照亮",
+  "rank": 462,
+  "present": []
+ },
+ {
+  "fr": "éclater",
+  "zh": "爆",
+  "rank": 463,
+  "present": []
+ },
+ {
+  "fr": "écouter",
+  "zh": "听",
+  "rank": 464,
+  "present": []
+ },
+ {
+  "fr": "écraser",
+  "zh": "压碎",
+  "rank": 465,
+  "present": []
+ },
+ {
+  "fr": "écrier",
+  "zh": "呼喊",
+  "rank": 466,
+  "present": []
+ },
+ {
+  "fr": "édifier",
+  "zh": "建设",
+  "rank": 467,
+  "present": []
+ },
+ {
+  "fr": "éditer",
+  "zh": "出版",
+  "rank": 468,
+  "present": []
+ },
+ {
+  "fr": "effacer",
+  "zh": "擦",
+  "rank": 469,
+  "present": []
+ },
+ {
+  "fr": "effrayer",
+  "zh": "惊",
+  "rank": 470,
+  "present": []
+ },
+ {
+  "fr": "égarer",
+  "zh": "迷路",
+  "rank": 471,
+  "present": []
+ },
+ {
+  "fr": "élargir",
+  "zh": "扩大",
+  "rank": 472,
+  "present": []
+ },
+ {
+  "fr": "élever",
+  "zh": "提升",
+  "rank": 473,
+  "present": []
+ },
+ {
+  "fr": "éliminer",
+  "zh": "淘汰",
+  "rank": 474,
+  "present": []
+ },
+ {
+  "fr": "éloigner",
+  "zh": "远离",
+  "rank": 475,
+  "present": []
+ },
+ {
+  "fr": "émettre",
+  "zh": "发出",
+  "rank": 476,
+  "present": []
+ },
+ {
+  "fr": "émouvoir",
+  "zh": "感动",
+  "rank": 477,
+  "present": []
+ },
+ {
+  "fr": "employer",
+  "zh": "使用",
+  "rank": 478,
+  "present": []
+ },
+ {
+  "fr": "emporter",
+  "zh": "带走",
+  "rank": 479,
+  "present": []
+ },
+ {
+  "fr": "enfermer",
+  "zh": "关",
+  "rank": 480,
+  "present": []
+ },
+ {
+  "fr": "enfiler",
+  "zh": "穿",
+  "rank": 481,
+  "present": []
+ },
+ {
+  "fr": "enfouir",
+  "zh": "埋",
+  "rank": 482,
+  "present": []
+ },
+ {
+  "fr": "engager",
+  "zh": "从事",
+  "rank": 483,
+  "present": []
+ },
+ {
+  "fr": "enlever",
+  "zh": "移除",
+  "rank": 484,
+  "present": []
+ },
+ {
+  "fr": "enrichir",
+  "zh": "丰富",
+  "rank": 485,
+  "present": []
+ },
+ {
+  "fr": "enseigner",
+  "zh": "教",
+  "rank": 486,
+  "present": []
+ },
+ {
+  "fr": "envahir",
+  "zh": "入侵",
+  "rank": 487,
+  "present": []
+ },
+ {
+  "fr": "envelopper",
+  "zh": "包",
+  "rank": 488,
+  "present": []
+ },
+ {
+  "fr": "envier",
+  "zh": "嫉妒",
+  "rank": 489,
+  "present": []
+ },
+ {
+  "fr": "épeler",
+  "zh": "拼写",
+  "rank": 490,
+  "present": []
+ },
+ {
+  "fr": "épouser",
+  "zh": "娶",
+  "rank": 491,
+  "present": []
+ },
+ {
+  "fr": "éprouver",
+  "zh": "体验",
+  "rank": 492,
+  "present": []
+ },
+ {
+  "fr": "épuiser",
+  "zh": "耗尽",
+  "rank": 493,
+  "present": []
+ },
+ {
+  "fr": "équiper",
+  "zh": "装备",
+  "rank": 494,
+  "present": []
+ },
+ {
+  "fr": "escalader",
+  "zh": "攀",
+  "rank": 495,
+  "present": []
+ },
+ {
+  "fr": "estomper",
+  "zh": "模糊",
+  "rank": 496,
+  "present": []
+ },
+ {
+  "fr": "éteindre",
+  "zh": "熄",
+  "rank": 497,
+  "present": []
+ },
+ {
+  "fr": "étiqueter",
+  "zh": "贴标",
+  "rank": 498,
+  "present": []
+ },
+ {
+  "fr": "étonner",
+  "zh": "惊讶",
+  "rank": 499,
+  "present": []
+ },
+ {
+  "fr": "étouffer",
+  "zh": "窒息",
+  "rank": 500,
+  "present": []
+ },
+ {
+  "fr": "étreindre",
+  "zh": "拥抱",
+  "rank": 501,
+  "present": []
+ },
+ {
+  "fr": "étudier",
+  "zh": "学习",
+  "rank": 502,
+  "present": []
+ },
+ {
+  "fr": "évaluer",
+  "zh": "评估",
+  "rank": 503,
+  "present": []
+ },
+ {
+  "fr": "évaporer",
+  "zh": "蒸发",
+  "rank": 504,
+  "present": []
+ },
+ {
+  "fr": "éveiller",
+  "zh": "唤醒",
+  "rank": 505,
+  "present": []
+ },
+ {
+  "fr": "éviter",
+  "zh": "避免",
+  "rank": 506,
+  "present": []
+ },
+ {
+  "fr": "évoluer",
+  "zh": "演变",
+  "rank": 507,
+  "present": []
+ },
+ {
+  "fr": "excuser",
+  "zh": "原谅",
+  "rank": 508,
+  "present": []
+ },
+ {
+  "fr": "exiger",
+  "zh": "要求",
+  "rank": 509,
+  "present": []
+ },
+ {
+  "fr": "exiler",
+  "zh": "放逐",
+  "rank": 510,
+  "present": []
+ },
+ {
+  "fr": "exister",
+  "zh": "存在",
+  "rank": 511,
+  "present": []
+ },
+ {
+  "fr": "expédier",
+  "zh": "发送",
+  "rank": 512,
+  "present": []
+ },
+ {
+  "fr": "exposer",
+  "zh": "展示",
+  "rank": 513,
+  "present": []
+ },
+ {
+  "fr": "exprimer",
+  "zh": "表达",
+  "rank": 514,
+  "present": []
+ },
+ {
+  "fr": "extraire",
+  "zh": "提取",
+  "rank": 515,
+  "present": []
+ },
+ {
+  "fr": "fabriquer",
+  "zh": "制造",
+  "rank": 516,
+  "present": []
+ },
+ {
+  "fr": "façonner",
+  "zh": "塑造",
+  "rank": 517,
+  "present": []
+ },
+ {
+  "fr": "faiblir",
+  "zh": "弱",
+  "rank": 518,
+  "present": []
+ },
+ {
+  "fr": "familiariser",
+  "zh": "熟悉",
+  "rank": 519,
+  "present": []
+ },
+ {
+  "fr": "faucher",
+  "zh": "割",
+  "rank": 520,
+  "present": []
+ },
+ {
+  "fr": "favoriser",
+  "zh": "促进",
+  "rank": 521,
+  "present": []
+ },
+ {
+  "fr": "féliciter",
+  "zh": "祝贺",
+  "rank": 522,
+  "present": []
+ },
+ {
+  "fr": "fertiliser",
+  "zh": "施肥",
+  "rank": 523,
+  "present": []
+ },
+ {
+  "fr": "fiancer",
+  "zh": "订婚",
+  "rank": 524,
+  "present": []
+ },
+ {
+  "fr": "figer",
+  "zh": "凝",
+  "rank": 525,
+  "present": []
+ },
+ {
+  "fr": "filer",
+  "zh": "纺",
+  "rank": 526,
+  "present": []
+ },
+ {
+  "fr": "fixer",
+  "zh": "固定",
+  "rank": 527,
+  "present": []
+ },
+ {
+  "fr": "flairer",
+  "zh": "嗅",
+  "rank": 528,
+  "present": []
+ },
+ {
+  "fr": "flamber",
+  "zh": "烧",
+  "rank": 529,
+  "present": []
+ },
+ {
+  "fr": "flatter",
+  "zh": "奉承",
+  "rank": 530,
+  "present": []
+ },
+ {
+  "fr": "flotter",
+  "zh": "浮",
+  "rank": 531,
+  "present": []
+ },
+ {
+  "fr": "forcer",
+  "zh": "强迫",
+  "rank": 532,
+  "present": []
+ },
+ {
+  "fr": "former",
+  "zh": "形成",
+  "rank": 533,
+  "present": []
+ },
+ {
+  "fr": "fortifier",
+  "zh": "加固",
+  "rank": 534,
+  "present": []
+ },
+ {
+  "fr": "fouetter",
+  "zh": "鞭",
+  "rank": 535,
+  "present": []
+ },
+ {
+  "fr": "fouiller",
+  "zh": "挖",
+  "rank": 536,
+  "present": []
+ },
+ {
+  "fr": "frémir",
+  "zh": "战栗",
+  "rank": 537,
+  "present": []
+ },
+ {
+  "fr": "fréquenter",
+  "zh": "常去",
+  "rank": 538,
+  "present": []
+ },
+ {
+  "fr": "frire",
+  "zh": "煎",
+  "rank": 539,
+  "present": []
+ },
+ {
+  "fr": "friser",
+  "zh": "卷",
+  "rank": 540,
+  "present": []
+ }
+]
